@@ -1,33 +1,62 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Input, Row, Col, Form, Button } from 'antd'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [information, setInformation] = useState('')
 
+
+  const ejemplo = () => {
+    console.log(information.Nombre)
+  }
+
+  
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <Form onFinish={(value) => setInformation(value)}>
+        <Row gutter={[10, 5]}>
+          <Col span={12}>
+            <Form.Item
+              name="Nombre"
+            >
+              <Input placeholder='Nombre' />
+
+            </Form.Item>
+            
+          </Col>
+
+          <Col span={12}>
+            <Form.Item
+              name="Apellido"
+            >
+              <Input placeholder='Apellido' />
+            </Form.Item>
+            
+          </Col>
+
+          <Col span={24}>
+            <Form.Item
+              name="Ciudad"
+            >
+              <Input placeholder='Ciudad' />
+            </Form.Item>
+            
+          </Col>
+
+          <Form.Item>
+            <Button htmlType='submit' type='primary'>Submit</Button>
+          </Form.Item>
+
+      
+        </Row>
+
+      </Form>
+
+
+      <Button onClick={ejemplo}>Information</Button>
+      
+      
     </>
   )
 }
