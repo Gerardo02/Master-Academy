@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Input, Row, Col, Form, Button } from 'antd'
 import './App.css'
+import Dashboard from './Components/Dashboard/Dashboard'
 
 function App() {
   const [information, setInformation] = useState('')
+  const navigate = useNavigate();
 
 
   const ejemplo = () => {
@@ -13,14 +16,15 @@ function App() {
   
   return (
     <>
+      <Dashboard/>
 
-      <Form onFinish={(value) => setInformation(value)}>
+      {/* <Form onFinish={(value) => setInformation(value)}>
         <Row gutter={[10, 5]}>
           <Col span={12}>
             <Form.Item
               name="Nombre"
             >
-              <Input placeholder='Nombre' />
+              <Input placeholder='Ruben' />
 
             </Form.Item>
             
@@ -51,10 +55,10 @@ function App() {
       
         </Row>
 
-      </Form>
+      </Form> */}
 
 
-      <Button onClick={ejemplo}>Information</Button>
+      {/* <Button onClick={ejemplo}>Information</Button> */}
       
       
     </>
