@@ -1,10 +1,11 @@
-import { ArrowLeftOutlined, UnorderedListOutlined, FormOutlined, CreditCardOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, UnorderedListOutlined, OrderedListOutlined, FormOutlined, CreditCardOutlined, DeleteOutlined, EditOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useEffect, useState } from 'react';
 import TableAlumnos from './TableAlumnos';
 import FichaAlumnos from './FichaAlumnos';
 import Formulario from './Formulario';
 import DeleteGroup from './DeleteGroup';
+import Grupos from './Grupos';
 
 const items = [
     {
@@ -18,9 +19,19 @@ const items = [
       icon: <UnorderedListOutlined />,
     },
     {
+        label: 'Lista de Asistencias',
+        key: 'listaAsist',
+        icon: <OrderedListOutlined />,
+      },
+    {
         label: 'Ficha de Alumno',
         key: 'ficha',
         icon: <CreditCardOutlined />,
+    },
+    {
+        label: 'Grupos',
+        key: 'groups',
+        icon: <AppstoreOutlined />
     },
     {
         label: 'Crear nuevo grupo',
@@ -40,7 +51,7 @@ const items = [
     
   ];
 
-const NavMenu = ({ setSelectedComponent, navigate }) => {
+const NavMenu = ({ setSelectedComponent, navigate, groupData }) => {
 
 
     const [currentOption, setCurrentOption] = useState('lista');
@@ -59,6 +70,11 @@ const NavMenu = ({ setSelectedComponent, navigate }) => {
 
                 setSelectedComponent(<TableAlumnos />)
                 break;
+
+            case 'listaAsist':
+
+                setSelectedComponent(<TableAlumnos />)
+                break;
                 
             case 'ficha':
 
@@ -67,18 +83,22 @@ const NavMenu = ({ setSelectedComponent, navigate }) => {
 
             case 'newGroup':
 
-                setCreateEdit('create')
+                setCreateEdit('Crear')
                 setSelectedComponent(<Formulario createEdit={createEdit} />)
                 break;
 
             case 'editGroup':
 
-                setCreateEdit('edit')
+                setCreateEdit('Editar')
                 setSelectedComponent(<Formulario createEdit={createEdit} />)
                 break;
 
             case 'deleteGroup':
                 setSelectedComponent(<DeleteGroup />)
+                break;
+
+            case 'groups':
+                setSelectedComponent(<Grupos groupData={groupData} setCurrentOption={setCurrentOption} />)
                 break;
 
             default:
