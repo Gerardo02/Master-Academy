@@ -1,4 +1,5 @@
 import { Card, Col, Row, Typography} from 'antd';
+import { useNavigate } from 'react-router-dom';
 import {
     DollarOutlined,
     TeamOutlined,
@@ -11,6 +12,7 @@ import "../styles/index.css"
 const { Meta } = Card;
 const { Title } = Typography;
 const Dashboard =() => {
+    const navigate = useNavigate()
     return (
         <div className='dashboard'>
         {/* <Title>MASTER ACADEMY</Title> */}
@@ -26,6 +28,7 @@ const Dashboard =() => {
                         padding: '0.6em',
                         }}
                         cover={<DollarOutlined style={{ fontSize: '8vw', backgroundColor: '#FB8B24', marginTop:"40px"}} />}
+                        onClick={() => navigate('/pagos') }
                     >
                         <h1 style={{color:'white'}}>Pagos</h1>
                         <p style={{color:'white'}}>Opciones para el manejo y control de pagos de los alumnos</p>
@@ -41,6 +44,7 @@ const Dashboard =() => {
                             backgroundColor: '#E5446D',
                         }}
                         cover={<TeamOutlined style={{ fontSize: '8vw', backgroundColor: '#E5446D', marginTop:"40px"  }} />}
+                        onClick={() => navigate('/control_escolar') }
                     >
                         <h1 style={{color:'white'}}>Control Escolar</h1>
                         <p style={{color:'white'}}>Consulta la información de grupos y alumnos, listas de asistencia, calificaciones, etc. </p>
@@ -57,6 +61,7 @@ const Dashboard =() => {
                             backgroundColor: '#04A777',
                         }}
                         cover={<EditOutlined style={{ fontSize: '8vw', backgroundColor: '#04A777', marginTop:"40px"  }} />}
+                        onClick={() => navigate('/administracion') }
                     >
                         <h1 style={{color:'white'}}>Administración</h1>
                         <p style={{color:'white'}}>información completa de todos los alumnos, consulta, edita o elimina información</p>
@@ -72,6 +77,7 @@ const Dashboard =() => {
                             backgroundColor: '#531CB3',
                         }}
                         cover={<UserOutlined style={{ fontSize: '8vw', backgroundColor: '#531CB3', marginTop:"40px"  }} />}
+                        onClick={() => navigate('/alumnos') }
                     >
                         <h1 style={{color:'white'}}>Alumno</h1>
                         <p style={{color:'white'}}>Accede a tu información básica con tu matricula de alumno</p>
