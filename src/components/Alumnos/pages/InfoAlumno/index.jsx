@@ -1,71 +1,30 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Input, Row, Col, Form, Button } from 'antd'
 import '..//styles/InfoAlumno.css'
-import { UserOutlined } from '@ant-design/icons';
-import React from 'react';
-import { Avatar, Space } from 'antd';
-import { Badge, Descriptions } from "antd";
-import alumnoImage from "../pages/InfoAlumno/alumnoejemplo.jpg";
+import { useNavigate } from "react-router-dom";
+import InfoAlumnos from "../../components/InfoAlumnos";
+import {Col} from 'antd'
 
 
-const InfoAlumnos = ({ alumnosCard }) => {
-    const items = [
-        {
-          key: '1',
-          label: 'Nombre',
-          children: `${alumnosCard.nombre} ${alumnosCard.apellidos}`,
-        },
-        {
-          key: '2',
-          label: 'Faltas',
-          children: '10',
-        },
-        {
-          key: '3',
-          label: 'Adeudo',
-          children: 'SI (Reportar a caja)',
-        },
-        {
-          key: '4',
-          label: 'Matricula',
-          children: alumnosCard.matricula,
-        },
-        {
-          key: '5',
-          label: 'Usage Time',
-          children: '2019-04-24 18:00:00',
-          span: 2,
-        },
-        {
-          key: '6',
-          label: 'Status',
-          children: <Badge status="processing" text="Running" />,
-          span: 3,
-        },
-        {
-          key: '7',
-          label: 'Foto',
-          children: <img src={alumnoImage} width={190}/>,
-        },
-        {
-          key: '8',
-          label: 'Discount',
-          children: '$20.00',
-        },
-        {
-          key: '9',
-          label: 'Official Receipts',
-          children: '$60.00',
-        },
+const InfoAlumno = () => {
+
+    const alumnosCard = {
         
-      ];
+        nombre: 'Pedro',
+        apellidos: 'Juarez Herrera',
+        matricula: '123456'
+
+    }
+
     return ( 
         <>
-
-            <Descriptions title="Informacion del alumno" bordered items={items} />
+          <Col span={24}>
+            <InfoAlumnos alumnosCard={alumnosCard} />
+          </Col>
+            
+            <br />
+            <br />
+            
         </>
      );
 }
  
-export default InfoAlumnos;
+export default InfoAlumno;
