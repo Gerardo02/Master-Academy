@@ -17,7 +17,7 @@ function App() {
       <Button onClick={() => navigate('/alumnos')}>Alumnos</Button>
       <Button onClick={() => navigate('/control_escolar')}>Control Escolar</Button>
       <Button onClick={() => navigate('/admin')}>Administracion</Button>
-      <Button onClick={() => navigate('/servicios')}>Servicios</Button>
+      <Button onClick={() => navigate('/pagos')}>Pagos</Button>
 
       
     </>

@@ -17,7 +17,7 @@ const Grupos = ({ setCurrentOption, groupData }) => {
                     {groupData.map((element) => {
                         return (
                             <Col span={8}>
-                                <Card title={element.id}>
+                                <Card title={element.id} key={element.id}>
                                     <p><strong>Maestro: </strong>{element.nombreMaestro}</p>
                                     <p><strong>Especialidad/materia: </strong>{element.especialidad}</p>
                                     <p><strong>Horario: </strong>{element.horario}</p>
