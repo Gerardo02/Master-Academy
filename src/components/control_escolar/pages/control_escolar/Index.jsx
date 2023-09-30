@@ -2,10 +2,20 @@ import { useNavigate } from "react-router-dom";
 import NavMenu from "../../components/NavMenu";
 import { useState } from "react";
 
+
 const Index = () => {
 
     const [selectedComponent, setSelectedComponent] = useState(<></>)
     const navigate = useNavigate()
+
+    const alumnosCard = {
+        
+        nombre: 'Pedro',
+        apellidos: 'Juarez Herrera',
+        matricula: '123456'
+
+    }
+
     const groupData = [
         {
             id: 1,
@@ -36,10 +46,16 @@ const Index = () => {
 
     return ( 
         <>
-            <NavMenu groupData={groupData} setSelectedComponent={setSelectedComponent} navigate={navigate} />
+            <NavMenu 
+                groupData={groupData} 
+                setSelectedComponent={setSelectedComponent} 
+                navigate={navigate} 
+                alumnosCard={alumnosCard}
+            />
             <br />
             <br />
             {selectedComponent}
+            
         </>
      );
 }

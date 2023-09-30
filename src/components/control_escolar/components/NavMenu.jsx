@@ -1,32 +1,38 @@
-import { ArrowLeftOutlined, UnorderedListOutlined, OrderedListOutlined, FormOutlined, CreditCardOutlined, DeleteOutlined, EditOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { SnippetsOutlined, ArrowLeftOutlined, UnorderedListOutlined, OrderedListOutlined, FormOutlined, CreditCardOutlined, DeleteOutlined, EditOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useEffect, useState } from 'react';
 import TableAlumnos from './TableAlumnos';
 import FichaAlumnos from './FichaAlumnos';
 import Formulario from './Formulario';
 import DeleteGroup from './DeleteGroup';
+import ControlPracticas from './ControlPracticas';
 import Grupos from './Grupos';
 
 const items = [
     {
-      label: 'Regresar',
-      key: 'back',
-      icon: <ArrowLeftOutlined />,
+        label: 'Regresar',
+        key: 'back',
+        icon: <ArrowLeftOutlined />,
     },
     {
-      label: 'Lista de Alumnos',
-      key: 'lista',
-      icon: <UnorderedListOutlined />,
+        label: 'Lista de Alumnos',
+        key: 'lista',
+        icon: <UnorderedListOutlined />,
     },
     {
         label: 'Lista de Asistencias',
         key: 'listaAsist',
         icon: <OrderedListOutlined />,
-      },
+    },
     {
         label: 'Ficha de Alumno',
         key: 'ficha',
         icon: <CreditCardOutlined />,
+    },
+    {
+        label: 'Control de practicas',
+        key: 'practicas',
+        icon: <SnippetsOutlined />,
     },
     {
         label: 'Grupos',
@@ -51,7 +57,7 @@ const items = [
     
   ];
 
-const NavMenu = ({ setSelectedComponent, navigate, groupData }) => {
+const NavMenu = ({ setSelectedComponent, navigate, groupData, alumnosCard }) => {
 
 
     const [currentOption, setCurrentOption] = useState('lista');
@@ -78,7 +84,12 @@ const NavMenu = ({ setSelectedComponent, navigate, groupData }) => {
                 
             case 'ficha':
 
-                setSelectedComponent(<FichaAlumnos />)
+                setSelectedComponent(<FichaAlumnos alumnosCard={alumnosCard} />)
+                break;
+
+            case 'practicas':
+
+                setSelectedComponent(<ControlPracticas />)
                 break;
 
             case 'newGroup':
@@ -106,16 +117,11 @@ const NavMenu = ({ setSelectedComponent, navigate, groupData }) => {
         }
         
     },[currentOption, createEdit])
-    
-
-    const onClick = (e) => {
-        setCurrentOption(e.key);
-    };
 
 
     return ( 
         <>
-            <Menu onClick={onClick} selectedKeys={[currentOption]} mode="horizontal" items={items} />
+            <Menu onClick={(e) => setCurrentOption(e.key)} selectedKeys={[currentOption]} mode="horizontal" items={items} />
         </>
      );
 }
