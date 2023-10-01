@@ -61,7 +61,7 @@ const Dashboard =() => {
                             backgroundColor: '#04A777',
                         }}
                         cover={<EditOutlined style={{ fontSize: '8vw', backgroundColor: '#04A777', marginTop:"40px"  }} />}
-                        onClick={() => navigate('/administracion') }
+                        onClick={() => navigate('/control_escolar') }
                     >
                         <h1 style={{color:'white'}}>Administración</h1>
                         <p style={{color:'white'}}>información completa de todos los alumnos, consulta, edita o elimina información</p>
