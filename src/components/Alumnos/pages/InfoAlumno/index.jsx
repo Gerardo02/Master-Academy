@@ -1,10 +1,12 @@
 import '..//styles/InfoAlumno.css'
 import { useNavigate } from "react-router-dom";
-import InfoAlumnos from "../../components/InfoAlumnos";
-import {Col} from 'antd'
+import { useState } from 'react';
+import NavBarAlumno from '../../components/NavBarAlumno';
 
 
 const InfoAlumno = () => {
+  const navigate = useNavigate();
+  const [selectedComponent, setSelectedComponent] = useState(<></>)
 
     const alumnosCard = {
         
@@ -16,13 +18,12 @@ const InfoAlumno = () => {
 
     return ( 
         <>
-          <Col span={24}>
-            <InfoAlumnos alumnosCard={alumnosCard} />
-          </Col>
+
+            <NavBarAlumno alumnosCard={alumnosCard} navigate={navigate} setSelectedComponent={setSelectedComponent} />
             
             <br />
             <br />
-            
+            {selectedComponent}
         </>
      );
 }

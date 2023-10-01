@@ -13,8 +13,8 @@ const router = () => {
             <Route path="/" element={<App />} />
             <Route path="/control_escolar" element={<ControEscolar />} />
             <Route path="/pagos" element={<Pagos />} />
-            <Route path="/Alumnos" element={<Alumnos />}/>
-            <Route path="/InfoAlumno" element={<InfoAlumno />}/>
+            <Route path="/alumnos" element={<Alumnos />}/>
+            <Route path="/infoalumno" element={<InfoAlumno />}/>
         </Routes>
      );
 }
