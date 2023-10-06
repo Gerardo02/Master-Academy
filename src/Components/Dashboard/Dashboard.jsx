@@ -1,4 +1,4 @@
-import { Card, Col, Row, Typography} from 'antd';
+import { Button, Card, Col, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import {
     DollarOutlined,
@@ -9,14 +9,22 @@ import {
 import "../styles/index.css"
 
 
-const { Meta } = Card;
-const { Title } = Typography;
+
 const Dashboard =() => {
     const navigate = useNavigate()
     return (
         <div className='dashboard'>
         {/* <Title>MASTER ACADEMY</Title> */}
-            <img src="src/assets/MasterAcademyLogo.png" alt="Girl in a jacket" width="353" height="123"></img>
+            <Row>
+                <Col span={8} offset={8}>
+                    <img src="src/assets/MasterAcademyLogo.png" alt="Girl in a jacket" width="353" height="123"></img>
+                </Col>
+                <Col span={6} offset={2}>
+                    <Button onClick={() => navigate('/documentacion')} block style={{ height: '80px' }}><strong style={{ fontSize: '20px' }}>Documentacion</strong></Button>
+                </Col>
+            </Row>
+            
+            
             <Row gutter={[24, 24]}>
                 <Col span={12}>
                     <Card
@@ -85,9 +93,7 @@ const Dashboard =() => {
                 </Col>
             </Row>
         </div>
-      
-      
-         );
+    );
 }
  
 export default Dashboard;

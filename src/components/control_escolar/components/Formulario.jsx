@@ -19,7 +19,7 @@ const finishForm = (fieldsValue) => {
         'entrada': rangeTimeValue[0].format('HH:mm'),
         'salida': rangeTimeValue[1].format('HH:mm'),
     }
-    console.log(values)
+    
 
 }
 

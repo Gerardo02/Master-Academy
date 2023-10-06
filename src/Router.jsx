@@ -2,10 +2,11 @@ import { Routes, Route } from "react-router-dom";
 import { lazy } from "react";
 
 const App = lazy(() => import('./App.jsx'));
-const ControEscolar = lazy(() => import('./components/control_escolar/pages/control_escolar/Index.jsx'));
-const Pagos = lazy(() => import('./components/pagos/pages/pagos/Index.jsx'))
-const Alumnos = lazy(() => import('./components/Alumnos/pages/alumnos/index.jsx'));
-const InfoAlumno = lazy(() => import('./components/Alumnos/pages/InfoAlumno/index.jsx'));
+const ControEscolar = lazy(() => import('./Components/control_escolar/pages/control_escolar/Index.jsx'));
+const Pagos = lazy(() => import('./Components/pagos/pages/pagos/Index.jsx'))
+const Alumnos = lazy(() => import('./Components/Alumnos/pages/alumnos/index.jsx'));
+const InfoAlumno = lazy(() => import('./Components/Alumnos/pages/InfoAlumno/index.jsx'));
+const Documentacion = lazy(() => import('./Components/documentacion/page/Index.jsx'))
 
 const router = () => {
     return ( 
@@ -15,6 +16,7 @@ const router = () => {
             <Route path="/pagos" element={<Pagos />} />
             <Route path="/alumnos" element={<Alumnos />}/>
             <Route path="/infoalumno" element={<InfoAlumno />}/>
+            <Route path="/documentacion" element={<Documentacion />} />
         </Routes>
      );
 }
