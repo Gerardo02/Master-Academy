@@ -73,7 +73,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                 <h1>Inscripcion de alumno</h1>
                 <Form onFinish={(value) => console.log(value)} layout="vertical">
                     <Row gutter={10}>
-                        <Col span={3}>
+                        <Col span={4} offset={6}>
                             <Form.Item
                                 name="nombre"
                                 label="Nombre:"
@@ -84,9 +84,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >
                                 <Input placeholder="Nombre"/>
                             </Form.Item>
-                        </Col>
 
-                        <Col span={3}>
                             <Form.Item
                                 name="apellidos"
                                 label="Apellidos:"
@@ -97,9 +95,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >
                                 <Input placeholder="Apellidos"/>
                             </Form.Item>
-                        </Col>
 
-                        <Col span={2}>
                             <Form.Item
                                 name="matricula"
                                 label="Matricula:"
@@ -110,9 +106,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >
                                 <Input placeholder="Matricula"/>
                             </Form.Item>
-                        </Col>
 
-                        <Col span={3}>
                             <Form.Item
                                 name="fecha_nacimiento"
                                 label="Fecha de nacimiento:"
@@ -123,9 +117,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >
                                 <Input placeholder="Fecha de nacimiento"/>
                             </Form.Item>
-                        </Col>
 
-                        <Col span={2}>
                             <Form.Item
                                 name="edad"
                                 label="Edad:"
@@ -135,8 +127,10 @@ const InscpcionAlumno = ({ especialidadData }) => {
                                 }]}
                                 
                             >
-                                <InputNumber placeholder="Edad"/>
+                                <InputNumber style={{ width: "100%" }}placeholder="Edad"/>
                             </Form.Item>
+
+                            
                         </Col>
 
                         <Col span={4}>
@@ -150,9 +144,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >
                                 <Input placeholder="Curp"/>
                             </Form.Item>
-                        </Col>
 
-                        <Col span={4}>
                             <Form.Item
                                 name="nombre_tutor"
                                 label="Nombre del tutor:"
@@ -160,21 +152,13 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >
                                 <Input placeholder="Nombre del tutor"/>
                             </Form.Item>
-                        </Col>
 
-                        <Col span={3}>
                             <Form.Item
                                 name="celular_tutor"
                                 label="Celular del tutor:"
                             >
                                 <Input placeholder="Celular del tutor"/>
                             </Form.Item>
-                        </Col>
-                    
-                    </Row>
-
-                    <Row gutter={10}>
-                        <Col span={4}>
                             <Form.Item
                                 name="localidad"
                                 label="Localidad:"
@@ -185,8 +169,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >
                                 <Input placeholder="Localidad"/>
                             </Form.Item>
-                        </Col>
-                        <Col span={4}>
+
                             <Form.Item
                                 name="direccion"
                                 label="Direccion:"
@@ -197,8 +180,12 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >   
                                 <Input placeholder="Direccion"/>
                             </Form.Item>
+
+                            
+                            
                         </Col>
-                        <Col span={2}>
+
+                        <Col span={4}>
                             <Form.Item
                                 name="codigo_postal"
                                 label="Codigo postal:"
@@ -209,16 +196,14 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >
                                 <Input placeholder="Codigo Postal"/>
                             </Form.Item>
-                        </Col>
-                        <Col span={2}>
+
                             <Form.Item
                                 name="telefono_fijo"
                                 label="Telefono fijo:"
                             >
                                 <Input placeholder="Telefono Fijo"/>
                             </Form.Item>
-                        </Col>
-                        <Col span={4}>
+
                             <Form.Item
                                 name="celular"
                                 label="Celular:"
@@ -229,16 +214,14 @@ const InscpcionAlumno = ({ especialidadData }) => {
                             >
                                 <Input placeholder="Celular"/>
                             </Form.Item>
-                        </Col>
-                        <Col span={4}>
+
                             <Form.Item
                                 name="correo"
                                 label="Correo electronico:"
                             >
                                 <Input placeholder="Correo electronico"/>
                             </Form.Item>
-                        </Col>
-                        <Col span={4}>
+
                             <Form.Item
                                 name="especialidad"
                                 label="Especialidad:"
@@ -250,7 +233,10 @@ const InscpcionAlumno = ({ especialidadData }) => {
                                 <Select options={options} />
                             </Form.Item>
                         </Col>
+
+                        
                     </Row>
+
                     <Form.Item>
                         <Button htmlType="submit" type="primary">Inscribir</Button>
                     </Form.Item>
