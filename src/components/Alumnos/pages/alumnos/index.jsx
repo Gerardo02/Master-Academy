@@ -10,7 +10,7 @@ function Alumnos() {
     const navigate = useNavigate()
 
     return ( <>
-        <Button onClick={() => navigate('/')}>Regresar</Button>
+        <Button onClick={() => navigate('/home')}>Regresar</Button>
         <br />
         <Form onFinish={(value) => setInformation(value)}>
             <Row gutter={[10, 5]}>

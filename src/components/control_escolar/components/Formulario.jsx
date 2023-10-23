@@ -1,5 +1,4 @@
 import { Input, Form, Row, Col, Button, Select, TimePicker} from "antd";
-import '../styles/index.css'
 
 const options = [
     {

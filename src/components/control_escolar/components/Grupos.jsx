@@ -1,5 +1,5 @@
 import { Button, Card, Space, Row, Col } from "antd"
-import '../styles/index.css'
+
 
 const Grupos = ({ setCurrentOption, groupData }) => {
     const onClick = (e) => {

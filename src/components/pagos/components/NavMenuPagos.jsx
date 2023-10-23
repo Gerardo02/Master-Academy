@@ -41,7 +41,7 @@ const NavMenuPagos = ({ navigate, setSelectedComponent, data }) => {
 
             case 'back':
 
-                navigate('/')
+                navigate('/home')
                 break;
 
             case 'lista':

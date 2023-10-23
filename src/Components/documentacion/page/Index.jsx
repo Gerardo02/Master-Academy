@@ -41,7 +41,7 @@ const Index = () => {
     const { token: { colorBgContainer }, } = theme.useToken();
     const navigate = useNavigate()
     const onClick = (e) => {
-        if(e.key === '1') navigate('/')
+        if(e.key === '1') navigate('/home')
       }
     return (
         <Layout
