@@ -70,4 +70,41 @@ export const columnsAlumnos = [
       key: 'correo',
     },
     
-  ];
+];
+
+export const columnsAdministracion = [
+  {
+    title: 'Nombre',
+    dataIndex: 'nombre',
+    key: 'nombre',
+  },
+  {
+    title: 'Apellidos',
+    dataIndex: 'apellido',
+    key: 'apellido',
+  },
+  {
+    title: 'Matricula',
+    dataIndex: 'matricula',
+    key: 'matricula',
+  },
+  {
+    title: 'Adeudo',
+    dataIndex: 'adeudo',
+    key: 'adeudo',
+    render: ((_, { adeudo } )=> (
+      <>
+        {
+          adeudo ? <span style={{color: "green"}}>Al corriente</span> : <span style={{color: "red"}}>Debe</span>
+        }
+      </>
+    ))
+  },
+  {
+    title: 'Estado',
+    dataIndex: 'estado',
+    key: 'estado',
+  },
+  
+];
+

@@ -1,4 +1,4 @@
-import { SnippetsOutlined, ArrowLeftOutlined, UnorderedListOutlined, OrderedListOutlined, FormOutlined, CreditCardOutlined, DeleteOutlined, EditOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { SnippetsOutlined, ArrowLeftOutlined, UnorderedListOutlined, OrderedListOutlined, FormOutlined, CreditCardOutlined, DeleteOutlined, EditOutlined, AppstoreOutlined, FileSearchOutlined, HistoryOutlined } from '@ant-design/icons';
 
 
 export const itemsControlEscolar = [
@@ -54,3 +54,28 @@ export const itemsControlEscolar = [
     },
     
 ];
+
+export const itemsAdministracion = [
+    {
+        label: 'Regresar',
+        key: 'back',
+        icon: <ArrowLeftOutlined />,
+    },
+    {
+        label: 'Lista de Alumnos',
+        key: 'lista',
+        icon: <UnorderedListOutlined />,
+    },
+    {
+        label: 'Registrar Pago',
+        key: 'registroPago',
+        icon: <FileSearchOutlined />,
+    },
+    {
+        label: 'Historial de pagos',
+        key: 'historial',
+        icon: <HistoryOutlined />,
+    },
+    
+    
+  ];
