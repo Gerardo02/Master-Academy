@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { itemsControlEscolar } from "../../../../Declarations/Navs/Items";
-import { columnsAlumnos } from "../../../../Declarations/Tables/Columns";
+import { columnsAlumnos, columnsDocumentosEntregados } from "../../../../Declarations/Tables/Columns";
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
+import TableDocumentos from "../../components/TableDocumentos";
 import TableAlumnos from "../../components/TableAlumnos";
 import FichaAlumnos from "../../components/FichaAlumnos";
 import Formulario from "../../components/Formulario";
@@ -54,6 +55,7 @@ const Index = () => {
         try {
             fetchAlumnosData()
             fetchEspecialidadesData()
+            fetchDocumentosEntregados()
         } catch(error) {
             throw error
         }
@@ -71,10 +73,18 @@ const Index = () => {
         setEspecialidadData(data)
     }
 
+    const fetchDocumentosEntregados = async () => {
+        const response = await fetch('http://127.0.0.1:3030/api/documentos')
+        const data = await response.json()
+        console.log(data);
+        setDocumentosData(data)
+    }
+
     const [selectedComponent, setSelectedComponent] = useState(<></>)
 
     const [alumnosData, setAlumnosData] = useState([])
     const [especialidadData, setEspecialidadData] = useState([])
+    const [documentosData, setDocumentosData] = useState([])
     
     const [currentOption, setCurrentOption] = useState('lista');
     const [createEdit, setCreateEdit] = useState('')
@@ -97,7 +107,7 @@ const Index = () => {
 
             case 'listaDocumentos':
 
-                setSelectedComponent(<TableAlumnos />)
+                setSelectedComponent(<TableDocumentos columnsDocumentosEntregados={columnsDocumentosEntregados} documentosData={documentosData}/>)
                 break;
                 
             case 'ficha':
