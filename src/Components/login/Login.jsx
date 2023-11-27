@@ -77,9 +77,9 @@ const Login = () => {
                 <Form.Item
                     name="remember"
                     valuePropName="checked"
-                    wrapperCol={{ span: 10 }}
+                    wrapperCol={{ span: 1 }}
                 >
-                    <Checkbox>Remember me</Checkbox>
+                    <Checkbox>Recuerdame</Checkbox>
                 </Form.Item>
 
                 <Form.Item

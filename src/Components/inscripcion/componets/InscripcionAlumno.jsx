@@ -40,13 +40,16 @@ import { useEffect, useState } from "react";
 const InscpcionAlumno = ({ especialidadData }) => {
 
     const [postDataAlumno, setPostDataAlumno] = useState(null)
-
     const options = especialidadData.map((elem) => ({
         value: elem.materia,
         label: elem.materia,
     }))
 
-    const inscrpiconAlumnoPostRequest = async () => {
+    const finishFormInscripcion = (value) => {
+        setPostDataAlumno(value)
+    }
+
+    const inscripcionAlumnoPostRequest = async () => {
         if(postDataAlumno === null) return
 
         try {
@@ -62,8 +65,8 @@ const InscpcionAlumno = ({ especialidadData }) => {
     }
 
     useEffect(() => {
-        inscrpiconAlumnoPostRequest()
-        
+
+        inscripcionAlumnoPostRequest()
 
     }, [postDataAlumno])
 
@@ -71,7 +74,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
         <>
             <div className="formulario-inscripcion-alumno">
                 <h1>Inscripcion de alumno</h1>
-                <Form onFinish={(value) => console.log(value)} layout="vertical">
+                <Form onFinish={finishFormInscripcion} layout="vertical">
                     <Row gutter={10}>
                         <Col span={4} offset={6}>
                             <Form.Item
@@ -222,16 +225,16 @@ const InscpcionAlumno = ({ especialidadData }) => {
                                 <Input placeholder="Correo electronico"/>
                             </Form.Item>
 
-                            <Form.Item
+                            {/* <Form.Item
                                 name="especialidad"
                                 label="Especialidad:"
                                 rules={[{
                                     required: true,
                                     message: 'Nombre es obligatorio'
                                 }]}
-                            >
+                            > */}
                                 <Select options={options} />
-                            </Form.Item>
+                            {/* </Form.Item> */}
                         </Col>
 
                         

@@ -2,9 +2,9 @@ import { Button, Card, Col, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import {
     DollarOutlined,
-    TeamOutlined,
     EditOutlined,
-    UserOutlined
+    UserOutlined,
+    ContactsOutlined 
 } from '@ant-design/icons';
 import "../styles/index.css"
 import { useState } from 'react';
@@ -15,15 +15,32 @@ const Dashboard = () => {
     const navigate = useNavigate()
 
     const [denegado, setDenegado] = useState([false, false, false, false])
+
+    const cerrarSesion = (e) => {
+        navigate('/')
+    }
+
     return (
+        <>
+        
         <div className='dashboard'>
         {/* <Title>MASTER ACADEMY</Title> */}
             <Row>
-                <Col span={8} offset={8}>
+                <Col span={2} offset={22}>
+                    <Button block onClick={cerrarSesion} style={{ backgroundColor: '#487EFB', color: 'white' }}>Cerrar Sesion</Button>
+                </Col>
+                
+            </Row> 
+            <br />
+            <Row>
+                <Col span={6}>
+                    <Button onClick={() => navigate('/solicitudes')} block style={{ height: '80px' }}><strong style={{ fontSize: '20px' }}>Solicitudes</strong></Button>
+                </Col>
+                <Col span={8} offset={2}>
                     <img src="src/assets/MasterAcademyLogo.png" alt="Girl in a jacket" width="353" height="123"></img>
                 </Col>
                 <Col span={6} offset={2}>
-                    <Button onClick={() => navigate('/documentacion')} block style={{ height: '80px' }}><strong style={{ fontSize: '20px' }}>Documentacion</strong></Button>
+                    <Button onClick={() => navigate('/documentacion')} block style={{ height: '80px' }}><strong style={{ fontSize: '20px' }}>Guia</strong></Button>
                 </Col>
             </Row>
             
@@ -69,8 +86,7 @@ const Dashboard = () => {
                             opacity: 0.5
                         } }
                         onClick={() => !denegado[1] ? navigate('/control_escolar') : alert("Acceso denegado") }
-                        cover={<TeamOutlined style={{ fontSize: '8vw', backgroundColor: '#E5446D', marginTop:"40px"  }} />}
-                        
+                        cover={<ContactsOutlined  style={{ fontSize: '8vw', backgroundColor: '#E5446D', marginTop:"40px"  }} />}
                     >
                         <h1 style={{color:'white'}}>Control Escolar</h1>
                         <p style={{color:'white'}}>Consulta la información de grupos y alumnos, listas de asistencia, calificaciones, etc. </p>
@@ -97,13 +113,13 @@ const Dashboard = () => {
                         
                     >
                         <h1 style={{color:'white'}}>Inscripción</h1>
-                        <p style={{color:'white'}}>información completa de todos los alumnos, consulta, edita o elimina información</p>
+                        <p style={{color:'white'}}>Formas para inscripción de alumnos y dada de alta de salones</p>
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card
                         hoverable={!denegado[3]}
-                        style={!denegado[3] ? {
+                        style={ !denegado[3] ? {
                             color:'white',
                             backgroundColor: '#531CB3',
                             padding: '0.6em',
@@ -115,19 +131,20 @@ const Dashboard = () => {
                             cursor: 'not-allowed',
                             opacity: 0.5
                         } }
-                        onClick={() => !denegado[3] ? navigate('/alumnos') : alert("Acceso denegado") }
+                        onClick={() => !denegado[3] ? navigate('/administrador') : alert("Acceso denegado") }
                         cover={<UserOutlined style={{ fontSize: '8vw', backgroundColor: '#531CB3', marginTop:"40px"  }} />}
                     >
-                        <h1 style={{color:'white'}}>Documentos</h1>
-                        <p style={{color:'white'}}>Accede a tu información básica con tu matricula de alumno</p>
+                        <h1 style={{color:'white'}}>Usuarios</h1>
+                        <p style={{color:'white'}}>Acceso solo del administrador autorizado</p>
                     </Card>
                 </Col>
             </Row>
             <Button onClick={() => setDenegado([!denegado[0], denegado[1], denegado[2], denegado[3]])}>Denegado admin</Button>
             <Button onClick={() => setDenegado([denegado[0], !denegado[1], denegado[2], denegado[3]])}>Denegado control escolar</Button>
             <Button onClick={() => setDenegado([denegado[0], denegado[1], !denegado[2], denegado[3]])}>Denegado inscripcion</Button>
-            <Button onClick={() => setDenegado([denegado[0], denegado[1], denegado[2], !denegado[3]])}>Denegado Documentos</Button>
+            <Button onClick={() => setDenegado([denegado[0], denegado[1], denegado[2], !denegado[3]])}>Denegado usuarios</Button>
         </div>
+        </>
     );
 }
  

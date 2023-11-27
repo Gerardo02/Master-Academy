@@ -5,7 +5,7 @@ const TableDocumentos = ({columnsDocumentosEntregados, documentosData}) => {
 
     return ( 
         <>
-            <Table columns={columnsDocumentosEntregados} dataSource={documentosData} size='small' />
+            <Table columns={columnsDocumentosEntregados} dataSource={documentosData} rowKey="id" pagination={{ pageSize: 20 }} />
         </>
      );
 }

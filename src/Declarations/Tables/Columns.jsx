@@ -186,3 +186,31 @@ export const columnsDocumentosEntregados = [
   },
   
 ];
+
+export const columnsUsuarios = [
+  {
+    title: 'Usuario',
+    dataIndex: 'usuario',
+    key: 'usuario',
+  },
+  {
+    title: 'Contraseña',
+    dataIndex: 'password',
+    key: 'password',
+  },
+  {
+    title: 'Permiso',
+    dataIndex: 'permisos',
+    key: 'permisos',
+    render: ((_, { permisos }) => (
+      <span style={{ color: "blue" }}>
+        <strong>
+          {
+            permisos.permiso
+          }
+        </strong>
+      </span>
+    ))
+  },
+  
+];

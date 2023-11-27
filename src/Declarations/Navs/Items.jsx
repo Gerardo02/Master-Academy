@@ -1,4 +1,17 @@
-import { SnippetsOutlined, ArrowLeftOutlined, UnorderedListOutlined, OrderedListOutlined, FormOutlined, CreditCardOutlined, DeleteOutlined, EditOutlined, AppstoreOutlined, FileSearchOutlined, HistoryOutlined } from '@ant-design/icons';
+import { 
+    SnippetsOutlined, 
+    ArrowLeftOutlined, 
+    UnorderedListOutlined, 
+    OrderedListOutlined, 
+    FormOutlined, 
+    CreditCardOutlined, 
+    DeleteOutlined, 
+    EditOutlined, 
+    AppstoreOutlined, 
+    FileSearchOutlined, 
+    HistoryOutlined,
+    UserDeleteOutlined
+} from '@ant-design/icons';
 
 
 export const itemsControlEscolar = [
@@ -23,33 +36,13 @@ export const itemsControlEscolar = [
         icon: <CreditCardOutlined />,
     },
     {
-        label: 'Control de practicas',
-        key: 'practicas',
-        icon: <SnippetsOutlined />,
-    },
-    {
         label: 'Grupos',
         key: 'groups',
         icon: <AppstoreOutlined />
     },
     {
-        label: 'Crear nuevo grupo',
-        key: 'newGroup',
-        icon: <FormOutlined />,
-    },
-    {
         label: 'Editar grupo',
         key: 'editGroup',
-        icon: <EditOutlined />,
-    },
-    {
-        label: 'Eliminar grupo',
-        key: 'deleteGroup',
-        icon: <DeleteOutlined />,
-    },
-    {
-        label: 'Inscripción Alumno',
-        key: 'newAlumno',
         icon: <EditOutlined />,
     },
     
@@ -78,4 +71,73 @@ export const itemsAdministracion = [
     },
     
     
-  ];
+];
+
+export const itemsInscripcion = [
+    {
+        label: 'Regresar',
+        key: 'back',
+        icon: <ArrowLeftOutlined />,
+    },
+    {
+        label: 'Inscribir Alumno',
+        key: 'newAlumno',
+        icon: <EditOutlined />,
+    },
+    {
+        label: 'Crear nuevo grupo',
+        key: 'newGroup',
+        icon: <FormOutlined />,
+    },
+    {
+        label: 'Eliminar grupo',
+        key: 'deleteGroup',
+        icon: <DeleteOutlined />,
+    },
+    {
+        label: 'Dar de baja alumno',
+        key: 'bajaAlumno',
+        icon: <UserDeleteOutlined />,
+    },
+    
+    
+];
+
+export const itemsAdministrador = [
+    {
+        label: 'Regresar',
+        key: 'back',
+        
+        icon: <ArrowLeftOutlined />,
+    },
+    {
+        label: 'Registrar nuevo usuario',
+        key: 'newUser',
+        icon: <EditOutlined />,
+    },
+    {
+        label: 'Editar usuario',
+        key: 'editUser',
+        children: [
+            {
+                label: 'Cambiar contraseña',
+                key: 'changePassword',
+            },
+            {
+                label: 'Cambiar usuario',
+                key: 'changeUser',
+            },
+        ],
+        icon: <FormOutlined />,
+    },
+    {
+        label: 'Eliminar usuario',
+        key: 'deleteUser',
+        icon: <DeleteOutlined />,
+    },
+    {
+        label: 'Lista de usuarios',
+        key: 'userList',
+        icon: <UnorderedListOutlined />,
+    },
+];

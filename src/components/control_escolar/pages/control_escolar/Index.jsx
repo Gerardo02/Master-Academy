@@ -7,10 +7,7 @@ import TableDocumentos from "../../components/TableDocumentos";
 import TableAlumnos from "../../components/TableAlumnos";
 import FichaAlumnos from "../../components/FichaAlumnos";
 import Formulario from "../../components/Formulario";
-import DeleteGroup from "../../components/DeleteGroup";
-import ControlPracticas from "../../components/ControlPracticas";
 import Grupos from "../../components/Grupos";
-import InscpcionAlumno from "../../components/InscripcionAlumno";
 import '../../styles/index.css'
 
 const alumnosCard = {
@@ -54,7 +51,6 @@ const Index = () => {
     useEffect(() => {
         try {
             fetchAlumnosData()
-            fetchEspecialidadesData()
             fetchDocumentosEntregados()
         } catch(error) {
             throw error
@@ -67,12 +63,6 @@ const Index = () => {
         setAlumnosData(data)
     }
 
-    const fetchEspecialidadesData = async () => {
-        const response = await fetch('http://127.0.0.1:3030/api/especialidad')
-        const data = await response.json()
-        setEspecialidadData(data)
-    }
-
     const fetchDocumentosEntregados = async () => {
         const response = await fetch('http://127.0.0.1:3030/api/documentos')
         const data = await response.json()
@@ -83,11 +73,9 @@ const Index = () => {
     const [selectedComponent, setSelectedComponent] = useState(<></>)
 
     const [alumnosData, setAlumnosData] = useState([])
-    const [especialidadData, setEspecialidadData] = useState([])
     const [documentosData, setDocumentosData] = useState([])
     
     const [currentOption, setCurrentOption] = useState('lista');
-    const [createEdit, setCreateEdit] = useState('')
 
     const navigate = useNavigate()
 
@@ -115,40 +103,24 @@ const Index = () => {
                 setSelectedComponent(<FichaAlumnos alumnosCard={alumnosCard} />)
                 break;
 
-            case 'practicas':
-
-                setSelectedComponent(<ControlPracticas />)
-                break;
-
-            case 'newGroup':
-
-                setCreateEdit('Crear')
-                setSelectedComponent(<Formulario createEdit={createEdit} />)
-                break;
-
+            
             case 'editGroup':
 
-                setCreateEdit('Editar')
-                setSelectedComponent(<Formulario createEdit={createEdit} />)
-                break;
-
-            case 'deleteGroup':
-                setSelectedComponent(<DeleteGroup />)
+                
+                setSelectedComponent(<Formulario />)
                 break;
 
             case 'groups':
                 setSelectedComponent(<Grupos groupData={groupData} setCurrentOption={setCurrentOption} />)
                 break;
 
-            case 'newAlumno':
-                setSelectedComponent(<InscpcionAlumno especialidadData={especialidadData} />)
-                break;
+            
 
             default:
                 break;
         }
         
-    },[currentOption, createEdit, alumnosData])
+    },[currentOption, alumnosData])
 
     return ( 
         <>

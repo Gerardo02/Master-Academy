@@ -18,7 +18,7 @@ const TableAlumnos = ({alumnosData, columnsAlumnos}) => {
   
   return ( 
       <>
-        <Table columns={columnsAlumnos} dataSource={alumnosData} size='small' />
+        <Table columns={columnsAlumnos} dataSource={alumnosData} rowKey="id" size='small' pagination={{ pageSize: 20 }} />
         <Button onClick={downloadExcel}>Descargar Excel</Button>
       </>
     );

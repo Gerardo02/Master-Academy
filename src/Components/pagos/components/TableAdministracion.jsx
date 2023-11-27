@@ -17,7 +17,7 @@ const TableAdministracion = ({columnsAdministracion, adminData}) => {
   
   return ( 
       <>
-        <Table columns={columnsAdministracion} dataSource={adminData} />
+        <Table columns={columnsAdministracion} dataSource={adminData} rowKey="id" pagination={{ pageSize: 20 }} />
         <Button onClick={downloadExcel}>Descargar Excel</Button>
       </>
     );
