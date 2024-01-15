@@ -22,11 +22,11 @@ const finishForm = (fieldsValue) => {
 
 }
 
-const Formulario = () => {
+const FormularioGrupo = () => {
    
     return ( 
         <div className="root-formulario">
-            <h1>Editar grupo</h1>
+            <h1>Dar de alta un grupo</h1>
             <br /><br />
 
             <Form onFinish={finishForm} layout="vertical">
@@ -78,13 +78,12 @@ const Formulario = () => {
                         </Form.Item>
                     </Col>
                 </Row>
-
                 <br /><br />
 
                 <Row>
                     <Col span={2} offset={5}>
                         <Form.Item>
-                            <Button block type="primary" htmlType="submit">Editar</Button>
+                            <Button block type="primary" htmlType="submit">Registrar</Button>
                         </Form.Item>
                     </Col>
                 </Row>
@@ -98,4 +97,4 @@ const Formulario = () => {
      );
 }
  
-export default Formulario;
+export default FormularioGrupo;
