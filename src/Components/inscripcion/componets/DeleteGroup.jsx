@@ -1,7 +1,7 @@
 const DeleteGroup = () => {
     return ( 
         <>
-            delete wuhuuuuuuuu
+        deleteeeeeeee
         </>
      );
 }

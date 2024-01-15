@@ -1,0 +1,6 @@
+.form-newuser, .form-editar, .form-eliminar {
+    max-width: 305px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center;
+}
