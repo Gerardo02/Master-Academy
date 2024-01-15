@@ -1,15 +1,14 @@
 import { Button, Table } from 'antd';
 import { Excel } from "antd-table-saveas-excel";
 
-
-const TableAlumnos = ({alumnosData, columnsAlumnos}) => {
+const TableAdministracion = ({columnsAdministracion, adminData}) => {
 
   const downloadExcel = () => {
     const excel = new Excel();
     excel
       .addSheet("sheet 1")
-      .addColumns(columnsAlumnos)
-      .addDataSource(alumnosData, {
+      .addColumns(columnsAdministracion)
+      .addDataSource(adminData, {
         str2Percent: true
       })
       .saveAs("Excel.xlsx");
@@ -18,10 +17,10 @@ const TableAlumnos = ({alumnosData, columnsAlumnos}) => {
   
   return ( 
       <>
-        <Table columns={columnsAlumnos} dataSource={alumnosData} rowKey="id" size='small' pagination={{ pageSize: 20 }} />
+        <Table columns={columnsAdministracion} dataSource={adminData} rowKey="id" pagination={{ pageSize: 20 }} />
         <Button onClick={downloadExcel}>Descargar Excel</Button>
       </>
     );
 }
  
-export default TableAlumnos;
+export default TableAdministracion;

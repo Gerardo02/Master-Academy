@@ -1,12 +1,10 @@
-import { useState } from 'react'
 import './App.css'
-import Dashboard from './components/Dashboard/Dashboard'
+import Login from './Components/login/Login'
 
 function App() {
-
   return (
     <>
-      <Dashboard />
+      <Login />
     </>
   )
 }

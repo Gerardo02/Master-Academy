@@ -1,9 +1,9 @@
 import { Button, Card, Space, Row, Col } from "antd"
-import '../styles/index.css'
+
 
 const Grupos = ({ setCurrentOption, groupData }) => {
     const onClick = (e) => {
-        console.log(e.currentTarget.id)
+        
         if (e.currentTarget.id === 'editar') setCurrentOption('editGroup')
         
         else if (e.currentTarget.id === 'eliminar') setCurrentOption('deleteGroup')

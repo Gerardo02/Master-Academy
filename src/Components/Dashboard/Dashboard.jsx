@@ -1,50 +1,92 @@
-import { Card, Col, Row, Typography} from 'antd';
+import { Button, Card, Col, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import {
     DollarOutlined,
-    TeamOutlined,
     EditOutlined,
-    UserOutlined
+    UserOutlined,
+    ContactsOutlined 
 } from '@ant-design/icons';
 import "../styles/index.css"
+import { useState } from 'react';
 
 
-const { Meta } = Card;
-const { Title } = Typography;
-const Dashboard =() => {
+
+const Dashboard = () => {
     const navigate = useNavigate()
+
+    const [denegado, setDenegado] = useState([false, false, false, false])
+
+    const cerrarSesion = (e) => {
+        navigate('/')
+    }
+
     return (
+        <>
+        
         <div className='dashboard'>
         {/* <Title>MASTER ACADEMY</Title> */}
-            <img src="src/assets/MasterAcademyLogo.png" alt="Girl in a jacket" width="353" height="123"></img>
+            <Row>
+                <Col span={2} offset={22}>
+                    <Button block onClick={cerrarSesion} style={{ backgroundColor: '#487EFB', color: 'white' }}>Cerrar Sesion</Button>
+                </Col>
+                
+            </Row> 
+            <br />
+            <Row>
+                <Col span={6}>
+                    <Button onClick={() => navigate('/solicitudes')} block style={{ height: '80px' }}><strong style={{ fontSize: '20px' }}>Solicitudes</strong></Button>
+                </Col>
+                <Col span={8} offset={2}>
+                    <img src="src/assets/MasterAcademyLogo.png" alt="Girl in a jacket" width="353" height="123"></img>
+                </Col>
+                <Col span={6} offset={2}>
+                    <Button onClick={() => navigate('/documentacion')} block style={{ height: '80px' }}><strong style={{ fontSize: '20px' }}>Guia</strong></Button>
+                </Col>
+            </Row>
+            
+            
             <Row gutter={[24, 24]}>
                 <Col span={12}>
+                    
                     <Card
-                        hoverable
-                        style={{
-                        //width: 420,
-                        color:'white',
-                        backgroundColor: '#FB8B24',
-                        padding: '0.6em',
-                        }}
-                        cover={<DollarOutlined style={{ fontSize: '8vw', backgroundColor: '#FB8B24', marginTop:"40px"}} />}
-                        onClick={() => navigate('/pagos') }
+                        hoverable={!denegado[0]}
+                        style={!denegado[0] ? {
+                            color:'white',
+                            backgroundColor: '#FB8B24',
+                            padding: '0.6em',
+                        } :
+                        {
+                            color:'white',
+                            backgroundColor: '#FB8B24',
+                            padding: '0.6em',
+                            cursor: 'not-allowed',
+                            opacity: 0.5
+                        } }
+                        onClick={() => !denegado[0] ? navigate('/administracion') : alert("Acceso denegado") }
+                        cover={<DollarOutlined style={{ fontSize: '8vw', marginTop:"40px"}} />}
                     >
-                        <h1 style={{color:'white'}}>Pagos</h1>
+                        <h1 style={{color:'white'}}>Administración</h1>
                         <p style={{color:'white'}}>Opciones para el manejo y control de pagos de los alumnos</p>
                     </Card>
+                    
                 </Col>
                 <Col span={12}>
                     <Card
-                        hoverable
-                        style={{
-                            //width: 420,
+                        hoverable={!denegado[1]}
+                        style={!denegado[1] ? {
                             color:'white',
-                            padding: '0.6em',
                             backgroundColor: '#E5446D',
-                        }}
-                        cover={<TeamOutlined style={{ fontSize: '8vw', backgroundColor: '#E5446D', marginTop:"40px"  }} />}
-                        onClick={() => navigate('/control_escolar') }
+                            padding: '0.6em',
+                        } :
+                        {
+                            color:'white',
+                            backgroundColor: '#E5446D',
+                            padding: '0.6em',
+                            cursor: 'not-allowed',
+                            opacity: 0.5
+                        } }
+                        onClick={() => !denegado[1] ? navigate('/control_escolar') : alert("Acceso denegado") }
+                        cover={<ContactsOutlined  style={{ fontSize: '8vw', backgroundColor: '#E5446D', marginTop:"40px"  }} />}
                     >
                         <h1 style={{color:'white'}}>Control Escolar</h1>
                         <p style={{color:'white'}}>Consulta la información de grupos y alumnos, listas de asistencia, calificaciones, etc. </p>
@@ -53,41 +95,57 @@ const Dashboard =() => {
                 </Col>
                 <Col span={12}>
                     <Card
-                        hoverable
-                        style={{
-                            //width: 420,
+                        hoverable={!denegado[2]}
+                        style={!denegado[2] ? {
                             color:'white',
-                            padding: '0.6em',
                             backgroundColor: '#04A777',
-                        }}
+                            padding: '0.6em',
+                        } :
+                        {
+                            color:'white',
+                            backgroundColor: '#04A777',
+                            padding: '0.6em',
+                            cursor: 'not-allowed',
+                            opacity: 0.5
+                        } }
+                        onClick={() => !denegado[2] ? navigate('/inscripcion') : alert("Acceso denegado") }
                         cover={<EditOutlined style={{ fontSize: '8vw', backgroundColor: '#04A777', marginTop:"40px"  }} />}
-                        onClick={() => navigate('/administracion') }
+                        
                     >
-                        <h1 style={{color:'white'}}>Administración</h1>
-                        <p style={{color:'white'}}>información completa de todos los alumnos, consulta, edita o elimina información</p>
+                        <h1 style={{color:'white'}}>Inscripción</h1>
+                        <p style={{color:'white'}}>Formas para inscripción de alumnos y dada de alta de salones</p>
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card
-                        hoverable
-                        style={{
-                            //width: 420,
+                        hoverable={!denegado[3]}
+                        style={ !denegado[3] ? {
                             color:'white',
-                            padding: '0.6em',
                             backgroundColor: '#531CB3',
-                        }}
+                            padding: '0.6em',
+                        } :
+                        {
+                            color:'white',
+                            backgroundColor: '#531CB3',
+                            padding: '0.6em',
+                            cursor: 'not-allowed',
+                            opacity: 0.5
+                        } }
+                        onClick={() => !denegado[3] ? navigate('/administrador') : alert("Acceso denegado") }
                         cover={<UserOutlined style={{ fontSize: '8vw', backgroundColor: '#531CB3', marginTop:"40px"  }} />}
-                        onClick={() => navigate('/alumnos') }
                     >
-                        <h1 style={{color:'white'}}>Alumno</h1>
-                        <p style={{color:'white'}}>Accede a tu información básica con tu matricula de alumno</p>
+                        <h1 style={{color:'white'}}>Usuarios</h1>
+                        <p style={{color:'white'}}>Acceso solo del administrador autorizado</p>
                     </Card>
                 </Col>
             </Row>
+            <Button onClick={() => setDenegado([!denegado[0], denegado[1], denegado[2], denegado[3]])}>Denegado admin</Button>
+            <Button onClick={() => setDenegado([denegado[0], !denegado[1], denegado[2], denegado[3]])}>Denegado control escolar</Button>
+            <Button onClick={() => setDenegado([denegado[0], denegado[1], !denegado[2], denegado[3]])}>Denegado inscripcion</Button>
+            <Button onClick={() => setDenegado([denegado[0], denegado[1], denegado[2], !denegado[3]])}>Denegado usuarios</Button>
         </div>
-      
-      
-         );
+        </>
+    );
 }
  
 export default Dashboard;
