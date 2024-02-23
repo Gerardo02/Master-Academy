@@ -1,47 +1,11 @@
 import { Row, Col, Button, Input, Form, InputNumber, Select } from "antd";
 import { useEffect, useState } from "react";
 
-// const options = [
-//     {
-//       value: 'Estilismo y diseño de imagen',
-//       label: 'Estilismo y diseño de imagen',
-//       children: [
-//         {
-//           value: 'hangzhou',
-//           label: 'Hangzhou',
-          
-//         },
-//       ],
-//     },
-//     {
-//       value: 'Barberia',
-//       label: 'Barberia',
-//       children: [
-//         {
-//           value: 'nanjing',
-//           label: 'Nanjing',
-          
-//         },
-//       ],
-//     },
-//     {
-//         value: 'Cosmetología',
-//         label: 'Cosmetología',
-//         children: [
-//           {
-//             value: 'nanjing',
-//             label: 'Nanjing',
-            
-//           },
-//         ],
-//       },
-//   ];
-
 const InscpcionAlumno = ({ especialidadData }) => {
 
     const [postDataAlumno, setPostDataAlumno] = useState(null)
     const options = especialidadData.map((elem) => ({
-        value: elem.materia,
+        value: elem.id,
         label: elem.materia,
     }))
 
@@ -65,7 +29,6 @@ const InscpcionAlumno = ({ especialidadData }) => {
     }
 
     useEffect(() => {
-
         inscripcionAlumnoPostRequest()
 
     }, [postDataAlumno])
@@ -178,7 +141,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                                 label="Direccion:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Especialidad es obligatorio'
                                 }]}
                             >   
                                 <Input placeholder="Direccion"/>
@@ -225,16 +188,23 @@ const InscpcionAlumno = ({ especialidadData }) => {
                                 <Input placeholder="Correo electronico"/>
                             </Form.Item>
 
-                            {/* <Form.Item
-                                name="especialidad"
+                            <Form.Item
+                                name="especialidad_id"
                                 label="Especialidad:"
                                 rules={[{
                                     required: true,
                                     message: 'Nombre es obligatorio'
                                 }]}
-                            > */}
-                                <Select options={options} />
-                            {/* </Form.Item> */}
+                            >
+                                {/* <Select options={options} /> */}
+                                <Select
+                                    mode="multiple"
+                                    
+                                    placeholder="Especialidad"
+                                    options={options}
+                                />
+
+                            </Form.Item>
                         </Col>
 
                         

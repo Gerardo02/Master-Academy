@@ -9,6 +9,7 @@ import FichaAlumnos from "../../components/FichaAlumnos";
 import Formulario from "../../components/Formulario";
 import Grupos from "../../components/Grupos";
 import '../../styles/index.css'
+import useLocalStorage from "../../../../Hooks/useLocalStorage";
 
 const alumnosCard = {
         
@@ -75,7 +76,7 @@ const Index = () => {
     const [alumnosData, setAlumnosData] = useState([])
     const [documentosData, setDocumentosData] = useState([])
     
-    const [currentOption, setCurrentOption] = useState('lista');
+    const [currentOption, setCurrentOption, clearCurrentOption] = useLocalStorage('navControl', 'lista');
 
     const navigate = useNavigate()
 
@@ -84,7 +85,7 @@ const Index = () => {
         switch(currentOption){
 
             case 'back':
-
+                clearCurrentOption()
                 navigate('/home')
                 break;
 

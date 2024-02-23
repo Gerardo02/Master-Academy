@@ -10,7 +10,9 @@ import {
     AppstoreOutlined, 
     FileSearchOutlined, 
     HistoryOutlined,
-    UserDeleteOutlined
+    UserDeleteOutlined,
+    SafetyCertificateOutlined,
+    LockOutlined
 } from '@ant-design/icons';
 
 
@@ -136,8 +138,18 @@ export const itemsAdministrador = [
         icon: <DeleteOutlined />,
     },
     {
+        label: 'Crear Permisos',
+        key: 'createPermiso',
+        icon: <SafetyCertificateOutlined />,
+    },
+    {
         label: 'Lista de usuarios',
         key: 'userList',
         icon: <UnorderedListOutlined />,
+    },
+    {
+        label: 'Lista de permisos',
+        key: 'permList',
+        icon: <LockOutlined />,
     },
 ];

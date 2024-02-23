@@ -1,16 +1,60 @@
 import { Button, Form, Input } from "antd";
 
-const EliminarUsuario = () => {
+const EliminarUsuario = ({ layout }) => {
+
+    const [form] = Form.useForm();
+
+    const onFinish = async (value) => {
+        try{
+            const response = await fetch('http://127.0.0.1:3030/api/usuarios', {
+                method: 'DELETE',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(value),
+            });
+            const getBack = await response.json()
+
+            if(getBack === 'usuario no existe'){
+                form.setFields([
+                    {
+                        name: 'usuario',
+                        value: value.usuario,
+                        errors: ['Usuario incorrecto'],
+                    },
+                    
+                ]);
+            }else if(getBack === 'Wrong Password'){
+                form.setFields([
+                    {
+                        name: 'password',
+                        value: value.password,
+                        errors: ['Contraseña incorrecta'],
+                    },
+                ]);
+            }
+
+            window.location.reload(false);
+
+        }catch(error){
+            console.log(error)
+        }
+        
+    }
+
     return ( 
     <div className="form-eliminar">
         <h1>Eliminar usuario</h1>
-        <Form>
+        <Form
+        form={form}
+            onFinish={onFinish}
+        >
             <Form.Item
+                {...layout}
                 label="Usuario"
                 name="usuario"
                 rules={[
                     {
                         required: true,
+                        message: 'Usuario requerido'
                     },
                 ]}
             >
@@ -18,15 +62,17 @@ const EliminarUsuario = () => {
             </Form.Item>
 
             <Form.Item
+                {...layout}
                 label="Contraseña"
                 name="password"
                 rules={[
                     {
                         required: true,
+                        message: 'Contraseña requerida'
                     },
                 ]}
             >
-                <Input />
+                <Input.Password />
             </Form.Item>
 
             <Form.Item>

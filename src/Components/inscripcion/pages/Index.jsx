@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { Menu } from "antd";
+import { Menu, Popconfirm, Button } from "antd";
 import { itemsInscripcion } from "../../../Declarations/Navs/Items";
 import { useNavigate } from "react-router-dom";
-import InscpcionAlumno from "../componets/InscripcionAlumno";
+import InscripcionAlumno from "../componets/InscripcionAlumno";
 import FormularioGrupo from "../componets/FormularioGrupo";
 import DeleteGroup from "../componets/DeleteGroup";
 import '../styles/index.css'
-import DarDeBajaAlumno from "../componets/DarDeBajaAlumno";
+import { columnsAlumnosNombres } from "../../../Declarations/Tables/Columns";
+import useLocalStorage from "../../../Hooks/useLocalStorage";
+import TableAlumnosNombres from "../componets/TableAlumnosNombres";
 
 
 const Index = () => {
@@ -16,6 +18,7 @@ const Index = () => {
     useEffect(() => {
         try {
             fetchEspecialidadesData()
+            fetchAlumnosNombresData()
         } catch(error) {
             throw error
         }
@@ -26,22 +29,29 @@ const Index = () => {
         const data = await response.json()
         setEspecialidadData(data)
     }
+    
+    const fetchAlumnosNombresData = async () => {
+        const response = await fetch('http://127.0.0.1:3030/api/alumnos/nombres')
+        const data = await response.json()
+        setNombresData(data)
+    }
 
     const [especialidadData, setEspecialidadData] = useState([])
+    const [nombresData, setNombresData] = useState([])
     const [selectedComponent, setSelectedComponent] = useState(<></>)
-    const [currentOption, setCurrentOption] = useState('newAlumno');
+    const [currentOption, setCurrentOption, clearCurrentOption] = useLocalStorage('navInscripcion', 'newAlumno')
 
     useEffect(() => {
 
         switch(currentOption){
 
             case 'back':
-
+                clearCurrentOption();
                 navigate('/home')
                 break;
 
             case 'newAlumno':
-                setSelectedComponent(<InscpcionAlumno especialidadData={especialidadData} />)
+                setSelectedComponent(<InscripcionAlumno especialidadData={especialidadData} />)
                 break;
 
             case 'newGroup':
@@ -55,7 +65,7 @@ const Index = () => {
                 break;
 
             case 'bajaAlumno':
-                setSelectedComponent(<DarDeBajaAlumno />)
+                setSelectedComponent(<TableAlumnosNombres columnsAlumnosNombres={columnsAlumnosNombres} nombresData={nombresData} />)
                 break;
 
             default:

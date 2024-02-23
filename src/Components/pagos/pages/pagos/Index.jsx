@@ -6,6 +6,7 @@ import { columnsAdministracion } from "../../../../Declarations/Tables/Columns";
 import BuscarAlumno from "../../components/BuscarAlumno";
 import HistorialAlumno from "../../components/HistorialAlumno";
 import TableAdministracion from "../../components/TableAdministracion";
+import useLocalStorage from "../../../../Hooks/useLocalStorage";
 
 const data = [
     'Pago realizado por Raul de la Mancha a las 14:45 con un monto de 50$',
@@ -28,7 +29,7 @@ const Index = () => {
 
     const navigate = useNavigate()
     const [selectedComponent, setSelectedComponent] = useState(<></>)
-    const [currentOption, setCurrentOption] = useState('lista');
+    const [currentOption, setCurrentOption, clearCurrentOption] = useLocalStorage('nanAdministracion', 'lista')
 
     const [adminData, setAdminData] = useState([])
 
@@ -43,7 +44,7 @@ const Index = () => {
         switch(currentOption){
 
             case 'back':
-
+                clearCurrentOption()
                 navigate('/home')
                 break;
 

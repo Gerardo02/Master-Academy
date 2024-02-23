@@ -1,4 +1,4 @@
-import { Button, Card, Col, Row } from 'antd';
+import { Button, Card, Col, Row, Popconfirm } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import {
     DollarOutlined,
@@ -8,18 +8,17 @@ import {
 } from '@ant-design/icons';
 import "../styles/index.css"
 import { useState } from 'react';
+import { useAuth } from '../../AuthContext';
 
 
 
 const Dashboard = () => {
+
+    const { login, logout, permission } = useAuth()
     const navigate = useNavigate()
 
     const [denegado, setDenegado] = useState([false, false, false, false])
-
-    const cerrarSesion = (e) => {
-        navigate('/')
-    }
-
+    console.log(permission)
     return (
         <>
         
@@ -27,7 +26,17 @@ const Dashboard = () => {
         {/* <Title>MASTER ACADEMY</Title> */}
             <Row>
                 <Col span={2} offset={22}>
-                    <Button block onClick={cerrarSesion} style={{ backgroundColor: '#487EFB', color: 'white' }}>Cerrar Sesion</Button>
+                    <Popconfirm
+                        title="Cerrar sesion?"
+                        description="Seguro que quieres cerrar sesion?"
+                        onConfirm={logout}
+                        onCancel={login}
+                        okText="Si"
+                        cancelText="No"
+                    >
+                        <Button block style={{ backgroundColor: '#487EFB', color: 'white' }}>Cerrar Sesion</Button>
+                    </Popconfirm>
+                    
                 </Col>
                 
             </Row> 

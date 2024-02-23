@@ -1,26 +1,60 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import '../styles/index.css'
-import { useEffect, useState } from "react";
+import { useAuth } from "../../AuthContext";
+import { useEffect } from "react";
 
 const Login = () => {
 
+    const { login } = useAuth();
+
     const navigate = useNavigate()
-    const [access, setAccess] = useState(false)
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
-        setAccess(true)
-    };
-
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-        setAccess(false)
-    };
+    const [form] = Form.useForm();
 
     useEffect(() => {
-        if(access) navigate('/home')
-    }, [access])
+        // Clear the entire localStorage
+        localStorage.clear();
+
+    },[])
+
+    
+
+
+    const onFinish = async (credentials) => {
+        try {
+            // Call the login function with the provided credentials
+            await login(credentials);
+
+            // If login is successful, navigate to the home page
+            navigate('/home');
+        } catch (error) {
+            // Handle any errors that occurred during the login
+            if(error.message === 'Wrong User'){
+                form.setFields([
+                    {
+                        name: 'usuario',
+                        value: credentials.usuario,
+                        errors: ['Usuario incorrecto'],
+                    },
+                    
+                ]);
+            }else if(error.message === 'Wrong Password'){
+                form.setFields([
+                    {
+                        name: 'password',
+                        value: credentials.password,
+                        errors: ['Contraseña incorrecta'],
+                    },
+                ]);
+            }else{
+                console.error(error)
+            }
+            // You might want to show an error message to the user
+
+            
+        }
+    };
 
     return ( 
         <div className="main-login">
@@ -39,13 +73,12 @@ const Login = () => {
             <br />
             
             <Form
-                
+                form={form}
                 name="credentials"
                 initialValues={{
                 remember: true,
                 }}
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
                 <Form.Item
@@ -54,7 +87,7 @@ const Login = () => {
                     rules={[
                         {
                         required: true,
-                        message: 'Please input your username!',
+                        message: 'Ingrese un usuario',
                         },
                     ]}
                 >
@@ -67,7 +100,7 @@ const Login = () => {
                     rules={[
                         {
                         required: true,
-                        message: 'Please input your password!',
+                        message: 'Ingrese contraseña',
                         },
                     ]}
                 >
@@ -75,17 +108,9 @@ const Login = () => {
                 </Form.Item>
 
                 <Form.Item
-                    name="remember"
-                    valuePropName="checked"
-                    wrapperCol={{ span: 1 }}
+                 
                 >
-                    <Checkbox>Recuerdame</Checkbox>
-                </Form.Item>
-
-                <Form.Item
-                 wrapperCol={{ span: 8 }}
-                >
-                    <Button type="primary" htmlType="submit" >
+                    <Button type="primary" htmlType="submit" style={{width: '100%'}}>
                         Iniciar sesión
                     </Button>
                 </Form.Item>

@@ -1,7 +1,48 @@
 import { Form, Input, Select, Button } from 'antd';
+import { useState, useEffect } from 'react';
 
-const NuevoUsuario = () => {
+const NuevoUsuario = ({ permisosData }) => {
     const [form] = Form.useForm();
+
+    const [postDataUsuario, setPostDataUsuario] = useState(null)
+
+    const options = permisosData.map((elem) => ({
+        value: elem.id,
+        label: elem.permiso,
+    }))
+
+    const onFinish = (values) => {
+        // Exclude the 'password2' field from the form data
+        const formDataWithoutPassword2 = { ...values };
+        delete formDataWithoutPassword2.password2;
+        setPostDataUsuario(values);
+        // Now, you can use formDataWithoutPassword2 for submission
+        console.log(formDataWithoutPassword2);
+    
+        // Perform your submission logic here
+    };
+
+    const nuevoUsuarioPostRequest = async () => {
+        if(postDataUsuario === null) return
+
+        try {
+            await fetch('http://127.0.0.1:3030/api/usuarios', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(postDataUsuario)
+        })} catch(error) {
+            throw error
+        }
+
+        window.location.reload(false);
+    }
+
+    useEffect(() => {
+
+        nuevoUsuarioPostRequest()
+
+    }, [postDataUsuario])
+    
     return (
         <div className='form-newuser'>
             <h1>Crear nuevo usuario</h1>
@@ -11,6 +52,7 @@ const NuevoUsuario = () => {
                 autoComplete="off"
                 style={{ maxWidth: 600 }}
                 layout="vertical"
+                onFinish={onFinish}
             >
                 <Form.Item
                 label="Usuario"
@@ -18,6 +60,7 @@ const NuevoUsuario = () => {
                 rules={[
                     {
                         required: true,
+                        message: 'Usuario obligatorio'
                     },
                 ]}
                 >
@@ -30,6 +73,7 @@ const NuevoUsuario = () => {
                 rules={[
                     {
                         required: true,
+                        message: 'Contraseña obligatoria'
                     },
                 ]}
                 >
@@ -44,6 +88,7 @@ const NuevoUsuario = () => {
                 rules={[
                     {
                         required: true,
+                        message: 'Contraseña obligatoria'
                     },
                     ({ getFieldValue }) => ({
                         validator(_, value) {
@@ -64,10 +109,11 @@ const NuevoUsuario = () => {
                 rules={[
                     {
                         required: true,
+                        message: 'El campo permisos es obligatorio'
                     },
                 ]}
                 >
-                    <Select />
+                    <Select options={options} />
                 </Form.Item>
 
                 <br /><br />
