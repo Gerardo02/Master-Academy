@@ -129,6 +129,10 @@ export const itemsAdministrador = [
                 label: 'Cambiar usuario',
                 key: 'changeUser',
             },
+            {
+                label: 'Cambiar permiso',
+                key: 'changePermit',
+            },
         ],
         icon: <FormOutlined />,
     },

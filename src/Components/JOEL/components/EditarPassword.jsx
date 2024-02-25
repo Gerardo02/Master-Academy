@@ -2,11 +2,55 @@ import { Form, Input, Button } from "antd";
 import "../styles/index.css"
 
 const EditarPassword = ({ layout }) => {
+
+    const [form] = Form.useForm();
+
+    const onFinish = async (values) => {
+
+        const filteredValues = Object.keys(values).reduce((acc, key) => {
+            if (key !== 'password2') {
+              acc[key] = values[key];
+            }
+            return acc;
+        }, {});
+
+        try {
+            const response = await fetch(`http://127.0.0.1:3030/api/password`, {
+                method: 'PUT',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(filteredValues)
+            })
+            const getBack = await response.json()
+
+            if(getBack === 'usuario no existe'){
+                form.setFields([
+                    {
+                        name: 'usuario',
+                        value: values.usuario,
+                        errors: ['Usuario incorrecto'],
+                    },
+                    
+                ]);
+                throw new Error("Usuario no existe")
+            }
+
+            window.location.reload(false);
+
+        } catch(error) {
+            throw error
+        }
+
+        
+
+
+    }
+
     return ( 
         <div className="form-editar">
             <h1>Cambiar contraseña</h1>
             <Form
-            
+                onFinish={onFinish}
+                form={form}
             >
                 <Form.Item
                     {...layout}
@@ -15,6 +59,7 @@ const EditarPassword = ({ layout }) => {
                     rules={[
                         {
                             required: true,
+                            message: "Usuario obligatorio"
                         },
                     ]}
                    

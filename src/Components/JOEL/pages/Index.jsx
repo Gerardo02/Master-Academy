@@ -12,6 +12,7 @@ import CrearPermisos from "../components/CrearPermisos";
 import EditarPassword from "../components/EditarPassword";
 import useLocalStorage from "../../../Hooks/useLocalStorage";
 import TablePermisos from "../components/TablePermisos";
+import EditarPermiso from "../components/EditarPermiso";
 
 const formItemPassLayout = {
     labelCol: {
@@ -40,6 +41,15 @@ const formItemDeleteLayout = {
     },
 };
 
+const formItemPermisoUserLayout = {
+    labelCol: {
+      span: 6,
+    },
+    wrapperCol: {
+      span: 14,
+    },
+};
+
 const Index = () => {
 
     useEffect(() => {
@@ -51,18 +61,16 @@ const Index = () => {
         }
     },[])
 
-    
-
     const fetchUsers = async () => {
         const response = await fetch('http://127.0.0.1:3030/api/usuarios')
         const data = await response.json()
         setUserData(data)
-    }   
+    }
     const fetchPermisos = async () => {
         const response = await fetch('http://127.0.0.1:3030/api/permisos')
         const data = await response.json()
         setPermisosData(data)
-    }   
+    }
 
     const navigate = useNavigate()
 
@@ -100,6 +108,10 @@ const Index = () => {
             case 'createPermiso':
                 setSelectedComponent(<CrearPermisos />)
                 
+                break;
+
+            case 'changePermit':
+                setSelectedComponent(<EditarPermiso permisosData={permisosData} layout={formItemPermisoUserLayout} />)
                 break;
 
             case 'deleteUser':

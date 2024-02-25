@@ -33,7 +33,15 @@ const CrearPermisos = () => {
                     }
                 }
             >
-                <Form.Item name="permiso">
+                <Form.Item 
+                    name="permiso"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Nombre Obligatorio"
+                        },
+                    ]}
+                >
                     <Col>
                         <Input placeholder='Nombre' />
                     </Col>

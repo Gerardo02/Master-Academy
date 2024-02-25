@@ -22,7 +22,8 @@ const EliminarUsuario = ({ layout }) => {
                     },
                     
                 ]);
-            }else if(getBack === 'Wrong Password'){
+                throw new Error("Usuario no existe")
+            }else if(getBack === 'Wrong password'){
                 form.setFields([
                     {
                         name: 'password',
@@ -30,6 +31,7 @@ const EliminarUsuario = ({ layout }) => {
                         errors: ['Contraseña incorrecta'],
                     },
                 ]);
+                throw new Error("Contrasena incorrecta")
             }
 
             window.location.reload(false);

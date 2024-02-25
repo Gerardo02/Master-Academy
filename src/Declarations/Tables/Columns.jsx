@@ -200,7 +200,7 @@ export const columnsUsuarios = [
     dataIndex: 'permisos',
     key: 'permisos',
     render: ((_, { permisos }) => (
-      <span style={{ color: "blue" }}>
+      <span style={{ color: "black" }}>
         <strong>
           {
             permisos.permiso
@@ -293,8 +293,30 @@ export const columnsPermisos = [
         <div style={{ textAlign: 'center' }}>
             <Popconfirm
                 title="Seguro que quieres dar de baja alumno?"
-                onConfirm={(e) => {
-                  console.log(record)
+                onConfirm={async (e) => {
+                  // Handle delete logic here using the record data
+                  try {
+                    const response = await fetch(`http://127.0.0.1:3030/api/permisos/${record.id}`, {
+                      method: 'DELETE',
+                      headers: { "Content-Type": "application/json" },
+                    });
+
+                    if (!response.ok) {
+                      // handle the case where the delete request was not successful
+                      throw new Error(`Failed to delete record with ID ${record.id}`);
+                    }
+
+                    // Optionally, you can check the response or perform additional actions if needed
+
+
+                  } catch (error) {
+                    // Handle any errors that occurred during the fetch
+                    console.error('Error during delete request:', error);
+                    // You might want to throw or handle the error differently
+                    throw error;
+                  }
+
+                  window.location.reload(false);
                 }}
                 okText="Si"
                 cancelText="No"
