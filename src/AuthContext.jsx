@@ -10,14 +10,26 @@ const authToken = AuthTokenGenerator();
 
 
 export const AuthProvider = ({ children }) => {
+  const [especialidadData, setEspecialidadData] = useState([])
   
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    const fetchEspecialidadesData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:3030/api/especialidad');
+        const data = await response.json();
+        setEspecialidadData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    console.log(authToken)
-    
-
-  }, [])
+    fetchEspecialidadesData();
+  }, []);
 
   const navigate = useNavigate()
   const [isAuthenticated, setIsAuthenticated] = useLocalStorage("Auth", false)
@@ -78,7 +90,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, permission }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, permission, especialidadData }}>
       {children}
     </AuthContext.Provider>
   );

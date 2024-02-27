@@ -6,7 +6,7 @@ import InscripcionAlumno from "../componets/InscripcionAlumno";
 import FormularioGrupo from "../componets/FormularioGrupo";
 import DeleteGroup from "../componets/DeleteGroup";
 import '../styles/index.css'
-import { columnsAlumnosNombres } from "../../../Declarations/Tables/Columns";
+import { columnsAlumnosNombres, columnsAlumnosPorInscribir, columnsAlumnosSinEspecialidad } from "../../../Declarations/Tables/Columns";
 import useLocalStorage from "../../../Hooks/useLocalStorage";
 import TableAlumnosNombres from "../componets/TableAlumnosNombres";
 
@@ -15,15 +15,17 @@ const Index = () => {
 
     const navigate = useNavigate()
 
+
     useEffect(() => {
         try {
             fetchEspecialidadesData()
             fetchAlumnosNombresData()
+            fetchGruposData()
         } catch(error) {
             throw error
         }
     }, [])
-
+    
     const fetchEspecialidadesData = async () => {
         const response = await fetch('http://127.0.0.1:3030/api/especialidad')
         const data = await response.json()
@@ -36,10 +38,19 @@ const Index = () => {
         setNombresData(data)
     }
 
+    const fetchGruposData = async () => {
+        const response = await fetch('http://127.0.0.1:3030/api/grupos')
+        const data = await response.json()
+        setGruposData(data)
+    }
+
     const [especialidadData, setEspecialidadData] = useState([])
     const [nombresData, setNombresData] = useState([])
+    const [gruposData, setGruposData] = useState([])
     const [selectedComponent, setSelectedComponent] = useState(<></>)
     const [currentOption, setCurrentOption, clearCurrentOption] = useLocalStorage('navInscripcion', 'newAlumno')
+
+    
 
     useEffect(() => {
 
@@ -48,24 +59,32 @@ const Index = () => {
             case 'back':
                 clearCurrentOption();
                 navigate('/home')
+
                 break;
 
             case 'newAlumno':
                 setSelectedComponent(<InscripcionAlumno especialidadData={especialidadData} />)
+
+                break;
+
+            case 'existAlumno':
+                setSelectedComponent(<TableAlumnosNombres columnsAlumnosNombres={columnsAlumnosSinEspecialidad} nombresData={nombresData} />)
+
                 break;
 
             case 'newGroup':
-                setSelectedComponent(<FormularioGrupo />)
+                setSelectedComponent(<FormularioGrupo columnsAlumnosPorInscribir={columnsAlumnosPorInscribir} especialidadData={especialidadData} nombresData={nombresData} />)
                 
                 break;
 
             case 'deleteGroup':
-                setSelectedComponent(<DeleteGroup />)
+                setSelectedComponent(<DeleteGroup gruposData={gruposData} />)
                 
                 break;
 
             case 'bajaAlumno':
                 setSelectedComponent(<TableAlumnosNombres columnsAlumnosNombres={columnsAlumnosNombres} nombresData={nombresData} />)
+
                 break;
 
             default:

@@ -1,5 +1,7 @@
 import { Button, Popconfirm } from 'antd'
 
+import RenderSpecializations from '../Components/RenderSpecializations';
+
 export const columnsAlumnos = [
     {
       title: 'Nombre',
@@ -228,6 +230,47 @@ export const columnsAlumnosNombres = [
     dataIndex: 'matricula',
     key: 'matricula',
   },
+  {
+    title: 'Baja',
+    dataIndex: 'baja',
+    key: 'baja',
+    render: ((_, record) => (
+      <div style={{ textAlign: 'center' }}>
+          <Popconfirm
+              title={<span>¿Seguro que quieres dar de baja al alumno <strong>{record.nombre} {record.apellidos}</strong>?</span>}
+              onConfirm={async () => {
+                try {
+                  const response = await fetch(`http://127.0.0.1:3030/api/alumnos/${record.id}`, {
+                      method: 'DELETE',
+                      headers: { "Content-Type": "application/json" },
+                  });
+              
+                  if (!response.ok) {
+                      // handle the case where the delete request was not successful
+                      throw new Error(`Failed to delete record with ID ${record.id}`);
+                  }
+              
+                  // Optionally, you can check the response or perform additional actions if needed
+      
+                
+                } catch (error) {
+                  // Handle any errors that occurred during the fetch
+                  console.error('Error during delete request:', error);
+                  // You might want to throw or handle the error differently
+                  throw error;
+                }
+        
+                window.location.reload(false);
+                // Implement your delete API call or local state update here
+              }}
+              okText="Si"
+              cancelText="No"
+          >
+              <Button style={{ backgroundColor: 'red', color: 'white' }}>Baja</Button>
+          </Popconfirm>
+      </div>
+    ))
+  }
   
 ];
 
@@ -330,3 +373,49 @@ export const columnsPermisos = [
   
   
 ];
+
+
+export const columnsAlumnosPorInscribir = [
+  {
+    title: 'Nombres',
+    dataIndex: 'nombre',
+    key: 'nombre',
+  },
+  {
+    title: 'Apellidos',
+    dataIndex: 'apellidos',
+    key: 'apellidos',
+  },
+  {
+    title: 'Matricula',
+    dataIndex: 'matricula',
+    key: 'matricula',
+  },
+  
+];
+
+export const columnsAlumnosSinEspecialidad = [
+  {
+    title: 'Nombres',
+    dataIndex: 'nombre',
+    key: 'nombre',
+  },
+  {
+    title: 'Apellidos',
+    dataIndex: 'apellidos',
+    key: 'apellidos',
+  },
+  {
+    title: 'Matricula',
+    dataIndex: 'matricula',
+    key: 'matricula',
+  },
+  {
+    title: 'Especialidad',
+    dataIndex: 'especialidad',
+    key: 'especialidad',
+    width: 250,
+    render: ((_, record) => (<RenderSpecializations record={record} />))
+  },
+];
+

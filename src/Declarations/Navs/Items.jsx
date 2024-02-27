@@ -12,7 +12,8 @@ import {
     HistoryOutlined,
     UserDeleteOutlined,
     SafetyCertificateOutlined,
-    LockOutlined
+    LockOutlined,
+    AppstoreAddOutlined
 } from '@ant-design/icons';
 
 
@@ -85,6 +86,11 @@ export const itemsInscripcion = [
         label: 'Inscribir Alumno',
         key: 'newAlumno',
         icon: <EditOutlined />,
+    },
+    {
+        label: 'Alumno Existente',
+        key: 'existAlumno',
+        icon: <AppstoreAddOutlined />,
     },
     {
         label: 'Crear nuevo grupo',
