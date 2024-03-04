@@ -2,35 +2,44 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
+  UserAddOutlined,
+  ArrowLeftOutlined,
+  ReconciliationOutlined,
+  DollarOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  QuestionCircleOutlined,
+  KeyOutlined
 } from '@ant-design/icons';
 import { Breadcrumb, Button, Layout, Menu, theme } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 
-function getItem(label, key, icon, children) {
+function getItem(label, key, icon, disabled, children) {
     return {
         key,
         icon,
         children,
         label,
+        disabled,
     };
 }
 
 const items = [
-    getItem('Regresar', '1', <PieChartOutlined />),
+    getItem('Regresar', '1', <ArrowLeftOutlined />),
     getItem('Introduccion', '2', <DesktopOutlined />),
-    getItem('Pagos', 'sub1', <UserOutlined />, [
+    getItem('Pagos', 'sub1', <DollarOutlined />, false,  [
         getItem('Nuevos pagos', '3'),
         getItem('Actualizar informacion', '4'),
         getItem('Revisar', '5'),
     ]),
-    getItem('Control escolar', 'sub2', <TeamOutlined />, [getItem('Listas', '6'), getItem('Grupos', '7')]),
-    getItem('Administrador', '8', <FileOutlined />),
+    getItem('Control escolar', 'sub2', <ReconciliationOutlined />, false, [
+        getItem('Listas', '6'), getItem('Grupos', '7')
+    ]),
+    getItem('Inscripcion', 'sub3', <UserAddOutlined />, false, [
+        getItem('Alumnos', '8'), getItem('Grupos', '9')
+    ]),
+    getItem('Administrador', '10', <KeyOutlined />, true),
+    getItem('Soporte', '11', <QuestionCircleOutlined />),
 ];
 
 
@@ -38,11 +47,26 @@ const items = [
 
 const Index = () => {
     const [collapsed, setCollapsed] = useState(false);
+
+    const [parentTitleBreadCumb, setParentTitleBreadCumb] = useState('')
+    const [childTitleBreadCumb, setChildTitleBreadCumb] = useState('')
+
     const { token: { colorBgContainer }, } = theme.useToken();
     const navigate = useNavigate()
+
+    const breadcrumbItems = [
+        { path: '/user', breadcrumbName: 'User', title: parentTitleBreadCumb },
+        { path: '/bill', breadcrumbName: 'Bill', title: 'Bill' },
+    ];
+
     const onClick = (e) => {
         if(e.key === '1') navigate('/home')
-      }
+        if(e.keyPath[1] === 'sub1'){
+            setParentTitleBreadCumb('Pagos')
+        }
+        console.log(e)
+    }
+
     return (
         <Layout
         style={{
@@ -74,18 +98,17 @@ const Index = () => {
                 
                 </Header>
                 <Content
-                style={{
-                    margin: '0 16px',
-                }}
+                    style={{
+                        margin: '0 16px',
+                    }}
                 >
                     <Breadcrumb
                         style={{
                         margin: '16px 0',
                         }}
-                    >
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb>
+                        items={breadcrumbItems}
+                    />
+
                     <div
                         style={{
                         padding: 24,
@@ -93,7 +116,8 @@ const Index = () => {
                         background: colorBgContainer,
                         }}
                     >
-                        Bill is a cat.
+                        {'Aqui va el componente'}
+                        
                     </div>
                 </Content>
                 <Footer
@@ -101,7 +125,7 @@ const Index = () => {
                     textAlign: 'center',
                 }}
                 >
-                Ant Design ©2023 Created by Ant UED
+                Master Academy ©2024 Created by Master Academy
                 </Footer>
             </Layout>
         </Layout>

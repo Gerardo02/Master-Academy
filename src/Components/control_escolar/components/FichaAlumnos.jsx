@@ -1,64 +1,56 @@
-import { Badge, Descriptions } from "antd";
-import alumnoImage from "../pages/control_escolar/alumnoejemplo.jpg"
+import { Input, Table } from "antd";
+import { useEffect, useState} from "react";
+const { Search } = Input;
 
 
-const FichaAlumnos = ({ alumnosCard }) => {
-    const items = [
-        {
-          key: '1',
-          label: 'Nombre',
-          children: `${alumnosCard.nombre} ${alumnosCard.apellidos}`,
-        },
-        {
-          key: '2',
-          label: 'Faltas',
-          children: '10',
-        },
-        {
-          key: '3',
-          label: 'Adeudo',
-          children: 'SI (Reportar a caja)',
-        },
-        {
-          key: '4',
-          label: 'Matricula',
-          children: alumnosCard.matricula,
-        },
-        {
-          key: '5',
-          label: 'Usage Time',
-          children: '2019-04-24 18:00:00',
-          span: 2,
-        },
-        {
-          key: '6',
-          label: 'Status',
-          children: <Badge status="processing" text="Running" />,
-          span: 3,
-        },
-        {
-          key: '7',
-          label: 'Foto',
-          children: <img src={alumnoImage} width={190}/>,
-        },
-        {
-          key: '8',
-          label: 'Discount',
-          children: '$20.00',
-        },
-        {
-          key: '9',
-          label: 'Official Receipts',
-          children: '$60.00',
-        },
-        
-      ];
-    return ( 
-        <>
+const FichaAlumnos = ({ columnsAlumnosInscritosEditar }) => {
 
-            <Descriptions title="Informacion del alumno" bordered items={items} />
-        </>
-     );
+  const [searchText, setSearchText] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [nombresData, setNombresData] = useState([]);
+  const [showTable, setShowTable] = useState(false);
+
+  useEffect(() => {
+    try{
+      fetchAlumnosNombresData();
+      setFilteredData(nombresData);
+
+    }catch(error) {
+      throw error
+    }
+  }, [])
+  
+  const fetchAlumnosNombresData = async () => {
+    const response = await fetch('http://127.0.0.1:3030/api/alumnos/nombres')
+    const data = await response.json()
+    setNombresData(data)
+  }
+
+  const handleSearch = (value) => {
+    setShowTable(true);
+    setSearchText(value);
+    const filtered = nombresData.filter((record) =>
+      Object.values(record).some(
+        (val) => val && val.toString().toLowerCase().includes(value.toLowerCase())
+      )
+    );
+    setFilteredData(filtered);
+  };
+
+
+  return ( 
+    <div className="buscar-alumno">
+      <h2>Buscar alumno</h2>
+      <Search
+        placeholder="input search text"
+        enterButton="Buscar"
+        size="large"
+        onSearch={(e) => handleSearch(e)}
+      />
+      <br /><br />
+      <Table columns={columnsAlumnosInscritosEditar} dataSource={filteredData} rowKey={"id"} style={{display: showTable ? 'block' : 'none'}} pagination={false} />
+    </div>
+  );
 }
  
 export default FichaAlumnos;

@@ -1,5 +1,4 @@
 import { 
-    SnippetsOutlined, 
     ArrowLeftOutlined, 
     UnorderedListOutlined, 
     OrderedListOutlined, 
@@ -13,7 +12,8 @@ import {
     UserDeleteOutlined,
     SafetyCertificateOutlined,
     LockOutlined,
-    AppstoreAddOutlined
+    AppstoreAddOutlined,
+    BookOutlined,
 } from '@ant-design/icons';
 
 
@@ -34,19 +34,19 @@ export const itemsControlEscolar = [
         icon: <OrderedListOutlined />,
     },
     {
-        label: 'Ficha de Alumno',
-        key: 'ficha',
+        label: 'Ciclo Escolar',
+        key: 'ciclo',
+        icon: <BookOutlined />,
+    },
+    {
+        label: 'Editar Alumnos',
+        key: 'editarAlumno',
         icon: <CreditCardOutlined />,
     },
     {
         label: 'Grupos',
         key: 'groups',
         icon: <AppstoreOutlined />
-    },
-    {
-        label: 'Editar grupo',
-        key: 'editGroup',
-        icon: <EditOutlined />,
     },
     
 ];

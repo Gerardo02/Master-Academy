@@ -15,16 +15,20 @@ const Index = () => {
 
     const navigate = useNavigate()
 
-
+    const fetchData = async () => {
+        await fetchEspecialidadesData();
+        await fetchAlumnosNombresData();
+        await fetchGruposData();
+        await fetchRelacionAlumnoGrupo();
+    };
+    
     useEffect(() => {
         try {
-            fetchEspecialidadesData()
-            fetchAlumnosNombresData()
-            fetchGruposData()
-        } catch(error) {
-            throw error
+            fetchData();
+        } catch (error) {
+            throw error;
         }
-    }, [])
+    }, []);
     
     const fetchEspecialidadesData = async () => {
         const response = await fetch('http://127.0.0.1:3030/api/especialidad')
@@ -44,9 +48,17 @@ const Index = () => {
         setGruposData(data)
     }
 
+    const fetchRelacionAlumnoGrupo = async () => {
+        const response = await fetch('http://127.0.0.1:3030/api/alumnos/grupos')
+        const data = await response.json()
+        setRelacionData(data)
+    }
+
     const [especialidadData, setEspecialidadData] = useState([])
     const [nombresData, setNombresData] = useState([])
     const [gruposData, setGruposData] = useState([])
+    const [relacionData, setRelacionData] = useState([])
+    
     const [selectedComponent, setSelectedComponent] = useState(<></>)
     const [currentOption, setCurrentOption, clearCurrentOption] = useLocalStorage('navInscripcion', 'newAlumno')
 
@@ -63,17 +75,17 @@ const Index = () => {
                 break;
 
             case 'newAlumno':
-                setSelectedComponent(<InscripcionAlumno especialidadData={especialidadData} />)
+                setSelectedComponent(<InscripcionAlumno especialidadData={especialidadData} nombresData={nombresData} />)
 
                 break;
 
             case 'existAlumno':
-                setSelectedComponent(<TableAlumnosNombres columnsAlumnosNombres={columnsAlumnosSinEspecialidad} nombresData={nombresData} />)
+                setSelectedComponent(<TableAlumnosNombres columnsAlumnosNombres={columnsAlumnosSinEspecialidad} />)
 
                 break;
 
             case 'newGroup':
-                setSelectedComponent(<FormularioGrupo columnsAlumnosPorInscribir={columnsAlumnosPorInscribir} especialidadData={especialidadData} nombresData={nombresData} />)
+                setSelectedComponent(<FormularioGrupo columnsAlumnosPorInscribir={columnsAlumnosPorInscribir} especialidadData={especialidadData} nombresData={nombresData} relacionData={relacionData} />)
                 
                 break;
 
@@ -83,7 +95,7 @@ const Index = () => {
                 break;
 
             case 'bajaAlumno':
-                setSelectedComponent(<TableAlumnosNombres columnsAlumnosNombres={columnsAlumnosNombres} nombresData={nombresData} />)
+                setSelectedComponent(<TableAlumnosNombres columnsAlumnosNombres={columnsAlumnosNombres} />)
 
                 break;
 

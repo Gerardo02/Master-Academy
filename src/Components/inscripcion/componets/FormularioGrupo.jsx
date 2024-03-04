@@ -34,10 +34,11 @@ const dayOptions = [
 ]
 
 
-const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombresData }) => {
+const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombresData, relacionData }) => {
 
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [displayTable, setDisplayTable] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [alumnosCount, setAlumnosCount] = useState(0)
     const [tableData, setTableData] = useState([])
     const [especialidadId, setEspecialidadId] = useState(0)
@@ -46,7 +47,10 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
         setButtonDisabled(tableData.length === 0 ? false : true);
     }, [tableData])
 
+
     const finishForm = async (fieldsValue) => {
+        setIsLoading(true)
+
         const { horario, ...restValues } = fieldsValue;
     
         const values = {
@@ -81,7 +85,7 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(alumnosInscritos)
                 })
-                await fetch(`http://127.0.0.1:3030/api/alumnos/grupos/${tableData[i].id}`, {
+                await fetch(`http://127.0.0.1:3030/api/alumnos/grupos/especialidad/${tableData[i].id}`, {
                     method: 'PUT',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(especialidadRevoked)
@@ -92,12 +96,22 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
             throw error
         }
 
+        setIsLoading(false)
+
         window.location.reload(false);
+    }
+
+    const disabledSelectEspecialidad = (especialidad) => {
+        for(let i = 0; i < relacionData.length; i++){
+            if(relacionData[i].especialidad_id === especialidad.id) return false
+        }
+        return true
     }
 
     const options = especialidadData.map((elem) => ({
         value: elem.id,
         label: elem.materia,
+        disabled: disabledSelectEspecialidad(elem),
     }))
 
     const onChangeSelectMateria = (value) => {
@@ -120,7 +134,7 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
     
                             setTableData((prevData) => [...prevData, dataAlumno]);
                             setAlumnosCount((count) => count + 1);
-                            
+                            break;
                         }
                     }
                 }
@@ -222,7 +236,7 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
                 
                     <Col span={24}>
                         <Form.Item>
-                            <Button block disabled={!buttonDisabled} type="primary" htmlType="submit">Registrar</Button>
+                            <Button block disabled={!buttonDisabled} type="primary" htmlType="submit" loading={isLoading}>Registrar</Button>
                         </Form.Item>
                     </Col>
 

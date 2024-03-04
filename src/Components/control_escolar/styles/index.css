@@ -1,6 +1,44 @@
+
+
+.table-alumnos-especialidad {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center;
+    /* background-color: aqua; */
+}
+
+.alerta-amber{
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
 .root-formulario, .groups-center, .formulario-inscripcion-alumno {
     max-width: 1500px;
     margin: 0 auto;
     padding: 0 auto;
     text-align: center;
 }
+
+.buscar-alumno {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center;
+}
+
+.uploaded-files {
+    float: left;
+    width: 200px;
+    margin-inline-end: 8px;
+}
+
+.ciclo-escolar {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center;
+    /* background-color: aqua; */
+}
+

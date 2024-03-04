@@ -1,51 +1,16 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { itemsControlEscolar } from "../../../../Declarations/Navs/Items";
-import { columnsAlumnos, columnsDocumentosEntregados } from "../../../../Declarations/Tables/Columns";
-import { Menu } from "antd";
+import { columnsAlumnos, columnsDocumentosEntregados, columnsAlumnosInscritos, columnsAlumnosInscritosEditar } from "../../../../Declarations/Tables/Columns";
+import { Menu, Button } from "antd";
 import { useEffect, useState } from "react";
 import TableDocumentos from "../../components/TableDocumentos";
 import TableAlumnos from "../../components/TableAlumnos";
 import FichaAlumnos from "../../components/FichaAlumnos";
-import Formulario from "../../components/Formulario";
 import Grupos from "../../components/Grupos";
 import '../../styles/index.css'
 import useLocalStorage from "../../../../Hooks/useLocalStorage";
-
-const alumnosCard = {
-        
-    nombre: 'Pedro',
-    apellidos: 'Juarez Herrera',
-    matricula: '123456'
-
-}
-
-const groupData = [
-    {
-        id: 1,
-        nombreMaestro: 'Carlos',
-        especialidad: 'Cortes',
-        horario: '10:00 - 12:00'
-    },
-    {
-        id: 2,
-        nombreMaestro: 'Pedro',
-        especialidad: 'Uñas',
-        horario: '11:00 - 14:00'
-    },
-    {
-        id: 3,
-        nombreMaestro: 'Carlos',
-        especialidad: 'Cortes',
-        horario: '12:00 - 13:00'
-    },
-    {
-        id: 4,
-        nombreMaestro: 'Pedro',
-        especialidad: 'Uñas',
-        horario: '14:00 - 16:00'
-    },
-
-]
+import CicloEscolar from "../../components/CicloEscolar";
 
 const Index = () => {
 
@@ -53,6 +18,7 @@ const Index = () => {
         try {
             fetchAlumnosData()
             fetchDocumentosEntregados()
+            fetchGruposData()
         } catch(error) {
             throw error
         }
@@ -67,20 +33,32 @@ const Index = () => {
     const fetchDocumentosEntregados = async () => {
         const response = await fetch('http://127.0.0.1:3030/api/documentos')
         const data = await response.json()
-        console.log(data);
         setDocumentosData(data)
     }
 
-    const [selectedComponent, setSelectedComponent] = useState(<></>)
+    const fetchGruposData = async () => {
+        const response = await fetch('http://127.0.0.1:3030/api/grupos')
+        const data = await response.json()
+        setGruposData(data)
+    }
+
+    const [selectedComponent, setSelectedComponent] = useState(
+        <p style={{textAlign: 'center'}}>
+            <Button type="primary" onClick={() => setCurrentOption('groups')}>Regresar</Button>
+        </p>
+    )
 
     const [alumnosData, setAlumnosData] = useState([])
     const [documentosData, setDocumentosData] = useState([])
+    const [gruposData, setGruposData] = useState([])
     
+
     const [currentOption, setCurrentOption, clearCurrentOption] = useLocalStorage('navControl', 'lista');
 
     const navigate = useNavigate()
 
     useEffect(() => {
+        
 
         switch(currentOption){
 
@@ -92,35 +70,42 @@ const Index = () => {
             case 'lista':
 
                 setSelectedComponent(<TableAlumnos alumnosData={alumnosData} columnsAlumnos={columnsAlumnos} />)
+
                 break;
 
             case 'listaDocumentos':
 
                 setSelectedComponent(<TableDocumentos columnsDocumentosEntregados={columnsDocumentosEntregados} documentosData={documentosData}/>)
-                break;
-                
-            case 'ficha':
 
-                setSelectedComponent(<FichaAlumnos alumnosCard={alumnosCard} />)
                 break;
 
-            
-            case 'editGroup':
-
+            case 'ciclo':
+                setSelectedComponent(<CicloEscolar />)
+                break;
                 
-                setSelectedComponent(<Formulario />)
+            case 'editarAlumno':
+
+                setSelectedComponent(<FichaAlumnos columnsAlumnosInscritosEditar={columnsAlumnosInscritosEditar} />)
+
                 break;
 
             case 'groups':
-                setSelectedComponent(<Grupos groupData={groupData} setCurrentOption={setCurrentOption} />)
-                break;
 
-            
+                setSelectedComponent(
+                <Grupos 
+                    nombresData={alumnosData} 
+                    gruposData={gruposData} 
+                    setCurrentOption={setCurrentOption} 
+                    setSelectedComponent={setSelectedComponent} 
+                    columnsAlumnosInscritos={columnsAlumnosInscritos} 
+                />)
+
+                break;
 
             default:
                 break;
         }
-        
+
     },[currentOption, alumnosData])
 
     return ( 

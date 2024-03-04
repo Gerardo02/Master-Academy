@@ -1,37 +1,58 @@
 import { Row, Col, Button, Input, Form, InputNumber, Select } from "antd";
 import { useEffect, useState } from "react";
 
-const InscpcionAlumno = ({ especialidadData }) => {
+const InscpcionAlumno = ({ especialidadData, nombresData }) => {
 
-    const [postDataAlumno, setPostDataAlumno] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+
     const options = especialidadData.map((elem) => ({
         value: elem.id,
         label: elem.materia,
     }))
 
-    const finishFormInscripcion = (value) => {
-        setPostDataAlumno(value)
-    }
+    const finishFormInscripcion = async (value) => {
 
-    const inscripcionAlumnoPostRequest = async () => {
-        if(postDataAlumno === null) return
+        setIsLoading(true)
 
+        const { especialidad_id, ...rest } = value
+        console.log(nombresData[nombresData.length - 1].id)
         try {
             await fetch('http://127.0.0.1:3030/api/alumnos', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(postDataAlumno)
-        })} catch(error) {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(rest)
+            })
+
+            for(let i = 0; i < especialidad_id.length; i++) {
+                
+                if(especialidad_id.length === 0) break
+
+                const especialidadResponse = {
+                    "alumno_id": (nombresData[nombresData.length - 1].id) + 1,
+                    "grupo_activo_id": 0,
+                    "grupo_aprobado_id": 0,
+                    "especialidad_id": especialidad_id[i]
+                }
+
+                await fetch('http://127.0.0.1:3030/api/alumnos/especialidad', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(especialidadResponse)
+                })
+
+            }
+
+        } catch(error) {
             throw error
         }
 
+        setIsLoading(false)
+
         window.location.reload(false);
+
+
     }
 
-    useEffect(() => {
-        inscripcionAlumnoPostRequest()
-
-    }, [postDataAlumno])
 
     return (
         <>
@@ -211,7 +232,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                     </Row>
 
                     <Form.Item>
-                        <Button htmlType="submit" type="primary">Inscribir</Button>
+                        <Button htmlType="submit" type="primary" loading={isLoading} >Inscribir</Button>
                     </Form.Item>
                 </Form>
             
