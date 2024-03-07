@@ -11,35 +11,29 @@ import Grupos from "../../components/Grupos";
 import '../../styles/index.css'
 import useLocalStorage from "../../../../Hooks/useLocalStorage";
 import CicloEscolar from "../../components/CicloEscolar";
+import { useMainData } from "../../../../MainDataProvider";
 
 const Index = () => {
 
+    const { alumnosData, documentosData } = useMainData()
+
     useEffect(() => {
         try {
-            fetchAlumnosData()
-            fetchDocumentosEntregados()
             fetchGruposData()
         } catch(error) {
             throw error
         }
     }, [])
 
-    const fetchAlumnosData = async () => {
-        const response = await fetch('http://127.0.0.1:3030/api/alumnos')
-        const data = await response.json()
-        setAlumnosData(data)
-    }
-
-    const fetchDocumentosEntregados = async () => {
-        const response = await fetch('http://127.0.0.1:3030/api/documentos')
-        const data = await response.json()
-        setDocumentosData(data)
-    }
-
     const fetchGruposData = async () => {
-        const response = await fetch('http://127.0.0.1:3030/api/grupos')
-        const data = await response.json()
-        setGruposData(data)
+        try {
+            const response = await fetch('http://127.0.0.1:3030/api/grupos')
+            const data = await response.json()
+            setGruposData(data)
+        }catch (error) {
+            throw error
+        }
+        
     }
 
     const [selectedComponent, setSelectedComponent] = useState(
@@ -48,10 +42,7 @@ const Index = () => {
         </p>
     )
 
-    const [alumnosData, setAlumnosData] = useState([])
-    const [documentosData, setDocumentosData] = useState([])
     const [gruposData, setGruposData] = useState([])
-    
 
     const [currentOption, setCurrentOption, clearCurrentOption] = useLocalStorage('navControl', 'lista');
 
@@ -85,7 +76,7 @@ const Index = () => {
                 
             case 'editarAlumno':
 
-                setSelectedComponent(<FichaAlumnos columnsAlumnosInscritosEditar={columnsAlumnosInscritosEditar} />)
+                setSelectedComponent(<FichaAlumnos setSelectedComponent={setSelectedComponent} alumnosData={alumnosData} columnsAlumnosInscritosEditar={columnsAlumnosInscritosEditar} />)
 
                 break;
 

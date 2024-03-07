@@ -18,10 +18,16 @@ import {
 
 
 export const itemsControlEscolar = [
+    
     {
         label: 'Regresar',
         key: 'back',
         icon: <ArrowLeftOutlined />,
+    },
+    {
+        label: 'Ciclo Escolar',
+        key: 'ciclo',
+        icon: <BookOutlined />,
     },
     {
         label: 'Lista de Alumnos',
@@ -32,11 +38,6 @@ export const itemsControlEscolar = [
         label: 'Lista documentos entregados',
         key: 'listaDocumentos',
         icon: <OrderedListOutlined />,
-    },
-    {
-        label: 'Ciclo Escolar',
-        key: 'ciclo',
-        icon: <BookOutlined />,
     },
     {
         label: 'Editar Alumnos',

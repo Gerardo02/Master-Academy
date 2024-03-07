@@ -1,19 +1,69 @@
-import { Button, Card, Popconfirm, Popover, Row, Col } from "antd"
+import { Button, Card, Popconfirm, Popover, Row, Col, Collapse } from "antd"
 import Formulario from "./Formulario"
 import { Excel } from "antd-table-saveas-excel";
+import { useMainData } from "../../../MainDataProvider";
 
 
 const Grupos = ({ gruposData, setCurrentOption, setSelectedComponent, columnsAlumnosInscritos, nombresData }) => {
+
+    const { ciclosData } = useMainData()
     
     const content = (record) => {
         return (
             <div>
-                <p><strong>Cantidad de alumnos: </strong>{record.cantidad_de_alumnos}</p>
-                <p><strong>Trimestre: </strong>{record.trimestre}</p>
-                <p><strong>Categoria: </strong>{record.especialidad.especialidad}</p>
+                <p><strong>Dia: </strong>{record.dia}</p>
+                <p><strong>Entrada: </strong>{record.entrada}</p>
+                <p><strong>Salida: </strong>{record.salida}</p>
             </div>
         )
     }
+
+    const items = [
+        {
+          key: '1',
+          label: <strong>{ciclosData.map((elem) => {
+            if(elem.activo === true) return `Ciclo: ${elem.nombre} ${elem.year}`
+          })}</strong>,
+          children: 
+            <Row gutter={[10, 10]}>
+                {gruposData.map((element) => {
+                    if(element.ciclo_escolar.activo === true) {
+                        return (
+                        
+                            <Col span={8} key={element.id}>
+                                <Card title={element.nombre} >
+                                    <p><strong>Maestro: </strong>{element.nombre_maestro}</p>
+                                    <p><strong>Materia: </strong>{element.especialidad.materia} de <br />{element.especialidad.especialidad}</p>
+                                    <p><strong>Cantidad de alumnos: </strong>{element.cantidad_de_alumnos}</p>
+                                    <p><strong>Ciclo: </strong>{element.ciclo_escolar.nombre} {element.ciclo_escolar.year}</p>
+                                    <p><strong>Categoria: </strong>{element.especialidad.especialidad}</p>
+                                    
+                                    <Popover
+                                        title={`Horario de ${element.nombre}`}
+                                        trigger="click"
+                                        content={ _=> content(element)}
+                                    >
+                                        <Button>Horario</Button>
+                                    </Popover>
+                                    <Button onClick={() => onClick(element)}>Descargar Lista</Button>
+                                    <Popconfirm
+                                        title={`Seguro que quieres editar el grupo ${element.nombre}`}
+                                        onConfirm={ _=> onConfirm(element)}
+                                        okText="Si"
+                                        cancelText="No"
+                                    >
+                                        <Button type="primary" ghost>Editar</Button>
+                                    </Popconfirm>
+                                </Card>
+                            </Col>
+                                
+                        )
+
+                    }
+                })}
+            </Row>,
+        },
+    ];
 
     const onConfirm = (record) => {
         setCurrentOption('editGroup')
@@ -57,40 +107,9 @@ const Grupos = ({ gruposData, setCurrentOption, setSelectedComponent, columnsAlu
 
     return ( 
         <div className="groups-center">
-          
-            <Row gutter={[10, 10]}>
-                {gruposData.map((element) => {
-                    return (
-                        <Col span={8} key={element.id}>
-                            <Card title={element.nombre} >
-                                <p><strong>Maestro: </strong>{element.nombre_maestro}</p>
-                                <p><strong>Materia: </strong>{element.especialidad.materia}</p>
-                                <p><strong>Dia: </strong>{element.dia}</p>
-                                <p><strong>Entrada: </strong>{element.entrada}</p>
-                                <p><strong>Salida: </strong>{element.salida}</p>
-                                
-                                <Popover
-                                    title={`Informacion de ${element.nombre}`}
-                                    trigger="click"
-                                    content={ _=> content(element)}
-                                >
-                                    <Button>Info</Button>
-                                </Popover>
-                                <Button onClick={() => onClick(element)}>Descargar Lista</Button>
-                                <Popconfirm
-                                    title={`Seguro que quieres editar el grupo ${element.nombre}`}
-                                    onConfirm={ _=> onConfirm(element)}
-                                    okText="Si"
-                                    cancelText="No"
-                                >
-                                    <Button type="primary" ghost>Editar</Button>
-                                </Popconfirm>
-                            </Card>
-                        </Col>
-                        
-                    )})
-                }
-            </Row>
+
+            <Collapse items={items} defaultActiveKey={['1']} />
+            
            
             <br />
             

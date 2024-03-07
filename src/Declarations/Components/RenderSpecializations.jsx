@@ -37,7 +37,7 @@ const RenderSpecializations = ({ record }) => {
             }
 
             try {
-                await fetch(`http://127.0.0.1:3030/api/alumnos/grupos/${record.id}`, {
+                await fetch(`http://127.0.0.1:3030/api/alumnos/grupos/especialidad/${record.id}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(response)

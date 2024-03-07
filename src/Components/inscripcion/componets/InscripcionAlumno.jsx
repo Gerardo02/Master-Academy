@@ -1,9 +1,34 @@
 import { Row, Col, Button, Input, Form, InputNumber, Select } from "antd";
 import { useEffect, useState } from "react";
 
-const InscpcionAlumno = ({ especialidadData, nombresData }) => {
+const InscpcionAlumno = ({ especialidadData }) => {
 
     const [isLoading, setIsLoading] = useState(false)
+    const [nombresData, setNombresData] = useState([])
+    const [arrayLength, setArrayLength] = useState(0)
+
+    useEffect(() => {
+        try{
+            fetchAlumnosNombresData()
+        }catch(error){
+            throw error
+        }
+    }, [])
+
+    useEffect(() => {
+        setArrayLength(nombresData.length - 1)
+
+    }, [nombresData])
+
+    const fetchAlumnosNombresData = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:3030/api/alumnos/nombres');
+            const data = await response.json();
+            setNombresData(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
 
     const options = especialidadData.map((elem) => ({
         value: elem.id,
@@ -28,7 +53,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                 if(especialidad_id.length === 0) break
 
                 const especialidadResponse = {
-                    "alumno_id": (nombresData[nombresData.length - 1].id) + 1,
+                    "alumno_id": (nombresData[arrayLength].id) + 1,
                     "grupo_activo_id": 0,
                     "grupo_aprobado_id": 0,
                     "especialidad_id": especialidad_id[i]
@@ -77,7 +102,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Apellidos:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Apellidos es obligatorio'
                                 }]}
                             >
                                 <Input placeholder="Apellidos"/>
@@ -88,7 +113,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Matricula:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Matricula es obligatorio'
                                 }]}
                             >
                                 <Input placeholder="Matricula"/>
@@ -99,7 +124,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Fecha de nacimiento:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Fecha de nacimiento es obligatorio'
                                 }]}
                             >
                                 <Input placeholder="Fecha de nacimiento"/>
@@ -110,7 +135,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Edad:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Edad es obligatorio'
                                 }]}
                                 
                             >
@@ -126,7 +151,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Curp:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Curp es obligatorio'
                                 }]}
                             >
                                 <Input placeholder="Curp"/>
@@ -151,7 +176,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Localidad:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Localidad es obligatorio'
                                 }]}
                             >
                                 <Input placeholder="Localidad"/>
@@ -162,7 +187,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Direccion:"
                                 rules={[{
                                     required: true,
-                                    message: 'Especialidad es obligatorio'
+                                    message: 'Direccion es obligatorio'
                                 }]}
                             >   
                                 <Input placeholder="Direccion"/>
@@ -178,7 +203,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Codigo postal:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Codigo postal es obligatorio'
                                 }]}
                             >
                                 <Input placeholder="Codigo Postal"/>
@@ -196,7 +221,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Celular:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Celular es obligatorio'
                                 }]}
                             >
                                 <Input placeholder="Celular"/>
@@ -214,7 +239,7 @@ const InscpcionAlumno = ({ especialidadData, nombresData }) => {
                                 label="Especialidad:"
                                 rules={[{
                                     required: true,
-                                    message: 'Nombre es obligatorio'
+                                    message: 'Especialidad es obligatorio'
                                 }]}
                             >
                                 {/* <Select options={options} /> */}

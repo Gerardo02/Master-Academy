@@ -3,7 +3,6 @@ import { Button, Popconfirm } from 'antd'
 import RenderSpecializations from '../Components/RenderSpecializations';
 import RenderAddDocumentos from '../Components/RenderAddDocumentos';
 import RenderBajaAlumno from '../Components/RenderBajaAlumno';
-import RenderEditAlumno from '../Components/RenderEditAlumno';
 
 export const columnsAlumnos = [
     {
@@ -35,6 +34,11 @@ export const columnsAlumnos = [
       title: 'Nombre del tutor',
       dataIndex: 'nombre_tutor',
       key: 'nombre_tutor',
+    },
+    {
+      title: 'Celular del tutor',
+      dataIndex: 'celular_tutor',
+      key: 'celular_tutor',
     },
     {
       title: 'Curp',
@@ -403,12 +407,6 @@ export const columnsAlumnosInscritosEditar = [
     title: 'Matricula',
     dataIndex: 'matricula',
     key: 'matricula',
-  },
-  {
-    title: 'Editar',
-    dataIndex: 'editar',
-    key: 'editar',
-    render: ((_, record) => <RenderEditAlumno record={record} />)
   },
   
 ];

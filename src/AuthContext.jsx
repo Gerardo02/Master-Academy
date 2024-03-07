@@ -32,8 +32,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const navigate = useNavigate()
-  const [isAuthenticated, setIsAuthenticated] = useLocalStorage("Auth", false)
-  const [permission, setPermission] = useLocalStorage("Permission", '');
+  const [isAuthenticated, setIsAuthenticated] = useLocalStorage("Auth", false, true)
+  const [permission, setPermission] = useLocalStorage("Permission", '', true);
 
   const login = async (credentials) => {
     try {
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
       
       const data = await response.json();
 
-      setPermission(data.permiso);
+      setPermission(data);
 
       // If the response status is OK, set isAuthenticated to true
       setIsAuthenticated(true);
@@ -84,7 +84,6 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     // clearAuth();
     // clearPerm();
-    window.location.reload(false);
     
 
   };

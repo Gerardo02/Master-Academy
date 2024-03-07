@@ -14,11 +14,10 @@ import { useAuth } from '../../AuthContext';
 
 const Dashboard = () => {
 
-    const { login, logout, permission } = useAuth()
+    const { logout, permission } = useAuth()
     const navigate = useNavigate()
 
-    const [denegado, setDenegado] = useState([false, false, false, false])
-    console.log(permission)
+    const [denegado, setDenegado] = useState([permission.administracion, permission.control_escolar, permission.inscripcion, permission.administrador])
     return (
         <>
         
@@ -30,7 +29,6 @@ const Dashboard = () => {
                         title="Cerrar sesion?"
                         description="Seguro que quieres cerrar sesion?"
                         onConfirm={logout}
-                        onCancel={login}
                         okText="Si"
                         cancelText="No"
                     >
@@ -58,8 +56,8 @@ const Dashboard = () => {
                 <Col span={12}>
                     
                     <Card
-                        hoverable={!denegado[0]}
-                        style={!denegado[0] ? {
+                        hoverable={denegado[0]}
+                        style={denegado[0] ? {
                             color:'white',
                             backgroundColor: '#FB8B24',
                             padding: '0.6em',
@@ -71,7 +69,7 @@ const Dashboard = () => {
                             cursor: 'not-allowed',
                             opacity: 0.5
                         } }
-                        onClick={() => !denegado[0] ? navigate('/administracion') : alert("Acceso denegado") }
+                        onClick={() => denegado[0] ? navigate('/administracion') : alert("Acceso denegado") }
                         cover={<DollarOutlined style={{ fontSize: '8vw', marginTop:"40px"}} />}
                     >
                         <h1 style={{color:'white'}}>Administración</h1>
@@ -81,8 +79,8 @@ const Dashboard = () => {
                 </Col>
                 <Col span={12}>
                     <Card
-                        hoverable={!denegado[1]}
-                        style={!denegado[1] ? {
+                        hoverable={denegado[1]}
+                        style={denegado[1] ? {
                             color:'white',
                             backgroundColor: '#E5446D',
                             padding: '0.6em',
@@ -94,18 +92,18 @@ const Dashboard = () => {
                             cursor: 'not-allowed',
                             opacity: 0.5
                         } }
-                        onClick={() => !denegado[1] ? navigate('/control_escolar') : alert("Acceso denegado") }
+                        onClick={() => denegado[1] ? navigate('/control_escolar') : alert("Acceso denegado") }
                         cover={<ContactsOutlined  style={{ fontSize: '8vw', backgroundColor: '#E5446D', marginTop:"40px"  }} />}
                     >
                         <h1 style={{color:'white'}}>Control Escolar</h1>
-                        <p style={{color:'white'}}>Consulta la información de grupos y alumnos, listas de asistencia, calificaciones, etc. </p>
+                        <p style={{color:'white'}}>Consulta la información de grupos y alumnos, listas de inscripcion, documentos entregados, etc. </p>
                         
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card
-                        hoverable={!denegado[2]}
-                        style={!denegado[2] ? {
+                        hoverable={denegado[2]}
+                        style={denegado[2] ? {
                             color:'white',
                             backgroundColor: '#04A777',
                             padding: '0.6em',
@@ -117,18 +115,18 @@ const Dashboard = () => {
                             cursor: 'not-allowed',
                             opacity: 0.5
                         } }
-                        onClick={() => !denegado[2] ? navigate('/inscripcion') : alert("Acceso denegado") }
+                        onClick={() => denegado[2] ? navigate('/inscripcion') : alert("Acceso denegado") }
                         cover={<EditOutlined style={{ fontSize: '8vw', backgroundColor: '#04A777', marginTop:"40px"  }} />}
                         
                     >
                         <h1 style={{color:'white'}}>Inscripción</h1>
-                        <p style={{color:'white'}}>Formas para inscripción de alumnos y dada de alta de salones</p>
+                        <p style={{color:'white'}}>Formas para inscripción de alumnos y dada de alta de grupos</p>
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card
-                        hoverable={!denegado[3]}
-                        style={ !denegado[3] ? {
+                        hoverable={denegado[3]}
+                        style={ denegado[3] ? {
                             color:'white',
                             backgroundColor: '#531CB3',
                             padding: '0.6em',
@@ -140,18 +138,18 @@ const Dashboard = () => {
                             cursor: 'not-allowed',
                             opacity: 0.5
                         } }
-                        onClick={() => !denegado[3] ? navigate('/administrador') : alert("Acceso denegado") }
+                        onClick={() => denegado[3] ? navigate('/administrador') : alert("Acceso denegado") }
                         cover={<UserOutlined style={{ fontSize: '8vw', backgroundColor: '#531CB3', marginTop:"40px"  }} />}
                     >
-                        <h1 style={{color:'white'}}>Usuarios</h1>
+                        <h1 style={{color:'white'}}>Administrador</h1>
                         <p style={{color:'white'}}>Acceso solo del administrador autorizado</p>
                     </Card>
                 </Col>
             </Row>
-            <Button onClick={() => setDenegado([!denegado[0], denegado[1], denegado[2], denegado[3]])}>Denegado admin</Button>
+            {/* <Button onClick={() => setDenegado([!denegado[0], denegado[1], denegado[2], denegado[3]])}>Denegado admin</Button>
             <Button onClick={() => setDenegado([denegado[0], !denegado[1], denegado[2], denegado[3]])}>Denegado control escolar</Button>
             <Button onClick={() => setDenegado([denegado[0], denegado[1], !denegado[2], denegado[3]])}>Denegado inscripcion</Button>
-            <Button onClick={() => setDenegado([denegado[0], denegado[1], denegado[2], !denegado[3]])}>Denegado usuarios</Button>
+            <Button onClick={() => setDenegado([denegado[0], denegado[1], denegado[2], !denegado[3]])}>Denegado usuarios</Button> */}
         </div>
         </>
     );

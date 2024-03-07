@@ -16,15 +16,15 @@ const Index = () => {
     const navigate = useNavigate()
 
     const fetchData = async () => {
-        await fetchEspecialidadesData();
-        await fetchAlumnosNombresData();
-        await fetchGruposData();
-        await fetchRelacionAlumnoGrupo();
+        
     };
     
     useEffect(() => {
         try {
-            fetchData();
+            fetchAlumnosNombresData();
+            fetchEspecialidadesData();
+            fetchGruposData();
+            fetchRelacionAlumnoGrupo();
         } catch (error) {
             throw error;
         }
@@ -75,7 +75,7 @@ const Index = () => {
                 break;
 
             case 'newAlumno':
-                setSelectedComponent(<InscripcionAlumno especialidadData={especialidadData} nombresData={nombresData} />)
+                setSelectedComponent(<InscripcionAlumno especialidadData={especialidadData} />)
 
                 break;
 
