@@ -42,37 +42,40 @@ const DeleteGroup = ({ gruposData }) => {
 
     return ( 
         <div className="groups-center">
-          
-            <Row gutter={[10, 10]}>
-                {gruposData.map((element) => {
-                    return (
-                        <Col span={8} key={element.id}>
-                            <Card title={element.nombre} >
-                                <p><strong>Maestro: </strong>{element.nombre_maestro}</p>
-                                <p><strong>Materia: </strong>{element.especialidad.materia}</p>
-                                
-                                <Popover
-                                    title={`Informacion de ${element.nombre}`}
-                                    trigger="click"
-                                    content={ _=> content(element)}
-                                >
-                                    <Button>Info</Button>
-                                </Popover>
+            {gruposData.length === 0 ? <h1>No hay grupos inscritos</h1> : 
+                <Row gutter={[10, 10]}>
+                    {gruposData.map((element) => {
+                        return (
+                            <Col span={8} key={element.id}>
+                                <Card title={element.nombre} >
+                                    <p><strong>Maestro: </strong>{element.nombre_maestro}</p>
+                                    <p><strong>Materia: </strong>{element.especialidad.materia}</p>
+                                    
+                                    <Popover
+                                        title={`Informacion de ${element.nombre}`}
+                                        trigger="click"
+                                        content={ _=> content(element)}
+                                    >
+                                        <Button>Info</Button>
+                                    </Popover>
 
-                                <Popconfirm
-                                    title={`Seguro que quieres eliminar el grupo ${element.nombre}`}
-                                    onConfirm={ _=> onConfirm(element)}
-                                    okText="Si"
-                                    cancelText="No"
-                                >
-                                    <Button danger>Eliminar</Button>
-                                </Popconfirm>
-                            </Card>
-                        </Col>
-                        
-                    )})
-                }
-            </Row>
+                                    <Popconfirm
+                                        title={`Seguro que quieres eliminar el grupo ${element.nombre}`}
+                                        onConfirm={ _=> onConfirm(element)}
+                                        okText="Si"
+                                        cancelText="No"
+                                    >
+                                        <Button danger>Eliminar</Button>
+                                    </Popconfirm>
+                                </Card>
+                            </Col>
+                            
+                        )})
+                    }
+                </Row>
+            }
+          
+            
            
             <br />
             

@@ -2,11 +2,22 @@ import { Button, Card, Popconfirm, Popover, Row, Col, Collapse } from "antd"
 import Formulario from "./Formulario"
 import { Excel } from "antd-table-saveas-excel";
 import { useMainData } from "../../../MainDataProvider";
+import { useState } from "react";
 
 
 const Grupos = ({ gruposData, setCurrentOption, setSelectedComponent, columnsAlumnosInscritos, nombresData }) => {
 
-    const { ciclosData } = useMainData()
+    const { ciclosData, gruposConcluidosData } = useMainData()
+
+    const keyForItem = (ciclo) => {
+        return ciclo.map((elem) => {
+            if(elem.activo === true){
+                return elem.id
+            } 
+        })
+    }
+
+    const keyItem = keyForItem(ciclosData)
     
     const content = (record) => {
         return (
@@ -20,12 +31,12 @@ const Grupos = ({ gruposData, setCurrentOption, setSelectedComponent, columnsAlu
 
     const items = [
         {
-          key: '1',
+          key: keyItem,
           label: <strong>{ciclosData.map((elem) => {
             if(elem.activo === true) return `Ciclo: ${elem.nombre} ${elem.year}`
-          })}</strong>,
+          })} <font color='green'>Activo</font></strong>,
           children: 
-            <Row gutter={[10, 10]}>
+            gruposData.length !== 0 ? <Row gutter={[10, 10]}>
                 {gruposData.map((element) => {
                     if(element.ciclo_escolar.activo === true) {
                         return (
@@ -36,7 +47,6 @@ const Grupos = ({ gruposData, setCurrentOption, setSelectedComponent, columnsAlu
                                     <p><strong>Materia: </strong>{element.especialidad.materia} de <br />{element.especialidad.especialidad}</p>
                                     <p><strong>Cantidad de alumnos: </strong>{element.cantidad_de_alumnos}</p>
                                     <p><strong>Ciclo: </strong>{element.ciclo_escolar.nombre} {element.ciclo_escolar.year}</p>
-                                    <p><strong>Categoria: </strong>{element.especialidad.especialidad}</p>
                                     
                                     <Popover
                                         title={`Horario de ${element.nombre}`}
@@ -61,9 +71,48 @@ const Grupos = ({ gruposData, setCurrentOption, setSelectedComponent, columnsAlu
 
                     }
                 })}
-            </Row>,
+            </Row> : <h1>No hay grupos inscritos</h1>,
         },
     ];
+
+    const gatherArrayData = () => {
+        let array = []
+        for(let i = 0; i < ciclosData.length; i++) {
+            if(ciclosData[i].activo === true) continue;
+            const arrayElem = {
+                key: ciclosData[i].id,
+                label: <span>Ciclo: {ciclosData[i].nombre} {ciclosData[i].year} <strong><font color='red'>Concluido</font></strong></span>,
+                children: 
+                <Row gutter={[10, 10]}>
+                    {gruposConcluidosData.map((element) => {
+                        if(element.ciclo_escolar.id === ciclosData[i].id) {
+                            return (
+                            
+                                <Col span={8} key={element.id}>
+                                    <Card title={element.nombre} >
+                                        <p><strong>Materia: </strong>{element.especialidad.materia} de <br />{element.especialidad.especialidad}</p>
+                                        <p><strong>Cantidad de alumnos: </strong>{element.cantidad_de_alumnos}</p>
+                                        <p><strong>Ciclo: </strong>{element.ciclo_escolar.nombre} {element.ciclo_escolar.year}</p>
+                                        
+                                        <Button onClick={() => onClick(element)}>Descargar Lista</Button>
+                                        
+                                    </Card>
+                                </Col>
+                                    
+                            )
+
+                        }
+                    })}
+                </Row>,
+            }
+
+            array = [...array, arrayElem]
+        }
+
+        return array
+    }
+
+    const itemsFinishedCycle = gatherArrayData()
 
     const onConfirm = (record) => {
         setCurrentOption('editGroup')
@@ -107,8 +156,8 @@ const Grupos = ({ gruposData, setCurrentOption, setSelectedComponent, columnsAlu
 
     return ( 
         <div className="groups-center">
-
-            <Collapse items={items} defaultActiveKey={['1']} />
+            {ciclosData.some((elem) => elem.activo) ? <Collapse items={items} defaultActiveKey={[keyItem]} /> : <span></span>}
+            <Collapse items={itemsFinishedCycle} />
             
            
             <br />

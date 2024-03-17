@@ -74,7 +74,7 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
         }))
 
         setOptionsSelect(options)
-        
+
     }, [relacionData, especialidadData])
 
     useEffect(() => {
@@ -86,7 +86,7 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
         setIsLoading(true)
 
         const { horario, ...restValues } = fieldsValue;
-    
+
         const values = {
             ...restValues,
             'entrada': horario[0].format('h:mm a'),

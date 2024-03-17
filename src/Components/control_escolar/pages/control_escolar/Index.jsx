@@ -76,7 +76,7 @@ const Index = () => {
                 
             case 'editarAlumno':
 
-                setSelectedComponent(<FichaAlumnos setSelectedComponent={setSelectedComponent} alumnosData={alumnosData} columnsAlumnosInscritosEditar={columnsAlumnosInscritosEditar} />)
+                setSelectedComponent(<FichaAlumnos setCurrentOption={setCurrentOption} setSelectedComponent={setSelectedComponent} alumnosData={alumnosData} columnsAlumnosInscritosEditar={columnsAlumnosInscritosEditar} />)
 
                 break;
 

@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import { Menu } from "antd";
 import { itemsAdministracion } from "../../../../Declarations/Navs/Items";
 import { columnsAdministracion } from "../../../../Declarations/Tables/Columns";
-import BuscarAlumno from "../../components/BuscarAlumno";
+import RegistroPago from "../../components/RegistroPago";
 import HistorialAlumno from "../../components/HistorialAlumno";
 import TableAdministracion from "../../components/TableAdministracion";
 import useLocalStorage from "../../../../Hooks/useLocalStorage";
+import "../../styles/index.css"
 
 const data = [
     'Pago realizado por Raul de la Mancha a las 14:45 con un monto de 50$',
@@ -55,7 +56,7 @@ const Index = () => {
 
             case 'registroPago':
 
-                setSelectedComponent(<BuscarAlumno />)
+                setSelectedComponent(<RegistroPago />)
                 break;
 
             case 'historial':

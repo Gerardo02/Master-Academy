@@ -103,18 +103,28 @@ export const columnsAdministracion = [
     title: 'Adeudo',
     dataIndex: 'adeudo',
     key: 'adeudo',
-    // render: ((_, { adeudo } )=> (
-    //   <>
-    //     {
-    //       adeudo ? <span style={{color: "green"}}>Al corriente</span> : <span style={{color: "red"}}>Debe</span>
-    //     }
-    //   </>
-    // ))
+    render: ((_, { adeudo } )=> (
+      <>
+        {
+          adeudo === 'Al corriente' ? <span style={{color: "green"}}>{adeudo}</span> : 
+          adeudo === 'Debe' ? <span style={{color: "red"}}>{adeudo}</span> : <span>error</span>
+        }
+      </>
+    ))
   },
   {
     title: 'Estado',
     dataIndex: 'estado',
     key: 'estado',
+    render: ((_, { estado } )=> (
+      <>
+        {
+          estado === 'Listo' ? <span style={{color: "green"}}>{estado}</span> : 
+          estado === 'Pendiente' ? <span style={{color: "red"}}>{estado}</span> : 
+          estado === 'En proceso' ? <span style={{color: "orange"}}>{estado}</span> : <span>error</span>
+        }
+      </>
+    ))
   },
   
 ];

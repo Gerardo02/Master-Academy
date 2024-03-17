@@ -5,13 +5,18 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 
 const CicloEscolar = () => {
+    
 
-    const { ciclosData } = useMainData()
+    const { ciclosData, gruposData } = useMainData()
 
     const [cicloEscolar, setcicloEscolar] = useState({})
     const [lastTri, setLastTri] = useState(false)
     const [cicloActivo, setCicloActivo] = useState(false)
+    const [gruposDataBien, setGruposDataBien] = useState([])
 
+    useEffect(() => {
+        setGruposDataBien(gruposData)
+    }, [gruposData])
 
     const getCurrentAndNextTwoMonths = () => {
         dayjs.locale('es'); // Set the locale to Spanish
@@ -88,6 +93,34 @@ const CicloEscolar = () => {
                 body: JSON.stringify(cicloEscolar)
             })
         }catch(error) {
+            throw error
+        }
+
+        try{
+            for(let i = 0; i < gruposDataBien.length; i++) {
+                const finishedGroupData = {
+                    'nombre': gruposDataBien[i].nombre,
+                    'cantidad_de_alumnos': gruposDataBien[i].cantidad_de_alumnos,
+                    'especialidad_id': gruposDataBien[i].especialidad.id,
+                    'ciclo_escolar_id': gruposDataBien[i].ciclo_escolar.id
+                }
+                await fetch(`http://127.0.0.1:3030/api/grupos/concluidos`, {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(finishedGroupData)
+                })
+            }
+            
+        }catch(error){
+            throw error
+        }
+
+        try{
+            await fetch(`http://127.0.0.1:3030/api/grupos/`, {
+                method: 'DELETE',
+                headers: { "Content-Type": "application/json" },
+            });
+        }catch(error){
             throw error
         }
 

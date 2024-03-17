@@ -2,7 +2,7 @@ import { Row, Col, Button, Input, Form, InputNumber } from "antd";
 import { useState } from "react";
 
 
-const EditarAlumno = ({ selectedAlumnos }) => {
+const EditarAlumno = ({ selectedAlumnos, setCurrentOption }) => {
     const [isLoading, setIsLoading] = useState(false)
     const { especialidad, grupos_activos, grupos_aprobados, ...rest } = selectedAlumnos;
 
@@ -23,10 +23,14 @@ const EditarAlumno = ({ selectedAlumnos }) => {
         window.location.reload(false);
     }
 
+    const onClickCanclear = () => {
+        setCurrentOption('editarAlumno')
+    }
+
     return ( 
         
         <div className="formulario-inscripcion-alumno">
-            <h1>Inscripcion de alumno</h1>
+            <h1>Editar alumno</h1>
             <Form onFinish={onFinish} layout="vertical" initialValues={rest}>
                 <Row gutter={10}>
                     <Col span={4} offset={6}>
@@ -184,8 +188,9 @@ const EditarAlumno = ({ selectedAlumnos }) => {
                 </Row>
 
                 <Form.Item>
-                    <Button htmlType="submit" type="primary" loading={isLoading} >Editar</Button>
+                    <Button style={{width: '100px'}} htmlType="submit" type="primary" loading={isLoading} >Editar</Button>
                 </Form.Item>
+                <Button style={{width: '100px'}} danger onClick={onClickCanclear}>Cancelar</Button>
             </Form>
         
         </div>

@@ -4,7 +4,7 @@ import EditarAlumno from "./EditarAlumno";
 const { Search } = Input;
 
 
-const FichaAlumnos = ({ setSelectedComponent, alumnosData, columnsAlumnosInscritosEditar }) => {
+const FichaAlumnos = ({ setCurrentOption, setSelectedComponent, alumnosData, columnsAlumnosInscritosEditar }) => {
 
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -57,7 +57,8 @@ const FichaAlumnos = ({ setSelectedComponent, alumnosData, columnsAlumnosInscrit
   };
 
   const onClick = () => {
-    setSelectedComponent(<EditarAlumno selectedAlumnos={selectedAlumnos} />)
+    setCurrentOption('editar')
+    setSelectedComponent(<EditarAlumno setCurrentOption={setCurrentOption} selectedAlumnos={selectedAlumnos} />)
   }
 
 

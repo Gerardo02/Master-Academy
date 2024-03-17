@@ -40,7 +40,7 @@ export const itemsControlEscolar = [
         icon: <OrderedListOutlined />,
     },
     {
-        label: 'Editar Alumnos',
+        label: 'Editar Datos Alumnos',
         key: 'editarAlumno',
         icon: <CreditCardOutlined />,
     },

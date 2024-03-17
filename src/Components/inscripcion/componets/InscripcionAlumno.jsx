@@ -1,5 +1,6 @@
 import { Row, Col, Button, Input, Form, InputNumber, Select } from "antd";
 import { useEffect, useState } from "react";
+import { generateRandomNumberString } from "../../../MatriculaGen";
 
 const InscpcionAlumno = ({ especialidadData }) => {
 
@@ -40,7 +41,6 @@ const InscpcionAlumno = ({ especialidadData }) => {
         setIsLoading(true)
 
         const { especialidad_id, ...rest } = value
-        console.log(nombresData[nombresData.length - 1].id)
         try {
             await fetch('http://127.0.0.1:3030/api/alumnos', {
                 method: 'POST',
@@ -53,7 +53,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                 if(especialidad_id.length === 0) break
 
                 const especialidadResponse = {
-                    "alumno_id": (nombresData[arrayLength].id) + 1,
+                    "alumno_id": (nombresData[arrayLength < 0 ? 0 : arrayLength].id === undefined ? 0 : nombresData[arrayLength < 0 ? 0 : arrayLength].id) + 1,
                     "grupo_activo_id": 0,
                     "grupo_aprobado_id": 0,
                     "especialidad_id": especialidad_id[i]
@@ -83,7 +83,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
         <>
             <div className="formulario-inscripcion-alumno">
                 <h1>Inscripcion de alumno</h1>
-                <Form onFinish={finishFormInscripcion} layout="vertical">
+                <Form onFinish={finishFormInscripcion} layout="vertical" initialValues={{'matricula': generateRandomNumberString(8)}}>
                     <Row gutter={10}>
                         <Col span={4} offset={6}>
                             <Form.Item
@@ -116,7 +116,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                                     message: 'Matricula es obligatorio'
                                 }]}
                             >
-                                <Input placeholder="Matricula"/>
+                                <Input disabled placeholder="Matricula"/>
                             </Form.Item>
 
                             <Form.Item

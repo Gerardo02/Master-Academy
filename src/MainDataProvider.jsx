@@ -7,12 +7,19 @@ export const MainDataProvider = ({ children }) => {
   const [ciclosData, setCiclosData] = useState([]);
   const [documentosData, setDocumentosData] = useState([])
   const [alumnosData, setAlumnosData] = useState([])
+  const [gruposData, setGruposData] = useState([])
+  const [gruposConcluidosData, setGruposConcluidosData] = useState([])
+  const [historialData, setHistorialData] = useState([])
+
 
 
   useEffect(() => {
     fetchCiclosEscolares()
     fetchAlumnosData()
     fetchDocumentosEntregados()
+    fetchGruposActivos()
+    fetchGruposConcluidos()
+    fetchHistorialAdmin()
   }, []);
 
   const fetchCiclosEscolares = async () => {
@@ -47,8 +54,41 @@ export const MainDataProvider = ({ children }) => {
     }
   }
 
+  const fetchGruposActivos = async () => {
+    try{
+      const response = await fetch('http://127.0.0.1:3030/api/grupos')
+      const data = await response.json()
+      setGruposData(data)
+
+    }catch(error){
+      throw error
+    }
+  }
+
+  const fetchGruposConcluidos = async () => {
+    try{
+      const response = await fetch('http://127.0.0.1:3030/api/grupos/concluidos')
+      const data = await response.json()
+      setGruposConcluidosData(data)
+
+    }catch(error){
+      throw error
+    }
+  }
+
+  const fetchHistorialAdmin = async () => {
+    try{
+      const response = await fetch('http://127.0.0.1:3030/api/historial')
+      const data = await response.json()
+      setHistorialData(data)
+
+    }catch(error){
+      throw error
+    }
+  }
+
   return (
-    <MainDataContext.Provider value={{ ciclosData, alumnosData, documentosData }}>
+    <MainDataContext.Provider value={{ ciclosData, alumnosData, documentosData, gruposData, gruposConcluidosData, historialData }}>
       {children}
     </MainDataContext.Provider>
   );
