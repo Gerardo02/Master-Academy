@@ -6,6 +6,7 @@ import RenderBajaAlumno from '../Components/RenderBajaAlumno';
 import RenderHistorialAlumno from '../Components/RenderHistorialAlumnos';
 import RenderHistorialAcreditado from '../Components/RenderHistorialAcreditados';
 import RenderAcreditar from '../Components/RenderAcreditar';
+import RenderValidarPago from '../Components/RenderValidarPago';
 
 export const columnsAlumnos = [
     {
@@ -103,6 +104,11 @@ export const columnsAdministracion = [
     key: 'matricula',
   },
   {
+    title: 'Dinero',
+    dataIndex: 'dinero',
+    key: 'dinero',
+  },
+  {
     title: 'Adeudo',
     dataIndex: 'adeudo',
     key: 'adeudo',
@@ -128,6 +134,97 @@ export const columnsAdministracion = [
         }
       </>
     ))
+  },
+  
+];
+
+export const columnsAdministracion2 = [
+  {
+    title: 'Nombre',
+    dataIndex: 'nombre',
+    key: 'nombre',
+  },
+  {
+    title: 'Apellidos',
+    dataIndex: 'apellido',
+    key: 'apellido',
+  },
+  {
+    title: 'Matricula',
+    dataIndex: 'matricula',
+    key: 'matricula',
+  },
+  {
+    title: 'Dinero',
+    dataIndex: 'dinero',
+    key: 'dinero',
+  },
+  {
+    title: 'Adeudo',
+    dataIndex: 'adeudo',
+    key: 'adeudo',
+    render: ((_, { adeudo } )=> (
+      <>
+        {
+          adeudo === 'Al corriente' ? <span style={{color: "green"}}>{adeudo}</span> : 
+          adeudo === 'Debe' ? <span style={{color: "red"}}>{adeudo}</span> : <span>error</span>
+        }
+      </>
+    ))
+  },
+  {
+    title: 'Estado',
+    dataIndex: 'estado',
+    key: 'estado',
+    render: ((_, { estado } )=> (
+      <>
+        {
+          estado === 'Listo' ? <span style={{color: "green"}}>{estado}</span> : 
+          estado === 'Pendiente' ? <span style={{color: "red"}}>{estado}</span> : 
+          estado === 'En proceso' ? <span style={{color: "orange"}}>{estado}</span> : <span>error</span>
+        }
+      </>
+    ))
+  },
+  {
+    title: 'Validar',
+    dataIndex: 'validar',
+    key: 'validar',
+    render: ((_, record) => <RenderValidarPago record={record} />)
+  },
+  
+];
+
+export const columnsAdministracionForExcel = [
+  {
+    title: 'Nombre',
+    dataIndex: 'nombre',
+    key: 'nombre',
+  },
+  {
+    title: 'Apellidos',
+    dataIndex: 'apellido',
+    key: 'apellido',
+  },
+  {
+    title: 'Matricula',
+    dataIndex: 'matricula',
+    key: 'matricula',
+  },
+  {
+    title: 'Dinero',
+    dataIndex: 'dinero',
+    key: 'dinero',
+  },
+  {
+    title: 'Adeudo',
+    dataIndex: 'adeudo',
+    key: 'adeudo',
+  },
+  {
+    title: 'Estado',
+    dataIndex: 'estado',
+    key: 'estado',
   },
   
 ];

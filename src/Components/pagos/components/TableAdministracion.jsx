@@ -1,5 +1,6 @@
 import { Button, Table } from 'antd';
 import { Excel } from "antd-table-saveas-excel";
+import { columnsAdministracionForExcel } from '../../../Declarations/Tables/Columns';
 
 const TableAdministracion = ({columnsAdministracion, adminData}) => {
 
@@ -7,7 +8,7 @@ const TableAdministracion = ({columnsAdministracion, adminData}) => {
     const excel = new Excel();
     excel
       .addSheet("sheet 1")
-      .addColumns(columnsAdministracion)
+      .addColumns(columnsAdministracionForExcel)
       .addDataSource(adminData, {
         str2Percent: true
       })

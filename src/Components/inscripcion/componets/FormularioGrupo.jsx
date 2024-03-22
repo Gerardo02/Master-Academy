@@ -411,7 +411,7 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
                 </div>
             </div> 
 
-            : <h1>Sin ciclo escolar activo</h1>
+            : <h1 style={{textAlign: 'center'}}>Sin ciclo escolar activo</h1>
         }
             
         </>

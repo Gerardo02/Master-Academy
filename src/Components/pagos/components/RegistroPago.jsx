@@ -26,6 +26,17 @@ const RegistroPago = () => {
                 return
             }
         }
+
+        try {
+            await fetch(`http://127.0.0.1:3030/api/administracion/pago/${getId.alumno_id}`, {
+                method: 'PUT',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({'dinero': getId.monto})
+            })
+        }catch(error) {
+            throw error
+        }
+
         try {
             await fetch('http://127.0.0.1:3030/api/historial', {
                 method: 'POST',

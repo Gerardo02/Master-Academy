@@ -2,7 +2,7 @@ import { List } from 'antd';
 import { useMainData } from '../../../MainDataProvider';
 import { useEffect, useState } from 'react';
 
-const HistorialAlumno = ({ data }) => {
+const HistorialAlumno = () => {
 
     const { historialData } = useMainData()
 
@@ -14,20 +14,18 @@ const HistorialAlumno = ({ data }) => {
     }, [historialData])
 
     useEffect(() => {
-        console.log(historial)
-        for(let i = 0; i < historial.length; i++) {
-            const expression = `${historial[i].fecha} - ${historial[i].movimiento} realizado por ${historial[i].alumno.nombre} ${historial[i].alumno.apellidos} a las ${historial[i].hora} con un monto de ${historial[i].monto}$`
-
-            setDataSource((prev) => [...prev, expression] )
-        }
-        console.log(dataSource)
+        // Reverse the historial array to display the latest items first
+        const reversedHistorial = historial.slice().reverse();
+        const formattedData = reversedHistorial.map(item => {
+            return `${item.fecha} - ${item.movimiento} realizado por ${item.alumno.nombre} ${item.alumno.apellidos} a las ${item.hora} con un monto de ${item.monto}$`;
+        });
+        setDataSource(formattedData);
     }, [historial])
     
     return ( 
         <>
             <h1 style={{textAlign: 'center'}}>Historial de pagos</h1>
             <List
-                
                 bordered
                 dataSource={dataSource}
                 renderItem={(item) => (

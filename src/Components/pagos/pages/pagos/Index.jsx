@@ -9,15 +9,6 @@ import TableAdministracion from "../../components/TableAdministracion";
 import useLocalStorage from "../../../../Hooks/useLocalStorage";
 import "../../styles/index.css"
 
-const data = [
-    'Pago realizado por Raul de la Mancha a las 14:45 con un monto de 50$',
-    'Pago realizado por Monica Galindo a las 20:14 con un monto de 200$',
-    'Pago realizado por Sebastian Gutierrez a las 11:27 con un monto de 150$',
-    'Pago realizado por Alma Guadalupe Encinas a las 16:39 con un monto de 70$',
-    'Pago realizado por Marta Cristina Perez a las 12:11 con un monto de 400$',
-];
-
-
 const Index = () => {
 
     useEffect(() => {
@@ -61,7 +52,7 @@ const Index = () => {
 
             case 'historial':
 
-                setSelectedComponent(<HistorialAlumno data={data} />)
+                setSelectedComponent(<HistorialAlumno />)
                 break;
 
             default:
