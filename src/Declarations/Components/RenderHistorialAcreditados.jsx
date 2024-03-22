@@ -31,7 +31,7 @@ const RenderHistorialAcreditado = ({ record }) => {
                 trigger="click"
                 content={content}
             >
-                <Button onClick={_=> console.log(record)} type='primary'>Ver</Button>
+                <Button type='primary'>Ver</Button>
             </Popover>
         </div>
      );

@@ -5,6 +5,7 @@ import RenderAddDocumentos from '../Components/RenderAddDocumentos';
 import RenderBajaAlumno from '../Components/RenderBajaAlumno';
 import RenderHistorialAlumno from '../Components/RenderHistorialAlumnos';
 import RenderHistorialAcreditado from '../Components/RenderHistorialAcreditados';
+import RenderAcreditar from '../Components/RenderAcreditar';
 
 export const columnsAlumnos = [
     {
@@ -479,7 +480,12 @@ export const columnsHistorialAlumno = [
     key: 'grupos_aprobados',
     render: ((_, record) => (<RenderHistorialAcreditado record={record} />))
   },
-  
+  {
+    title: 'Acreditar',
+    dataIndex: 'acreditar',
+    key: 'acreditar',
+    render: ((_, record) => (<RenderAcreditar record={record} />))
+  },
   
 ];
 
