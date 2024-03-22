@@ -1,6 +1,30 @@
-.form-newuser, .form-editar, .form-eliminar {
+.form-editar, .form-eliminar {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center; 
+    /* background-color: gray; */
+}
+
+.form-newuser {
     max-width: 305px;
     margin: 0 auto;
     padding: 0 auto;
-    text-align: center;
+    text-align: center; 
+    /* background-color: gray; */
+}
+.crear-permisos {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 auto;
+    
+    /* background-color: gray; */
+}
+
+.form-editar-permiso {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center; 
+    /* background-color: gray; */
 }

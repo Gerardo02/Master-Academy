@@ -1,5 +1,4 @@
 import { 
-    SnippetsOutlined, 
     ArrowLeftOutlined, 
     UnorderedListOutlined, 
     OrderedListOutlined, 
@@ -10,15 +9,27 @@ import {
     AppstoreOutlined, 
     FileSearchOutlined, 
     HistoryOutlined,
-    UserDeleteOutlined
+    UserDeleteOutlined,
+    SafetyCertificateOutlined,
+    LockOutlined,
+    AppstoreAddOutlined,
+    BookOutlined,
+    ReadOutlined,
+    DollarOutlined,
 } from '@ant-design/icons';
 
 
 export const itemsControlEscolar = [
+    
     {
         label: 'Regresar',
         key: 'back',
         icon: <ArrowLeftOutlined />,
+    },
+    {
+        label: 'Ciclo Escolar',
+        key: 'ciclo',
+        icon: <BookOutlined />,
     },
     {
         label: 'Lista de Alumnos',
@@ -31,8 +42,13 @@ export const itemsControlEscolar = [
         icon: <OrderedListOutlined />,
     },
     {
-        label: 'Ficha de Alumno',
-        key: 'ficha',
+        label: 'Historial Alumno',
+        key: 'historial',
+        icon: <ReadOutlined />
+    },
+    {
+        label: 'Editar Datos Alumnos',
+        key: 'editarAlumno',
         icon: <CreditCardOutlined />,
     },
     {
@@ -40,11 +56,7 @@ export const itemsControlEscolar = [
         key: 'groups',
         icon: <AppstoreOutlined />
     },
-    {
-        label: 'Editar grupo',
-        key: 'editGroup',
-        icon: <EditOutlined />,
-    },
+    
     
 ];
 
@@ -83,6 +95,11 @@ export const itemsInscripcion = [
         label: 'Inscribir Alumno',
         key: 'newAlumno',
         icon: <EditOutlined />,
+    },
+    {
+        label: 'Alumno Existente',
+        key: 'existAlumno',
+        icon: <AppstoreAddOutlined />,
     },
     {
         label: 'Crear nuevo grupo',
@@ -127,6 +144,10 @@ export const itemsAdministrador = [
                 label: 'Cambiar usuario',
                 key: 'changeUser',
             },
+            {
+                label: 'Cambiar permiso',
+                key: 'changePermit',
+            },
         ],
         icon: <FormOutlined />,
     },
@@ -136,8 +157,23 @@ export const itemsAdministrador = [
         icon: <DeleteOutlined />,
     },
     {
+        label: 'Crear Permisos',
+        key: 'createPermiso',
+        icon: <SafetyCertificateOutlined />,
+    },
+    {
         label: 'Lista de usuarios',
         key: 'userList',
         icon: <UnorderedListOutlined />,
+    },
+    {
+        label: 'Lista de permisos',
+        key: 'permList',
+        icon: <LockOutlined />,
+    },
+    {
+        label: 'Valida pago',
+        key: 'validar',
+        icon: <DollarOutlined />,
     },
 ];

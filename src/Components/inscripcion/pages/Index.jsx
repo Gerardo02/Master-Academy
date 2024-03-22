@@ -1,61 +1,102 @@
 import { useState, useEffect } from "react";
-import { Menu } from "antd";
+import { Menu, Popconfirm, Button } from "antd";
 import { itemsInscripcion } from "../../../Declarations/Navs/Items";
 import { useNavigate } from "react-router-dom";
-import InscpcionAlumno from "../componets/InscripcionAlumno";
+import InscripcionAlumno from "../componets/InscripcionAlumno";
 import FormularioGrupo from "../componets/FormularioGrupo";
 import DeleteGroup from "../componets/DeleteGroup";
 import '../styles/index.css'
-import DarDeBajaAlumno from "../componets/DarDeBajaAlumno";
+import { columnsAlumnosNombres, columnsAlumnosPorInscribir, columnsAlumnosSinEspecialidad } from "../../../Declarations/Tables/Columns";
+import useLocalStorage from "../../../Hooks/useLocalStorage";
+import TableAlumnosNombres from "../componets/TableAlumnosNombres";
 
 
 const Index = () => {
 
     const navigate = useNavigate()
 
+    const fetchData = async () => {
+        
+    };
+    
     useEffect(() => {
         try {
-            fetchEspecialidadesData()
-        } catch(error) {
-            throw error
+            fetchAlumnosNombresData();
+            fetchEspecialidadesData();
+            fetchGruposData();
+            fetchRelacionAlumnoGrupo();
+        } catch (error) {
+            throw error;
         }
-    }, [])
-
+    }, []);
+    
     const fetchEspecialidadesData = async () => {
         const response = await fetch('http://127.0.0.1:3030/api/especialidad')
         const data = await response.json()
         setEspecialidadData(data)
     }
+    
+    const fetchAlumnosNombresData = async () => {
+        const response = await fetch('http://127.0.0.1:3030/api/alumnos/nombres')
+        const data = await response.json()
+        setNombresData(data)
+    }
+
+    const fetchGruposData = async () => {
+        const response = await fetch('http://127.0.0.1:3030/api/grupos')
+        const data = await response.json()
+        setGruposData(data)
+    }
+
+    const fetchRelacionAlumnoGrupo = async () => {
+        const response = await fetch('http://127.0.0.1:3030/api/alumnos/grupos')
+        const data = await response.json()
+        setRelacionData(data)
+    }
 
     const [especialidadData, setEspecialidadData] = useState([])
+    const [nombresData, setNombresData] = useState([])
+    const [gruposData, setGruposData] = useState([])
+    const [relacionData, setRelacionData] = useState([])
+    
     const [selectedComponent, setSelectedComponent] = useState(<></>)
-    const [currentOption, setCurrentOption] = useState('newAlumno');
+    const [currentOption, setCurrentOption, clearCurrentOption] = useLocalStorage('navInscripcion', 'newAlumno')
+
+    
 
     useEffect(() => {
 
         switch(currentOption){
 
             case 'back':
-
+                clearCurrentOption();
                 navigate('/home')
+
                 break;
 
             case 'newAlumno':
-                setSelectedComponent(<InscpcionAlumno especialidadData={especialidadData} />)
+                setSelectedComponent(<InscripcionAlumno especialidadData={especialidadData} />)
+
+                break;
+
+            case 'existAlumno':
+                setSelectedComponent(<TableAlumnosNombres columnsAlumnosNombres={columnsAlumnosSinEspecialidad} />)
+
                 break;
 
             case 'newGroup':
-                setSelectedComponent(<FormularioGrupo />)
+                setSelectedComponent(<FormularioGrupo columnsAlumnosPorInscribir={columnsAlumnosPorInscribir} especialidadData={especialidadData} nombresData={nombresData} relacionData={relacionData} />)
                 
                 break;
 
             case 'deleteGroup':
-                setSelectedComponent(<DeleteGroup />)
+                setSelectedComponent(<DeleteGroup gruposData={gruposData} />)
                 
                 break;
 
             case 'bajaAlumno':
-                setSelectedComponent(<DarDeBajaAlumno />)
+                setSelectedComponent(<TableAlumnosNombres columnsAlumnosNombres={columnsAlumnosNombres} />)
+
                 break;
 
             default:

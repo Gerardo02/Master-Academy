@@ -1,4 +1,28 @@
-.formulario-inscripcion-alumno, .root-formulario {
+.formulario-inscripcion-alumno {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center;
+    /* background-color: aqua; */
+}
+
+.search-table {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center;
+    /* background-color: aqua; */
+}
+
+.table-alumnos-especialidad {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center;
+    /* background-color: aqua; */
+}
+
+.groups-center{
     max-width: 1500px;
     margin: 0 auto;
     padding: 0 auto;

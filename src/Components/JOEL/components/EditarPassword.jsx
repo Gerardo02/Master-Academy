@@ -1,20 +1,21 @@
 import { Form, Input, Button } from "antd";
+import "../styles/index.css"
 
-const EditarUsuario = ({ layout }) => {
+const EditarPassword = ({ layout }) => {
 
     const [form] = Form.useForm();
 
     const onFinish = async (values) => {
 
         const filteredValues = Object.keys(values).reduce((acc, key) => {
-            if (key !== 'usuario_viejo') {
+            if (key !== 'password2') {
               acc[key] = values[key];
             }
             return acc;
-          }, {});
+        }, {});
 
         try {
-            const response = await fetch(`http://127.0.0.1:3030/api/usuarios/${values.usuario_viejo}`, {
+            const response = await fetch(`http://127.0.0.1:3030/api/password`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(filteredValues)
@@ -24,35 +25,29 @@ const EditarUsuario = ({ layout }) => {
             if(getBack === 'usuario no existe'){
                 form.setFields([
                     {
-                        name: 'usuario_viejo',
-                        value: values.usuario_viejo,
+                        name: 'usuario',
+                        value: values.usuario,
                         errors: ['Usuario incorrecto'],
                     },
                     
                 ]);
                 throw new Error("Usuario no existe")
-            }else if(getBack === 'Wrong password'){
-                form.setFields([
-                    {
-                        name: 'password',
-                        value: values.password,
-                        errors: ['Contraseña incorrecta'],
-                    },
-                ]);
-                throw new Error("Contrasena incorrecta")
             }
 
             window.location.reload(false);
+
         } catch(error) {
             throw error
         }
+
+        
 
 
     }
 
     return ( 
         <div className="form-editar">
-            <h1>Cambiar nombre de usuario</h1>
+            <h1>Cambiar contraseña</h1>
             <Form
                 onFinish={onFinish}
                 form={form}
@@ -60,44 +55,57 @@ const EditarUsuario = ({ layout }) => {
                 <Form.Item
                     {...layout}
                     label="Usuario"
-                    name="usuario_viejo"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Usuario Obligatorio"
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    {...layout}
-                    label="Nuevo usuario"
                     name="usuario"
                     rules={[
                         {
                             required: true,
-                            message: "Nuevo Usuario Obligatorio"
+                            message: "Usuario obligatorio"
                         },
                     ]}
+                   
                 >
-                    <Input />
+                    <Input  />
                 </Form.Item>
 
                 <Form.Item
                     {...layout}
-                    label="Contraseña"
+                    label="Nueva contraseña"
                     name="password"
                     rules={[
                         {
                             required: true,
-                            message: "Contraseña obligatoria"
+                            message: 'Contraseña obligatoria'
                         },
+                    ]}
+                    
+                >
+                    <Input.Password  />
+                </Form.Item>
+
+                {/* Field */}
+                <Form.Item
+                    {...layout}
+                    label="Confirmar contraseña"
+                    name="password2"
+                    dependencies={['password']}
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Contraseña obligatoria'
+                        },
+                        ({ getFieldValue }) => ({
+                            validator(_, value) {
+                                if (!value || getFieldValue('password') === value) {
+                                return Promise.resolve();
+                                }
+                                return Promise.reject(new Error('Las contraseñas no coinciden'));
+                            },
+                        }),
                     ]}
                 >
                     <Input.Password />
                 </Form.Item>
+
                 <Form.Item>
                     <Button htmlType="submit" type="primary" style={{backgroundColor: '#32B75F'}}>Aceptar</Button>
                 </Form.Item>
@@ -107,4 +115,4 @@ const EditarUsuario = ({ layout }) => {
      );
 }
  
-export default EditarUsuario;
+export default EditarPassword;
