@@ -13,6 +13,7 @@ import EditarPassword from "../components/EditarPassword";
 import useLocalStorage from "../../../Hooks/useLocalStorage";
 import TablePermisos from "../components/TablePermisos";
 import EditarPermiso from "../components/EditarPermiso";
+import ValidarPago from "../components/ValidarPago";
 
 const formItemPassLayout = {
     labelCol: {
@@ -126,6 +127,12 @@ const Index = () => {
 
             case 'permList':
                 setSelectedComponent(<TablePermisos columnsPermisos={columnsPermisos} permisosData={permisosData} />)
+                break;
+
+            case 'validar':
+                setSelectedComponent(<ValidarPago />)
+                break;
+                
             default:
                 break;
         }

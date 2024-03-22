@@ -40,11 +40,9 @@ const Dashboard = () => {
             </Row> 
             <br />
             <Row>
-                <Col span={6}>
-                    <Button onClick={() => navigate('/solicitudes')} block style={{ height: '80px' }}><strong style={{ fontSize: '20px' }}>Solicitudes</strong></Button>
-                </Col>
-                <Col span={8} offset={2}>
-                    <img src="src/assets/MasterAcademyLogo.png" alt="Girl in a jacket" width="353" height="123"></img>
+                
+                <Col span={8} offset={8}>
+                    <img src="src/assets/MasterAcademyLogo.png" alt="logo" width="353" height="123"></img>
                 </Col>
                 <Col span={6} offset={2}>
                     <Button onClick={() => navigate('/documentacion')} block style={{ height: '80px' }}><strong style={{ fontSize: '20px' }}>Guia</strong></Button>

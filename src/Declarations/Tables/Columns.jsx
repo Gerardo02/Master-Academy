@@ -3,6 +3,8 @@ import { Button, Popconfirm } from 'antd'
 import RenderSpecializations from '../Components/RenderSpecializations';
 import RenderAddDocumentos from '../Components/RenderAddDocumentos';
 import RenderBajaAlumno from '../Components/RenderBajaAlumno';
+import RenderHistorialAlumno from '../Components/RenderHistorialAlumnos';
+import RenderHistorialAcreditado from '../Components/RenderHistorialAcreditados';
 
 export const columnsAlumnos = [
     {
@@ -447,5 +449,37 @@ export const columnsAlumnosSinEspecialidad = [
     width: 250,
     render: ((_, record) => (<RenderSpecializations record={record} />))
   },
+];
+
+export const columnsHistorialAlumno = [
+  {
+    title: 'Nombres',
+    dataIndex: 'nombre',
+    key: 'nombre',
+  },
+  {
+    title: 'Apellidos',
+    dataIndex: 'apellidos',
+    key: 'apellidos',
+  },
+  {
+    title: 'Matricula',
+    dataIndex: 'matricula',
+    key: 'matricula',
+  },
+  {
+    title: 'Grupos Activos',
+    dataIndex: 'grupos_activos',
+    key: 'grupos_activos',
+    render: ((_, record) => (<RenderHistorialAlumno record={record} />))
+  },
+  {
+    title: 'Grupos Concluidos',
+    dataIndex: 'grupos_aprobados',
+    key: 'grupos_aprobados',
+    render: ((_, record) => (<RenderHistorialAcreditado record={record} />))
+  },
+  
+  
 ];
 

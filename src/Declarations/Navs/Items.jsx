@@ -14,6 +14,8 @@ import {
     LockOutlined,
     AppstoreAddOutlined,
     BookOutlined,
+    ReadOutlined,
+    DollarOutlined,
 } from '@ant-design/icons';
 
 
@@ -40,6 +42,11 @@ export const itemsControlEscolar = [
         icon: <OrderedListOutlined />,
     },
     {
+        label: 'Historial Alumno',
+        key: 'historial',
+        icon: <ReadOutlined />
+    },
+    {
         label: 'Editar Datos Alumnos',
         key: 'editarAlumno',
         icon: <CreditCardOutlined />,
@@ -49,6 +56,7 @@ export const itemsControlEscolar = [
         key: 'groups',
         icon: <AppstoreOutlined />
     },
+    
     
 ];
 
@@ -162,5 +170,10 @@ export const itemsAdministrador = [
         label: 'Lista de permisos',
         key: 'permList',
         icon: <LockOutlined />,
+    },
+    {
+        label: 'Valida pago',
+        key: 'validar',
+        icon: <DollarOutlined />,
     },
 ];

@@ -42,3 +42,10 @@
     /* background-color: aqua; */
 }
 
+.table-historial-alumnos {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 auto;
+    text-align: center;
+}
+

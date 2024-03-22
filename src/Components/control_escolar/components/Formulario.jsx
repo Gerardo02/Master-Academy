@@ -68,15 +68,80 @@ const Formulario = ({ record, setCurrentOption, columnsAlumnosInscritos, nombres
 
     
     const finishForm = async (fieldsValue) => {
-        const { horario, ...restValues } = fieldsValue;
 
-        const values = {
-            ...restValues,
-            'entrada': horario[0].format('h:mm a'),
-            'salida': horario[1].format('h:mm a'),
-            'trimestre': record.trimestre,
-            'cantidad_de_alumnos': record.cantidad_de_alumnos
-        };
+
+        let values = {}
+        let horarioResult = []
+        if(record.horario.length === 1) {
+            const { horario, dia, ...restValues } = fieldsValue;
+
+            values = {
+                ...restValues,
+                'trimestre': record.trimestre,
+                'cantidad_de_alumnos': record.cantidad_de_alumnos
+            };
+
+            horarioResult = [
+                {
+                    'dia': dia,
+                    'entrada': horario[0].format('h:mm a'),
+                    'salida': horario[1].format('h:mm a'),
+                    'diaData': 1
+                },
+            ]
+        }else if(record.horario.length === 2) {
+            const { horario, dia, horario2, dia2, ...restValues } = fieldsValue;
+
+            values = {
+                ...restValues,
+                'trimestre': record.trimestre,
+                'cantidad_de_alumnos': record.cantidad_de_alumnos
+            };
+
+            horarioResult = [
+                {
+                    'dia': dia,
+                    'entrada': horario[0].format('h:mm a'),
+                    'salida': horario[1].format('h:mm a'),
+                    'diaData': 1
+                },
+                {
+                    'dia': dia2,
+                    'entrada': horario2[0].format('h:mm a'),
+                    'salida': horario2[1].format('h:mm a'),
+                    'diaData': 2
+                },
+            ]
+        }else if(record.horario.length === 3) {
+            const { horario, dia, horario2, dia2, horario3, dia3, ...restValues } = fieldsValue;
+
+            values = {
+                ...restValues,
+                'trimestre': record.trimestre,
+                'cantidad_de_alumnos': record.cantidad_de_alumnos
+            };
+
+            horarioResult = [
+                {
+                    'dia': dia,
+                    'entrada': horario[0].format('h:mm a'),
+                    'salida': horario[1].format('h:mm a'),
+                    'diaData': 1
+                },
+                {
+                    'dia': dia2,
+                    'entrada': horario2[0].format('h:mm a'),
+                    'salida': horario2[1].format('h:mm a'),
+                    'diaData': 2
+                },
+                {
+                    'dia': dia3,
+                    'entrada': horario3[0].format('h:mm a'),
+                    'salida': horario3[1].format('h:mm a'),
+                    'diaData': 3
+                },
+            ]
+        }
 
         try {
             await fetch(`http://127.0.0.1:3030/api/grupos/${record.id}`, {
@@ -101,11 +166,26 @@ const Formulario = ({ record, setCurrentOption, columnsAlumnosInscritos, nombres
 
             setCurrentOption('groups')
 
-            window.location.reload(false);
 
         } catch(error) {
             throw error
         }
+
+        try {
+
+            for(let i = 0; i < horarioResult.length; i++){
+                await fetch(`http://127.0.0.1:3030/api/horario/${record.id}`, {
+                    method: 'PUT',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(horarioResult[i])
+                })
+            }
+            
+        }catch(error) {
+            throw error
+        }
+
+        window.location.reload(false);
         
     }
 
@@ -136,15 +216,37 @@ const Formulario = ({ record, setCurrentOption, columnsAlumnosInscritos, nombres
                 <Form 
                     onFinish={finishForm} 
                     layout="vertical"
-                    initialValues={{
+                    initialValues={record.horario.length === 1 ? {
                         "nombre": record.nombre,
                         "nombre_maestro": record.nombre_maestro,
                         "especialidad_id": record.especialidad.id,
-                        "dia": record.dia,
-                        "horario": [dayjs(record.entrada, 'h:mm a'), dayjs(record.salida, 'h:mm a')],
+                        "dia": record.horario[0].dia,
+                        "horario": [dayjs(record.horario[0].entrada, 'h:mm a'), dayjs(record.horario[0].salida, 'h:mm a')],
                         "trimestre": record.trimestre,
                         "cantidad_de_alumnos": record.cantidad_de_alumnos
-                    }}
+                    } : record.horario.length === 2 ? {
+                        "nombre": record.nombre,
+                        "nombre_maestro": record.nombre_maestro,
+                        "especialidad_id": record.especialidad.id,
+                        "dia": record.horario[0].dia,
+                        "horario": [dayjs(record.horario[0].entrada, 'h:mm a'), dayjs(record.horario[0].salida, 'h:mm a')],
+                        "dia2": record.horario[1].dia,
+                        "horario2": [dayjs(record.horario[1].entrada, 'h:mm a'), dayjs(record.horario[1].salida, 'h:mm a')],
+                        "trimestre": record.trimestre,
+                        "cantidad_de_alumnos": record.cantidad_de_alumnos
+                    } : record.horario.length === 3 ? {
+                        "nombre": record.nombre,
+                        "nombre_maestro": record.nombre_maestro,
+                        "especialidad_id": record.especialidad.id,
+                        "dia": record.horario[0].dia,
+                        "horario": [dayjs(record.horario[0].entrada, 'h:mm a'), dayjs(record.horario[0].salida, 'h:mm a')],
+                        "dia2": record.horario[1].dia,
+                        "horario2": [dayjs(record.horario[1].entrada, 'h:mm a'), dayjs(record.horario[1].salida, 'h:mm a')],
+                        "dia3": record.horario[2].dia,
+                        "horario3": [dayjs(record.horario[2].entrada, 'h:mm a'), dayjs(record.horario[2].salida, 'h:mm a')],
+                        "trimestre": record.trimestre,
+                        "cantidad_de_alumnos": record.cantidad_de_alumnos
+                    } : {}}
                 >
 
                     <Col span={24} >
@@ -195,7 +297,7 @@ const Formulario = ({ record, setCurrentOption, columnsAlumnosInscritos, nombres
                     <Col span={24}>
                         <Form.Item
                             name='dia'
-                            label='Dia:'
+                            label='Dia 1:'
                             rules={[
                                 {
                                     required: true,
@@ -210,7 +312,7 @@ const Formulario = ({ record, setCurrentOption, columnsAlumnosInscritos, nombres
                     <Col span={24}>
                         <Form.Item
                             name='horario'
-                            label='Horario:'
+                            label='Horario 1:'
                             rules={[
                                 {
                                     type: "array",
@@ -222,6 +324,110 @@ const Formulario = ({ record, setCurrentOption, columnsAlumnosInscritos, nombres
                             <TimePicker.RangePicker use12Hours format={'h:mm a'} type="time" placeholder={["Entrada", "Salida"]} onChange={() => setVisible(true)} />
                         </Form.Item>
                     </Col>
+
+                    {record.horario.length === 2 ? 
+                    <div>
+                        <Col span={24}>
+                            <Form.Item
+                                name='dia2'
+                                label='Dia 2:'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Dia requerido"
+                                    },
+                                ]}
+                            >
+                                <Select placeholder="Selecciona un dia" options={dayOptions} onChange={() => setVisible(true)} />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name='horario2'
+                                label='Horario 2:'
+                                rules={[
+                                    {
+                                        type: "array",
+                                        required: true,
+                                        message: "Horario requerido"
+                                    },
+                                ]}
+                            >
+                                <TimePicker.RangePicker use12Hours format={'h:mm a'} type="time" placeholder={["Entrada", "Salida"]} onChange={() => setVisible(true)} />
+                            </Form.Item>
+                        </Col>
+                    </div> : <span></span>
+                    }
+
+                    {record.horario.length === 3 ? 
+                    <div>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name='dia2'
+                                label='Dia 2:'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Dia requerido"
+                                    },
+                                ]}
+                            >
+                                <Select placeholder="Selecciona un dia" options={dayOptions} onChange={() => setVisible(true)} />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name='horario2'
+                                label='Horario 2:'
+                                rules={[
+                                    {
+                                        type: "array",
+                                        required: true,
+                                        message: "Horario requerido"
+                                    },
+                                ]}
+                            >
+                                <TimePicker.RangePicker use12Hours format={'h:mm a'} type="time" placeholder={["Entrada", "Salida"]} onChange={() => setVisible(true)} />
+                            </Form.Item>
+                        </Col>
+                        <Col span={24}>
+                            <Form.Item
+                                name='dia3'
+                                label='Dia 3:'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Dia requerido"
+                                    },
+                                ]}
+                            >
+                                <Select placeholder="Selecciona un dia" options={dayOptions} onChange={() => setVisible(true)} />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name='horario3'
+                                label='Horario 3:'
+                                rules={[
+                                    {
+                                        type: "array",
+                                        required: true,
+                                        message: "Horario requerido"
+                                    },
+                                ]}
+                            >
+                                <TimePicker.RangePicker use12Hours format={'h:mm a'} type="time" placeholder={["Entrada", "Salida"]} onChange={() => setVisible(true)} />
+                            </Form.Item>
+                        </Col>
+                    </div> : <span></span>
+                    }
+                    
+
+                    
 
                 
                     <Col span={24}>

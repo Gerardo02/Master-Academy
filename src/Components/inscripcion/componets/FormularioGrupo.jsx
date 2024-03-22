@@ -1,4 +1,4 @@
-import { Input, Form, Table, Col, Button, Select, TimePicker} from "antd";
+import { Input, Form, Table, Col, Button, Select, TimePicker, Radio } from "antd";
 import { useEffect, useState } from "react";
 import { useMainData } from "../../../MainDataProvider";
 
@@ -46,7 +46,12 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
     const [alumnosCount, setAlumnosCount] = useState(0)
     const [tableData, setTableData] = useState([])
     const [especialidadId, setEspecialidadId] = useState(0)
+    const [value, setValue] = useState(1);
+    const [dayTwo, setDayTwo] = useState(false)
+    const [dayThree, setDayThree] = useState(false)
+
     const { ciclosData } = useMainData()
+    const [form] = Form.useForm();
 
     useEffect(() => {
         ciclosData.map((elem) => {
@@ -57,6 +62,7 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
             }
         })
     }, [ciclosData])
+
 
     useEffect(() => {
 
@@ -81,26 +87,68 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
         setButtonDisabled(tableData.length === 0 ? false : true);
     }, [tableData])
 
+    const onChangeRadioDay = (e) => {
+        
+        if (e.target.value === 1) {
+            setDayTwo(false);
+            setDayThree(false);
+            form.setFieldsValue({'dia2': '', 'horario2': [], 'dia3': '', 'horario3': []});
+            
+        } else if (e.target.value === 2) {
+            setDayTwo(true);
+            setDayThree(false);
+            form.setFieldsValue({'dia3': '', 'horario3': []});
+
+        } else if (e.target.value === 3) {
+            setDayTwo(true);
+            setDayThree(true);
+        }
+
+        setValue(e.target.value);
+
+        // Reset form fields to default values
+    };
+
 
     const finishForm = async (fieldsValue) => {
         setIsLoading(true)
 
-        const { horario, ...restValues } = fieldsValue;
+        const { horario1, horario2, horario3, dia1, dia2, dia3, ...restValues } = fieldsValue;
 
         const values = {
             ...restValues,
-            'entrada': horario[0].format('h:mm a'),
-            'salida': horario[1].format('h:mm a'),
+            'horario': [
+                {
+                    'dia': dia1,
+                    'entrada': horario1[0].format('h:mm a'),
+                    'salida': horario1[1].format('h:mm a'),
+                    'diaData': 1
+                },
+                {
+                    'dia': dia2,
+                    'entrada': horario2.length === 0 ? '' : horario2[0].format('h:mm a'),
+                    'salida': horario2.length === 0 ? '' : horario2[1].format('h:mm a'),
+                    'diaData': 2
+                },
+                {
+                    'dia': dia3,
+                    'entrada': horario3.length === 0 ? '' : horario3[0].format('h:mm a'),
+                    'salida': horario3.length === 0 ? '' : horario3[1].format('h:mm a'),
+                    'diaData': 3
+                },
+            ],
             'trimestre': 1,
             'cantidad_de_alumnos': alumnosCount,
             'ciclo_escolar_id': cicloId
         };
 
+        const { horario, ...rest } = values
+
         try {
             const response = await fetch('http://127.0.0.1:3030/api/grupos', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(values)
+                body: JSON.stringify(rest)
             })
 
             const data = await response.json();
@@ -130,6 +178,21 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
         } catch(error) {
             throw error
         }
+
+        try{
+            for(let i = 0; i < 3; i++){
+                if(horario[i].dia === '') continue
+                await fetch('http://127.0.0.1:3030/api/horario', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(horario[i])
+                })
+            }
+        }catch(error){
+            throw error
+        }
+
+        console.log(horario)
 
         setIsLoading(false)
 
@@ -178,11 +241,11 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
         <>
         {cicloActivo ? 
             <div>
-                <div style={{maxWidth: '250px', margin: '0 auto', padding: '0 auto', textAlign: 'center' }}>
+                <div style={{maxWidth: '275px', margin: '0 auto', padding: '0 auto', textAlign: 'center' }}>
                     <h1>Dar de alta un grupo</h1>
                     <br /><br />
 
-                    <Form onFinish={finishForm} layout="vertical">
+                    <Form form={form} onFinish={finishForm} layout="vertical" initialValues={{'dia2': '', 'horario2': [], 'dia3': '', 'horario3': []}}>
 
                         <Col span={24} >
                             <Form.Item
@@ -228,11 +291,17 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
                                 <Select placeholder="Selecciona una materia" options={optionsSelect} onChange={onChangeSelectMateria} />
                             </Form.Item>
                         </Col>
+                        <h3>Dias</h3>
+                        <Radio.Group onChange={onChangeRadioDay} value={value}>
+                            <Radio value={1}>Un dia</Radio>
+                            <Radio value={2}>Dos dias</Radio>
+                            <Radio value={3}>Tres Dias</Radio>
+                        </Radio.Group> <br /><br />
 
                         <Col span={24}>
                             <Form.Item
-                                name='dia'
-                                label='Dia:'
+                                name='dia1'
+                                label='Dia 1:'
                                 rules={[
                                     {
                                         required: true,
@@ -242,12 +311,13 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
                             >
                                 <Select placeholder="Selecciona un dia" options={dayOptions} />
                             </Form.Item>
+                            
                         </Col>
 
                         <Col span={24}>
                             <Form.Item
-                                name='horario'
-                                label='Horario:'
+                                name='horario1'
+                                label='Horario 1:'
                                 rules={[
                                     {
                                         type: "array",
@@ -256,7 +326,71 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
                                     },
                                 ]}
                             >
-                                <TimePicker.RangePicker use12Hours format={'h:mm a'} type="time" placeholder={["Entrada", "Salida"]} />
+                                <TimePicker.RangePicker style={{width: '100%'}} use12Hours format={'h:mm a'} type="time" placeholder={["Entrada", "Salida"]} />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24} style={{display: dayTwo ? 'block' : 'none'}}>
+                            <Form.Item
+                                name='dia2'
+                                label='Dia 2:'
+                                rules={[
+                                    {
+                                        required: dayTwo,
+                                        message: "Dia requerido"
+                                    },
+                                ]}
+                            >
+                                <Select placeholder="Selecciona un dia" options={dayOptions} />
+                            </Form.Item>
+                            
+                        </Col>
+
+                        <Col span={24} style={{display: dayTwo ? 'block' : 'none'}}>
+                            <Form.Item
+                                name='horario2'
+                                label='Horario 2:'
+                                rules={[
+                                    {
+                                        type: "array",
+                                        required: dayTwo,
+                                        message: "Horario requerido"
+                                    },
+                                ]}
+                            >
+                                <TimePicker.RangePicker style={{width: '100%'}} use12Hours format={'h:mm a'} type="time" placeholder={["Entrada", "Salida"]} />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24} style={{display: dayThree ? 'block' : 'none'}}>
+                            <Form.Item
+                                name='dia3'
+                                label='Dia 3:'
+                                rules={[
+                                    {
+                                        required: dayThree,
+                                        message: "Dia requerido"
+                                    },
+                                ]}
+                            >
+                                <Select placeholder="Selecciona un dia" options={dayOptions} />
+                            </Form.Item>
+                            
+                        </Col>
+
+                        <Col span={24} style={{display: dayThree ? 'block' : 'none'}}>
+                            <Form.Item
+                                name='horario3'
+                                label='Horario 3:'
+                                rules={[
+                                    {
+                                        type: "array",
+                                        required: dayThree,
+                                        message: "Horario requerido"
+                                    },
+                                ]}
+                            >
+                                <TimePicker.RangePicker style={{width: '100%'}} use12Hours format={'h:mm a'} type="time" placeholder={["Entrada", "Salida"]} />
                             </Form.Item>
                         </Col>
                         <br /><br />

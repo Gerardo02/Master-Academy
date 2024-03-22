@@ -12,6 +12,7 @@ import '../../styles/index.css'
 import useLocalStorage from "../../../../Hooks/useLocalStorage";
 import CicloEscolar from "../../components/CicloEscolar";
 import { useMainData } from "../../../../MainDataProvider";
+import HistorialAlumno from "../../components/HistorialAlumno";
 
 const Index = () => {
 
@@ -92,6 +93,9 @@ const Index = () => {
                 />)
 
                 break;
+            
+            case 'historial':
+                setSelectedComponent(<HistorialAlumno alumnosData={alumnosData} />)
 
             default:
                 break;

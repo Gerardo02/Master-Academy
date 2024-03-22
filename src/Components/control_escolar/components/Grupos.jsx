@@ -22,9 +22,15 @@ const Grupos = ({ gruposData, setCurrentOption, setSelectedComponent, columnsAlu
     const content = (record) => {
         return (
             <div>
-                <p><strong>Dia: </strong>{record.dia}</p>
-                <p><strong>Entrada: </strong>{record.entrada}</p>
-                <p><strong>Salida: </strong>{record.salida}</p>
+                {record.horario.map((elem) => (
+                    <div>
+                        <h3>Dia {elem.diaData}</h3>
+                        <p><strong>Dia: </strong>{elem.dia}</p>
+                        <p><strong>Entrada: </strong>{elem.entrada}</p>
+                        <p><strong>Salida: </strong>{elem.salida}</p>
+                    </div>
+                ))}
+                
             </div>
         )
     }

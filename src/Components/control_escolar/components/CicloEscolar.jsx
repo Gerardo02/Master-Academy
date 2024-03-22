@@ -102,7 +102,8 @@ const CicloEscolar = () => {
                     'nombre': gruposDataBien[i].nombre,
                     'cantidad_de_alumnos': gruposDataBien[i].cantidad_de_alumnos,
                     'especialidad_id': gruposDataBien[i].especialidad.id,
-                    'ciclo_escolar_id': gruposDataBien[i].ciclo_escolar.id
+                    'ciclo_escolar_id': gruposDataBien[i].ciclo_escolar.id,
+                    'id_grupo_place_holder': gruposDataBien[i].id
                 }
                 await fetch(`http://127.0.0.1:3030/api/grupos/concluidos`, {
                     method: 'POST',
