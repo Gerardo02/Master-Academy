@@ -65,7 +65,7 @@ const Login = () => {
             <br />
             <br />
 
-            <img src="public/MasterAcademyLogo.png" alt="Girl in a jacket" width="353" height="123"></img>
+            <img src="/MasterAcademyLogo.png" alt="Logo" width="353" height="123"></img>
 
             <br />
             <br />
