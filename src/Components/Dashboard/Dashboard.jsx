@@ -42,7 +42,7 @@ const Dashboard = () => {
             <Row>
                 
                 <Col span={8} offset={8}>
-                    <img src="src/assets/MasterAcademyLogo.png" alt="logo" width="353" height="123"></img>
+                    <img src="/MasterAcademyLogo.png" alt="logo" width="353" height="123"></img>
                 </Col>
                 <Col span={6} offset={2}>
                     <Button onClick={() => navigate('/documentacion')} block style={{ height: '80px' }}><strong style={{ fontSize: '20px' }}>Guia</strong></Button>

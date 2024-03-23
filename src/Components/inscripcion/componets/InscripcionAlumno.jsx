@@ -6,7 +6,6 @@ const InscpcionAlumno = ({ especialidadData }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [nombresData, setNombresData] = useState([])
-    const [arrayLength, setArrayLength] = useState(0)
 
     useEffect(() => {
         try{
@@ -17,7 +16,6 @@ const InscpcionAlumno = ({ especialidadData }) => {
     }, [])
 
     useEffect(() => {
-        setArrayLength(nombresData.length - 1)
 
     }, [nombresData])
 
@@ -53,7 +51,6 @@ const InscpcionAlumno = ({ especialidadData }) => {
                 if(especialidad_id.length === 0) break
 
                 const especialidadResponse = {
-                    "alumno_id": (nombresData[arrayLength < 0 ? 0 : arrayLength].id === undefined ? 0 : nombresData[arrayLength < 0 ? 0 : arrayLength].id) + 1,
                     "grupo_activo_id": 0,
                     "grupo_aprobado_id": 0,
                     "especialidad_id": especialidad_id[i]
