@@ -18,10 +18,11 @@ const router = () => {
     return ( 
         <Routes>
             <Route path="/" element={<App />} />
+            <Route path="/home" element={<Home />} />
 
-            <Route path="/home" element={<PrivateRoute routeName={'home'} />}>
+            {/* <Route path="/home" element={<PrivateRoute routeName={'home'} />}>
                 <Route path="/home" element={<Home />} />
-            </Route>
+            </Route> */}
 
             <Route path="/control_escolar" element={<PrivateRoute permission={permission} routeName={'control'} />}>
                 <Route path="/control_escolar" element={<ControEscolar />} />
