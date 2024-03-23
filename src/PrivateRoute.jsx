@@ -5,14 +5,26 @@ import { lazy } from "react";
 
 
 const ControEscolar = lazy(() => import('./Components/control_escolar/pages/control_escolar/Index.jsx'));
-
+const Home = lazy(() => import('./Components/Dashboard/Dashboard.jsx'))
+const Administracion = lazy(() => import('./Components/pagos/pages/pagos/Index.jsx'))
+const Documentacion = lazy(() => import('./Components/documentacion/page/Index.jsx'))
+const Inscripcion = lazy(() => import('./Components/inscripcion/pages/Index.jsx'))
+const Administrador = lazy(() => import('./Components/JOEL/pages/Index.jsx'))
 
 const PrivateRoute = ({ permission, routeName }) => {
     const { isAuthenticated } = useAuth();
     
-    if(routeName === 'home' || routeName === 'documentacion') {
+    if(routeName === 'home') {
       return isAuthenticated ? (
-        <Outlet />
+        <Home />
+      ) : (
+        <Navigate to="/" replace />
+      );
+    }
+
+    if(routeName === 'documentacion') {
+      return isAuthenticated ? (
+        <Documentacion />
       ) : (
         <Navigate to="/" replace />
       );
@@ -28,7 +40,7 @@ const PrivateRoute = ({ permission, routeName }) => {
 
     if(routeName === 'administracion') {
       return isAuthenticated && permission.administracion ? (
-        <Outlet />
+        <Administracion />
       ) : (
         <Navigate to="/home" replace />
       );
@@ -36,7 +48,7 @@ const PrivateRoute = ({ permission, routeName }) => {
 
     if(routeName === 'inscripcion') {
       return isAuthenticated && permission.inscripcion ? (
-        <Outlet />
+        <Inscripcion />
       ) : (
         <Navigate to="/home" replace />
       );
@@ -44,7 +56,7 @@ const PrivateRoute = ({ permission, routeName }) => {
 
     if(routeName === 'administrador') {
       return isAuthenticated && permission.administrador ? (
-        <Outlet />
+        <Administrador />
       ) : (
         <Navigate to="/home" replace />
       );
