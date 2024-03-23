@@ -19,16 +19,21 @@ const router = () => {
         <Routes>
             <Route path="/" element={<App />} />
             <Route path="/home" element={<Home />} />
+            {/* <Route path="/control_escolar" element={<ControEscolar />} /> */}
+            <Route path="/administracion" element={<Administracion />} />
+            <Route path="/documentacion" element={<Documentacion />} />
+            <Route path="/inscripcion" element={<Inscripcion />} />
+            <Route path="/administrador" element={<Administrador />} />
 
             {/* <Route path="/home" element={<PrivateRoute routeName={'home'} />}>
                 <Route path="/home" element={<Home />} />
             </Route> */}
 
             <Route path="/control_escolar" element={<PrivateRoute permission={permission} routeName={'control'} />}>
-                <Route path="/control_escolar" element={<ControEscolar />} />
+                <Route path="/" element={<ControEscolar />} />
             </Route>
 
-            <Route path="/administracion" element={<PrivateRoute permission={permission} routeName={'administracion'} />}>
+            {/* <Route path="/administracion" element={<PrivateRoute permission={permission} routeName={'administracion'} />}>
                 <Route path="/administracion" element={<Administracion />} />
             </Route>
 
@@ -42,7 +47,7 @@ const router = () => {
 
             <Route path="/administrador" element={<PrivateRoute permission={permission} routeName={'administrador'} />}>
                 <Route path="/administrador" element={<Administrador />} />
-            </Route>
+            </Route> */}
             
         </Routes>
      );
