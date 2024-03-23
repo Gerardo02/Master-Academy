@@ -1,6 +1,11 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
+import { lazy } from "react";
+
+
+const ControEscolar = lazy(() => import('./Components/control_escolar/pages/control_escolar/Index.jsx'));
+
 
 const PrivateRoute = ({ permission, routeName }) => {
     const { isAuthenticated } = useAuth();
@@ -15,7 +20,7 @@ const PrivateRoute = ({ permission, routeName }) => {
 
     if(routeName === 'control') {
       return isAuthenticated && permission.control_escolar ? (
-        <Outlet />
+        <ControEscolar />
       ) : (
         <Navigate to="/home" replace />
       );

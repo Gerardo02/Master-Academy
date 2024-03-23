@@ -5,7 +5,6 @@ import { useAuth } from "./AuthContext.jsx";
 
 const App = lazy(() => import('./App.jsx'));
 const Home = lazy(() => import('./Components/Dashboard/Dashboard.jsx'))
-const ControEscolar = lazy(() => import('./Components/control_escolar/pages/control_escolar/Index.jsx'));
 const Administracion = lazy(() => import('./Components/pagos/pages/pagos/Index.jsx'))
 const Documentacion = lazy(() => import('./Components/documentacion/page/Index.jsx'))
 const Inscripcion = lazy(() => import('./Components/inscripcion/pages/Index.jsx'))
@@ -29,9 +28,8 @@ const router = () => {
                 <Route path="/home" element={<Home />} />
             </Route> */}
 
-            <Route path="/control_escolar" element={<PrivateRoute permission={permission} routeName={'control'} />}>
-                <Route path="/" element={<ControEscolar />} />
-            </Route>
+            <Route path="/control_escolar" element={<PrivateRoute permission={permission} routeName={'control'} />} />
+
 
             {/* <Route path="/administracion" element={<PrivateRoute permission={permission} routeName={'administracion'} />}>
                 <Route path="/administracion" element={<Administracion />} />
