@@ -6,7 +6,7 @@ const EliminarUsuario = ({ layout }) => {
 
     const onFinish = async (value) => {
         try{
-            const response = await fetch('http://127.0.0.1:3030/api/usuarios', {
+            const response = await fetch('https://back-fiber-production.up.railway.app/api/usuarios', {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(value),

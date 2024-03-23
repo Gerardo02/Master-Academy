@@ -26,7 +26,7 @@ const NuevoUsuario = ({ permisosData }) => {
         if(postDataUsuario === null) return
 
         try {
-            await fetch('http://127.0.0.1:3030/api/usuarios', {
+            await fetch('https://back-fiber-production.up.railway.app/api/usuarios', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(postDataUsuario)

@@ -144,7 +144,7 @@ const Formulario = ({ record, setCurrentOption, columnsAlumnosInscritos, nombres
         }
 
         try {
-            await fetch(`http://127.0.0.1:3030/api/grupos/${record.id}`, {
+            await fetch(`https://back-fiber-production.up.railway.app/api/grupos/${record.id}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(values)
@@ -157,7 +157,7 @@ const Formulario = ({ record, setCurrentOption, columnsAlumnosInscritos, nombres
                     "alumno_id": selectedAlumnos[i]
                 }
 
-                await fetch(`http://127.0.0.1:3030/api/alumnos/grupos/${record.id}`, {
+                await fetch(`https://back-fiber-production.up.railway.app/api/alumnos/grupos/${record.id}`, {
                     method: 'PUT',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(dataAlumno)
@@ -174,7 +174,7 @@ const Formulario = ({ record, setCurrentOption, columnsAlumnosInscritos, nombres
         try {
 
             for(let i = 0; i < horarioResult.length; i++){
-                await fetch(`http://127.0.0.1:3030/api/horario/${record.id}`, {
+                await fetch(`https://back-fiber-production.up.railway.app/api/horario/${record.id}`, {
                     method: 'PUT',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(horarioResult[i])

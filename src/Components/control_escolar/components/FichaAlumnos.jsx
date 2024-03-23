@@ -16,20 +16,8 @@ const FichaAlumnos = ({ setCurrentOption, setSelectedComponent, alumnosData, col
   useEffect(() => {
     setFilteredData(alumnosData);
 
-    // try{
-    //   fetchAlumnosNombresData();
-
-    // }catch(error) {
-    //   throw error
-    // }
   }, [alumnosData])
   
-  // const fetchAlumnosNombresData = async () => {
-  //   const response = await fetch('http://127.0.0.1:3030/api/alumnos/nombres')
-  //   const data = await response.json()
-  //   setNombresData(data)
-  // }
-
   const handleSearch = (value) => {
     setSelectedAlumnos([]);
     setVisibleButton(false);

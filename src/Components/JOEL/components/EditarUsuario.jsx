@@ -14,7 +14,7 @@ const EditarUsuario = ({ layout }) => {
           }, {});
 
         try {
-            const response = await fetch(`http://127.0.0.1:3030/api/usuarios/${values.usuario_viejo}`, {
+            const response = await fetch(`https://back-fiber-production.up.railway.app/api/usuarios/${values.usuario_viejo}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(filteredValues)

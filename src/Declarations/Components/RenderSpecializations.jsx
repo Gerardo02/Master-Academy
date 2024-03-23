@@ -15,7 +15,7 @@ const RenderSpecializations = ({ record }) => {
             }
 
             try {
-                await fetch('http://127.0.0.1:3030/api/alumnos/grupos', {
+                await fetch('https://back-fiber-production.up.railway.app/api/alumnos/grupos', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(response)
@@ -37,7 +37,7 @@ const RenderSpecializations = ({ record }) => {
             }
 
             try {
-                await fetch(`http://127.0.0.1:3030/api/alumnos/grupos/especialidad/${record.id}`, {
+                await fetch(`https://back-fiber-production.up.railway.app/api/alumnos/grupos/especialidad/${record.id}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(response)

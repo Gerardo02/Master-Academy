@@ -28,7 +28,7 @@ const Index = () => {
 
     const fetchGruposData = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:3030/api/grupos')
+            const response = await fetch('https://back-fiber-production.up.railway.app/api/grupos')
             const data = await response.json()
             setGruposData(data)
         }catch (error) {

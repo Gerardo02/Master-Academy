@@ -6,7 +6,7 @@ const EditarPermiso = ({ layout, permisosData }) => {
 
     const onFinish = async (values) => {
         try {
-            const response = await fetch(`http://127.0.0.1:3030/api/permisos`, {
+            const response = await fetch(`https://back-fiber-production.up.railway.app/api/permisos`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(values)

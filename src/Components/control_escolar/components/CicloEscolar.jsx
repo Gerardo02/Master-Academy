@@ -70,7 +70,7 @@ const CicloEscolar = () => {
         }
 
         try {
-            await fetch(`http://127.0.0.1:3030/api/ciclo/`, {
+            await fetch(`https://back-fiber-production.up.railway.app/api/ciclo/`, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newCycle)
@@ -87,7 +87,7 @@ const CicloEscolar = () => {
         cicloEscolar.activo = false
 
         try {
-            await fetch(`http://127.0.0.1:3030/api/ciclo/${cicloEscolar.id}`, {
+            await fetch(`https://back-fiber-production.up.railway.app/api/ciclo/${cicloEscolar.id}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(cicloEscolar)
@@ -105,7 +105,7 @@ const CicloEscolar = () => {
                     'ciclo_escolar_id': gruposDataBien[i].ciclo_escolar.id,
                     'id_grupo_place_holder': gruposDataBien[i].id
                 }
-                await fetch(`http://127.0.0.1:3030/api/grupos/concluidos`, {
+                await fetch(`https://back-fiber-production.up.railway.app/api/grupos/concluidos`, {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(finishedGroupData)
@@ -117,7 +117,7 @@ const CicloEscolar = () => {
         }
 
         try{
-            await fetch(`http://127.0.0.1:3030/api/grupos/`, {
+            await fetch(`https://back-fiber-production.up.railway.app/api/grupos/`, {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json" },
             });
@@ -132,7 +132,7 @@ const CicloEscolar = () => {
         cicloEscolar.trimestre = cicloEscolar.trimestre + 1;
 
         try {
-            await fetch(`http://127.0.0.1:3030/api/ciclo/${cicloEscolar.id}`, {
+            await fetch(`https://back-fiber-production.up.railway.app/api/ciclo/${cicloEscolar.id}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(cicloEscolar)

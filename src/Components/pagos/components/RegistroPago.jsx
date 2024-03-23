@@ -28,7 +28,7 @@ const RegistroPago = () => {
         }
 
         try {
-            await fetch(`http://127.0.0.1:3030/api/administracion/pago/${getId.alumno_id}`, {
+            await fetch(`https://back-fiber-production.up.railway.app/api/administracion/pago/${getId.alumno_id}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({'dinero': getId.monto})
@@ -38,7 +38,7 @@ const RegistroPago = () => {
         }
 
         try {
-            await fetch('http://127.0.0.1:3030/api/historial', {
+            await fetch('https://back-fiber-production.up.railway.app/api/historial', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(getId)

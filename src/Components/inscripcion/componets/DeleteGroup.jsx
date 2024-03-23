@@ -5,7 +5,7 @@ const DeleteGroup = ({ gruposData }) => {
 
     const onConfirm = async (record) => {
         try {
-            const response = await fetch(`http://127.0.0.1:3030/api/grupos/${record.id}`, {
+            const response = await fetch(`https://back-fiber-production.up.railway.app/api/grupos/${record.id}`, {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json" },
             });

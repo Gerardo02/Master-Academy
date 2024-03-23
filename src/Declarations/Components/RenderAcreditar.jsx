@@ -28,7 +28,7 @@ const RenderAcreditar = ({ record }) => {
 
         try{
             
-            await fetch(`http://127.0.0.1:3030/api/alumnos/grupos/concluidos/${grupo_aprobado_id}`, {
+            await fetch(`https://back-fiber-production.up.railway.app/api/alumnos/grupos/concluidos/${grupo_aprobado_id}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(estadoValues)
