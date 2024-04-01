@@ -15,7 +15,7 @@ const EditarPassword = ({ layout }) => {
         }, {});
 
         try {
-            const response = await fetch(`https://back-fiber-production.up.railway.app/api/password`, {
+            const response = await fetch(`http://127.0.0.1:3030/api/password`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(filteredValues)

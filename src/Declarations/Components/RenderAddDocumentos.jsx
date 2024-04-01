@@ -10,7 +10,7 @@ const RenderAddDocumentos = ({ record }) => {
         setIsLoading(true)
 
         try {
-            await fetch(`https://back-fiber-production.up.railway.app/api/documentos/${record.alumno_id}`, {
+            await fetch(`http://127.0.0.1:3030/api/documentos/${record.alumno_id}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(values)

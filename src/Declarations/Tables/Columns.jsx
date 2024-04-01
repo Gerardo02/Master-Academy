@@ -427,7 +427,7 @@ export const columnsPermisos = [
                 onConfirm={async (e) => {
                   // Handle delete logic here using the record data
                   try {
-                    const response = await fetch(`https://back-fiber-production.up.railway.app/api/permisos/${record.id}`, {
+                    const response = await fetch(`http://127.0.0.1:3030/api/permisos/${record.id}`, {
                       method: 'DELETE',
                       headers: { "Content-Type": "application/json" },
                     });

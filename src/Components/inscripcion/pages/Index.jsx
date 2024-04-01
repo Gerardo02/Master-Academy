@@ -31,25 +31,25 @@ const Index = () => {
     }, []);
     
     const fetchEspecialidadesData = async () => {
-        const response = await fetch('https://back-fiber-production.up.railway.app/api/especialidad')
+        const response = await fetch('http://127.0.0.1:3030/api/especialidad')
         const data = await response.json()
         setEspecialidadData(data)
     }
     
     const fetchAlumnosNombresData = async () => {
-        const response = await fetch('https://back-fiber-production.up.railway.app/api/alumnos/nombres')
+        const response = await fetch('http://127.0.0.1:3030/api/alumnos/nombres')
         const data = await response.json()
         setNombresData(data)
     }
 
     const fetchGruposData = async () => {
-        const response = await fetch('https://back-fiber-production.up.railway.app/api/grupos')
+        const response = await fetch('http://127.0.0.1:3030/api/grupos')
         const data = await response.json()
         setGruposData(data)
     }
 
     const fetchRelacionAlumnoGrupo = async () => {
-        const response = await fetch('https://back-fiber-production.up.railway.app/api/alumnos/grupos')
+        const response = await fetch('http://127.0.0.1:3030/api/alumnos/grupos')
         const data = await response.json()
         setRelacionData(data)
     }

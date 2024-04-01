@@ -145,7 +145,7 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
         const { horario, ...rest } = values
 
         try {
-            const response = await fetch('https://back-fiber-production.up.railway.app/api/grupos', {
+            const response = await fetch('http://127.0.0.1:3030/api/grupos', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(rest)
@@ -163,12 +163,12 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
                 const especialidadRevoked = {
                     "especialidad_id": especialidadId
                 }
-                await fetch('https://back-fiber-production.up.railway.app/api/alumnos/grupos', {
+                await fetch('http://127.0.0.1:3030/api/alumnos/grupos', {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(alumnosInscritos)
                 })
-                await fetch(`https://back-fiber-production.up.railway.app/api/alumnos/grupos/especialidad/${tableData[i].id}`, {
+                await fetch(`http://127.0.0.1:3030/api/alumnos/grupos/especialidad/${tableData[i].id}`, {
                     method: 'PUT',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(especialidadRevoked)
@@ -182,7 +182,7 @@ const FormularioGrupo = ({ columnsAlumnosPorInscribir, especialidadData, nombres
         try{
             for(let i = 0; i < 3; i++){
                 if(horario[i].dia === '') continue
-                await fetch('https://back-fiber-production.up.railway.app/api/horario', {
+                await fetch('http://127.0.0.1:3030/api/horario', {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(horario[i])

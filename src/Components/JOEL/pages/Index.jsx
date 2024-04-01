@@ -63,12 +63,12 @@ const Index = () => {
     },[])
 
     const fetchUsers = async () => {
-        const response = await fetch('https://back-fiber-production.up.railway.app/api/usuarios')
+        const response = await fetch('http://127.0.0.1:3030/api/usuarios')
         const data = await response.json()
         setUserData(data)
     }
     const fetchPermisos = async () => {
-        const response = await fetch('https://back-fiber-production.up.railway.app/api/permisos')
+        const response = await fetch('http://127.0.0.1:3030/api/permisos')
         const data = await response.json()
         setPermisosData(data)
     }

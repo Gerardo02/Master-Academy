@@ -24,7 +24,7 @@ export const MainDataProvider = ({ children }) => {
 
   const fetchCiclosEscolares = async () => {
     try{
-      const response = await fetch('https://back-fiber-production.up.railway.app/api/ciclo')
+      const response = await fetch('http://127.0.0.1:3030/api/ciclo')
       const data = await response.json()
       setCiclosData(data)
 
@@ -35,7 +35,7 @@ export const MainDataProvider = ({ children }) => {
 
   const fetchDocumentosEntregados = async () => {
     try{
-      const response = await fetch('https://back-fiber-production.up.railway.app/api/documentos')
+      const response = await fetch('http://127.0.0.1:3030/api/documentos')
       const data = await response.json()
       setDocumentosData(data)
     }catch(error){
@@ -46,7 +46,7 @@ export const MainDataProvider = ({ children }) => {
 
   const fetchAlumnosData = async () => {
     try {
-      const response = await fetch('https://back-fiber-production.up.railway.app/api/alumnos')
+      const response = await fetch('http://127.0.0.1:3030/api/alumnos')
       const data = await response.json()
       setAlumnosData(data)
     }catch(error) {
@@ -56,7 +56,7 @@ export const MainDataProvider = ({ children }) => {
 
   const fetchGruposActivos = async () => {
     try{
-      const response = await fetch('https://back-fiber-production.up.railway.app/api/grupos')
+      const response = await fetch('http://127.0.0.1:3030/api/grupos')
       const data = await response.json()
       setGruposData(data)
 
@@ -67,7 +67,7 @@ export const MainDataProvider = ({ children }) => {
 
   const fetchGruposConcluidos = async () => {
     try{
-      const response = await fetch('https://back-fiber-production.up.railway.app/api/grupos/concluidos')
+      const response = await fetch('http://127.0.0.1:3030/api/grupos/concluidos')
       const data = await response.json()
       setGruposConcluidosData(data)
 
@@ -78,7 +78,7 @@ export const MainDataProvider = ({ children }) => {
 
   const fetchHistorialAdmin = async () => {
     try{
-      const response = await fetch('https://back-fiber-production.up.railway.app/api/historial')
+      const response = await fetch('http://127.0.0.1:3030/api/historial')
       const data = await response.json()
       setHistorialData(data)
 

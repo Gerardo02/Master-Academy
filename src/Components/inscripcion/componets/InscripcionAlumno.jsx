@@ -21,7 +21,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
 
     const fetchAlumnosNombresData = async () => {
         try {
-            const response = await fetch('https://back-fiber-production.up.railway.app/api/alumnos/nombres');
+            const response = await fetch('http://127.0.0.1:3030/api/alumnos/nombres');
             const data = await response.json();
             setNombresData(data);
         } catch (error) {
@@ -40,7 +40,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
 
         const { especialidad_id, ...rest } = value
         try {
-            await fetch('https://back-fiber-production.up.railway.app/api/alumnos', {
+            await fetch('http://127.0.0.1:3030/api/alumnos', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(rest)
@@ -56,7 +56,7 @@ const InscpcionAlumno = ({ especialidadData }) => {
                     "especialidad_id": especialidad_id[i]
                 }
 
-                await fetch('https://back-fiber-production.up.railway.app/api/alumnos/especialidad', {
+                await fetch('http://127.0.0.1:3030/api/alumnos/especialidad', {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(especialidadResponse)

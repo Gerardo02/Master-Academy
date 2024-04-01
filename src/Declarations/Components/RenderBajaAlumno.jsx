@@ -9,7 +9,7 @@ const RenderBajaAlumno = ({ record }) => {
         setIsLoading(true)
 
         try {
-            const response = await fetch(`https://back-fiber-production.up.railway.app/api/alumnos/${record.id}`, {
+            const response = await fetch(`http://127.0.0.1:3030/api/alumnos/${record.id}`, {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json" },
             });

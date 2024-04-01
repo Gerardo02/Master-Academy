@@ -18,7 +18,7 @@ const TableAlumnosNombres = ({ columnsAlumnosNombres }) => {
     }, [])
     
     const fetchAlumnosNombresData = async () => {
-        const response = await fetch('https://back-fiber-production.up.railway.app/api/alumnos/nombres')
+        const response = await fetch('http://127.0.0.1:3030/api/alumnos/nombres')
         const data = await response.json()
         setNombresData(data)
     }

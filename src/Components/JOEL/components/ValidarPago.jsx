@@ -15,7 +15,7 @@ const ValidarPago = () => {
     const [adminData, setAdminData] = useState([])
 
     const fetchAdminData = async () => {
-        const response = await fetch('https://back-fiber-production.up.railway.app/api/administracion')
+        const response = await fetch('http://127.0.0.1:3030/api/administracion')
         const data = await response.json()
         setAdminData(data)
     }

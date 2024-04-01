@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchEspecialidadesData = async () => {
       try {
-        const response = await fetch('https://back-fiber-production.up.railway.app/api/especialidad');
+        const response = await fetch('http://127.0.0.1:3030/api/especialidad');
         const data = await response.json();
         setEspecialidadData(data);
       } catch (error) {
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await fetch('https://back-fiber-production.up.railway.app/api/login', {
+      const response = await fetch('http://127.0.0.1:3030/api/login', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),

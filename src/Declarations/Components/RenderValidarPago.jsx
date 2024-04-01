@@ -21,7 +21,7 @@ const RenderValidarPago = ({ record }) => {
 
         try{
             
-            await fetch(`https://back-fiber-production.up.railway.app/api/administracion/${record.id}`, {
+            await fetch(`http://127.0.0.1:3030/api/administracion/${record.id}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestJson)
